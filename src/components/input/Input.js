@@ -4,10 +4,14 @@ import UnitPrice from "./UnitPrice";
 import UnitCode from "./UnitCode";
 import SetupFee from "./SetupFee";
 import SetupCode from "./SetupCode";
+import HandlingType from "./HandlingType";
+import { useState } from "react";
 
 const Input = () => {
   const quantities = [50, 100, 250, 500, 1000, 2500, 5000];
   const columnsArr = ["", "", "", "", "", "", ""];
+  const [boxAmount, setBoxAmount] = useState(1);
+  const [handlingAmount, setHandlingAmount] = useState(3);
 
   return (
     <div id="input-container">
@@ -31,53 +35,90 @@ const Input = () => {
 
         {/* Unit Code */}
         <p className="unit-code input-head">Unit Code</p>
-        <UnitCode/>
-
+        <UnitCode />
 
         {/* Setup Fee */}
         <p className="setup-fee input-head">Setup Fee</p>
-        <SetupFee/>
+        <SetupFee />
         {/* Setup Code */}
         <p className="setup-code input-head">Setup Code</p>
-        <SetupCode/>
+        <SetupCode />
 
         {/* Box Qty/Cost */}
         <p id="box-head" className="input-head">
           Box
         </p>
         <p className="box-qty">QTY</p>
-        <input className="box-qty" type="text" />
+        {Array.from(Array(boxAmount)).map((box, i) => {
+          return (
+            <input className="box-qty" type="number" key={"box-qty-" + i} />
+          );
+        })}
         <p className="box-cost">COST</p>
-        <input className="box-cost" type="text" />
-        <button id="box-btn">Add Box</button>
+        {Array.from(Array(boxAmount)).map((box, i) => {
+          return (
+            <input className="box-cost" type="number" key={"box-cost-" + i} />
+          );
+        })}
+        <button
+          className="add-box box-btn"
+          onClick={() => {
+            boxAmount < 5 && setBoxAmount(boxAmount + 1);
+          }}
+        >
+          Add Box
+        </button>
+        <button
+          className="remove-box box-btn"
+          onClick={() => {
+            boxAmount > 1 && setBoxAmount(boxAmount - 1);
+          }}
+        >
+          Remove Box
+        </button>
         {/* Handling Fees */}
         <p className="input-head" id="handling-head">
-          Handling
+          Handling Fees
         </p>
-        <p className="handling">TYPE</p>
-        <select className="handling-fees-selector" id="">
-          <option>order</option>
-          <option>box</option>
-          <option>rush</option>
-          <option>misc</option>
-        </select>
-        <p className="handling">FEE</p>
-        <input className="handling-fees-input" type="text" />
-        <select className="handling-fees-selector" id="">
-          <option>order</option>
-          <option>box</option>
-          <option>rush</option>
-          <option>misc</option>
-        </select>
-        <input className="handling-fees-input" type="text" />
-        <select className="handling-fees-selector" id="">
-          <option>box</option>
-          <option>order</option>
-          <option>rush</option>
-          <option>misc</option>
-        </select>
-        <input className="handling-fees-input" type="text" />
-        <button id="handling-fees-btn">Add Fee</button>
+        <p className="handling title-type">TYPE</p>
+        <p className="handling title-fee">FEE</p>
+
+        {Array.from(Array(handlingAmount)).map((h, i) => {
+          return (
+            <HandlingType
+              defaultType={i}
+              id={"handling-type-" + i}
+              key={"handling-type-" + i}
+            />
+          );
+        })}
+        {Array.from(Array(handlingAmount)).map((h, i) => {
+          return (
+            <input
+              className="handling-fees-input"
+              type="text"
+              id={"handling-fee-" + i}
+              key={"handling-fee-" + i}
+            />
+          );
+        })}
+
+        <button
+          className="add-fee handling-btn"
+          onClick={() => {
+            handlingAmount < 5 && setHandlingAmount(handlingAmount + 1);
+          }}
+        >
+          Add Fee
+        </button>
+        <button
+          className="remove-fee handling-btn"
+          onClick={() => {
+            handlingAmount > 1 && setHandlingAmount(handlingAmount - 1);
+          }}
+        >
+          Remove Fee
+        </button>
         {/* input-grid closer */}
       </div>
       {/* Input container closer */}

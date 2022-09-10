@@ -12,7 +12,7 @@ const UnitCode = () => {
       onChange={(e)=> setCurrentCode(e.target.value)}
     >
         {
-            codes.map(code => (<option key={"unit-code-"+code}>{code}</option>))
+            codes.map(code => (<option value={code} key={"unit-code-"+code}>{code}</option>))
         }
     </select>
   );

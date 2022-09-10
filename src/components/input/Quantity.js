@@ -3,8 +3,8 @@ import { useState } from "react";
 const Quantity = ({ qty, id }) => {
   const [currentValue, setCurrentValue] = useState(qty);
   return (
+    //outer div might be unnecessary 
     <div className="qty-sets qty">
-      <input type="checkbox" className="qty-checkbox" />
       <input
         type="number"
         value={currentValue}

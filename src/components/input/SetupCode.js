@@ -11,7 +11,7 @@ const SetupCodes = () => {
       onChange={(e) => setCurrentCode(e.target.value)}
     >
       {codes.map((code) => (
-        <option key={"setup-code-" + code}>{code}</option>
+        <option key={"setup-code-" + code} value={code}>{code}</option>
       ))}
     </select>
   );

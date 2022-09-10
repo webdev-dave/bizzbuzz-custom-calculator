@@ -35,6 +35,10 @@ p {
   font-size: 1.6rem;
 }
 
+button {
+  cursor: pointer;
+}
+
 /* -----------------------------------------------------main grid-------------------------------- */
 
 body {
@@ -181,11 +185,18 @@ body {
   justify-self: center;
 }
 
-#box-btn {
+.box-btn {
   grid-column: 8/-1;
-  grid-row: 7/9;
   max-width: 100%;
   border-radius: 5px;
+}
+
+.box-btn.add-box {
+  grid-row: 7/8;
+}
+
+.box-btn.remove-box {
+  grid-row: 8/9;
 }
 
 /* --------------------------------------------------------------------------------- Handling Fees */
@@ -195,21 +206,27 @@ body {
   grid-row: 9/11;
 }
 
-#handling-head + p {
+.handling.title-fee {
   grid-row: 9 / span 1;
   justify-self: center;
 }
 
-.handling-fees-selector + p {
+.handling.title-type {
   grid-row: 10 / span 1;
   justify-self: center;
 }
 
-#handling-fees-btn {
+.handling-btn {
   grid-column: 8/-1;
-  grid-row: 9/11;
   max-width: 100%;
   border-radius: 5px;
+}
+
+.handling-btn.add-fee {
+  grid-row: 9/10;
+}
+.handling-btn.remove-fee {
+  grid-row: 10/11;
 }
 
 /* --------------------------------------------------------------------------------- Submit Button */
