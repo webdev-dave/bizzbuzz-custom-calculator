@@ -4,8 +4,8 @@ const UnitPrice = () => {
   const [currentPrice, setCurrentPrice] = useState("");
   return (
     <div className="unit-price">
-      <label for="unit-price-1"></label>
-      <input type="text" id="unit-price-1" className="qty-input" />
+      <label htmlFor="unit-price-1"></label>
+      <input type="number" id="unit-price-1" className="qty-input" value={currentPrice} onChange={(e)=>setCurrentPrice(e.target.value)} />
     </div>
   );
 };

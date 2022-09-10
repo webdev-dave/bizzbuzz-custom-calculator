@@ -1,11 +1,17 @@
 import { useState } from "react";
 
-const Quantity = ({ value, id }) => {
-    const [currentValue, setCurrentValue] = useState(value);
+const Quantity = ({ qty, id }) => {
+  const [currentValue, setCurrentValue] = useState(qty);
   return (
-    <div class="qty-sets qty">
-      <input type="checkbox" className="qty-checkbox" value="" />
-      <input type="text" value={currentValue} onChange={(e)=> setCurrentValue(e.target.value)} id={id} classNameg="qty-input" />
+    <div className="qty-sets qty">
+      <input type="checkbox" className="qty-checkbox" />
+      <input
+        type="number"
+        value={currentValue}
+        onChange={(e) => setCurrentValue(e.target.value)}
+        id={id}
+        className="qty-input"
+      />
     </div>
   );
 };
