@@ -57,10 +57,10 @@ body {
   padding: 0 5% 3% 5%;
 }
 
-#output-container {
+#results-container {
   background-color: bisque;
   grid-column: 3/4;
-  padding: 0 8% 3% 8%;
+  padding: 0 5% 3% 5%;
 }
 
 /* ---------------------------------------- input form grid ------------------------------------------------------- */
@@ -155,7 +155,7 @@ body {
   display: flex;
 }
 
-.qty-sets input[type="checkbox"] {
+/* .qty-sets input[type="checkbox"] {
   width: 13px;
   height: 13px;
   margin-right: 7.5px;
@@ -165,7 +165,7 @@ body {
   -webkit-transform: scale(1.6);
   -o-transform: scale(1.6);
   transform: scale(1.6);
-}
+} */
 
 /* ---------------------------------------------------------------------------------  Unit Price */
 
@@ -240,34 +240,86 @@ body {
 
 /* ------------------------------------- output--------------------- */
 
-#output-grid {
-  background-color: palevioletred;
+#results-grid {
   display: grid;
-  grid-template-columns: minmax(45px, 1.5fr) minmax(35px, 1fr);
-  grid-auto-rows: minmax(35px, auto);
-  grid-gap: 15px 10px;
-  justify-items: start;
-  padding: 10%;
-  border-radius: 10px;
+  grid-gap: 1rem 1.6rem;
+  grid-template-columns: minmax(30px, 1.2fr) repeat(7, minmax(40px, 1fr));
+  grid-auto-rows: minmax(25px, auto);
+  align-items: center;
+  justify-items: stretch;
+
 }
 
-#output-grid h3 {
-  grid-column: 1 / span 2;
-  place-self: center;
+h5.pcs-head {
+  font-size: 1.4rem;
+  justify-self: center;
 }
 
-.output-head {
+h6.result-head {
+  font-size: 1.6rem;
+  grid-column: 1 / span 1;
   align-self: center;
 }
 
-.output-data {
+
+
+.result-data {
   background-color: white;
   width: 100%;
-  padding: 7% 5%;
+  padding: 3% 5%;
   border: 1px solid gray;
   border-radius: 4px;
 }
 
-#output-grid input {
-  min-height: 98%;
+
+/* ------------------------------------- Profit Margin --------------------- */
+
+
+.profit-margin {
+  padding: 0;
+  display: flex;
+  align-items: center;
 }
+
+/* get rid of default number step btns */
+.profit-margin input[type=number]::-webkit-inner-spin-button,
+input[type=number]::-webkit-outer-spin-button { 
+	-webkit-appearance: none;
+}
+
+.profit-margin input:focus {
+ 
+
+}
+
+
+/* .profit-margin.selected {
+  border: 2px solid black;
+} */
+
+
+.profit-margin input {
+  min-height: 98%;
+  width: 85%;
+  padding: 3% 0;
+  padding-left: 5px;
+  
+}
+
+.profit-margin {
+  padding: 0;
+  display: flex;
+  align-items: center;
+}
+
+
+
+.profit-margin .percentage-symbol {
+  font-size: 1.8rem;
+  padding: 0 6px;
+
+}
+
+
+
+

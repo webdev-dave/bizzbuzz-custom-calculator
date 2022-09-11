@@ -6,10 +6,11 @@ import SetupFee from "./SetupFee";
 import SetupCode from "./SetupCode";
 import HandlingType from "./HandlingType";
 import { useState } from "react";
+import { columnsArr } from "../../assets/helpers/helperArrays";
 
 const Input = () => {
   const quantities = [50, 100, 250, 500, 1000, 2500, 5000];
-  const columnsArr = ["", "", "", "", "", "", ""];
+  
   const [boxAmount, setBoxAmount] = useState(1);
   const [handlingAmount, setHandlingAmount] = useState(3);
 
@@ -24,13 +25,13 @@ const Input = () => {
         {/* QTY */}
         <p className="qty input-head">Quantity</p>
         {quantities.map((qty, i) => {
-          return <Quantity qty={qty} id={`qty-${i}`} key={`qty-${i}`} />;
+          return <Quantity qty={qty} id={"qty-input"+(i+1)} key={"qty-input"+(i+1)} />;
         })}
 
         {/* unit price */}
         <p className="unit-price input-head">Unit Price</p>
         {columnsArr.map((col, i) => {
-          return <UnitPrice key={`unit-price-${i}`} />;
+          return <UnitPrice key={"unit-price" + (i+1)} id={"unit-price" + (i+1)} />;
         })}
 
         {/* Unit Code */}
@@ -51,13 +52,13 @@ const Input = () => {
         <p className="box-qty">QTY</p>
         {Array.from(Array(boxAmount)).map((box, i) => {
           return (
-            <input className="box-qty" type="number" key={"box-qty-" + i} />
+            <input className="box-qty" id={"box-qty-" + (i+1)} type="number" key={"box-qty-" + (i+1)} />
           );
         })}
         <p className="box-cost">COST</p>
         {Array.from(Array(boxAmount)).map((box, i) => {
           return (
-            <input className="box-cost" type="number" key={"box-cost-" + i} />
+            <input className="box-cost" id={"box-cost-" + (i+1)} type="number" key={"box-cost-" + (i+1)} />
           );
         })}
         <button
@@ -87,8 +88,8 @@ const Input = () => {
           return (
             <HandlingType
               defaultType={i}
-              id={"handling-type-" + i}
-              key={"handling-type-" + i}
+              id={"handling-type-" +(i+1)}
+              key={"handling-type-" + (i+1)}
             />
           );
         })}
@@ -97,8 +98,8 @@ const Input = () => {
             <input
               className="handling-fees-input"
               type="text"
-              id={"handling-fee-" + i}
-              key={"handling-fee-" + i}
+              id={"handling-fee-" + (i+1)}
+              key={"handling-fee-" + (i+1)}
             />
           );
         })}

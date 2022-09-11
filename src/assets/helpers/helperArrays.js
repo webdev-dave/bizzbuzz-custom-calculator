@@ -19,3 +19,5 @@ export const codes = [
     "W",
     "Z",
   ];
+
+ export const columnsArr = ["", "", "", "", "", "", ""];

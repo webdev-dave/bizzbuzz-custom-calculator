@@ -1,11 +1,12 @@
 import { useState } from "react";
 
-const HandlingType = ({defaultType}) => {
+const HandlingType = ({defaultType, id}) => {
   const types = ["box", "rush", "misc"];
   const [type, setType] = useState(types[defaultType]);
   return (
     <select
       className="handling-fees-selector"
+      id={id}
       value={type}
       onChange={(e) => setType(e.target.value)}
     >
