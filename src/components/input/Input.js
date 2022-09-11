@@ -7,6 +7,8 @@ import SetupCode from "./SetupCode";
 import HandlingType from "./HandlingType";
 import { useState } from "react";
 import { columnsArr } from "../../assets/helpers/helperArrays";
+import BoxQty from "./BoxQty";
+import BoxCost from "./BoxCost";
 
 const Input = () => {
   const quantities = [50, 100, 250, 500, 1000, 2500, 5000];
@@ -50,17 +52,9 @@ const Input = () => {
           Box
         </p>
         <p className="box-qty">QTY</p>
-        {Array.from(Array(boxAmount)).map((box, i) => {
-          return (
-            <input className="box-qty" id={"box-qty-" + (i+1)} type="number" key={"box-qty-" + (i+1)} />
-          );
-        })}
+        {Array.from(Array(boxAmount)).map((box, i) => (<BoxQty id={"box-qty-" + (i+1)} key={"box-qty-" + (i+1)} />))}
         <p className="box-cost">COST</p>
-        {Array.from(Array(boxAmount)).map((box, i) => {
-          return (
-            <input className="box-cost" id={"box-cost-" + (i+1)} type="number" key={"box-cost-" + (i+1)} />
-          );
-        })}
+        {Array.from(Array(boxAmount)).map((box, i) => (<BoxCost id={"box-cost-" + (i+1)} key={"box-cost-" + (i+1)} />))}
         <button
           className="add-box box-btn"
           onClick={() => {
