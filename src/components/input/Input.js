@@ -14,7 +14,7 @@ const Input = () => {
   const quantities = [50, 100, 250, 500, 1000, 2500, 5000];
   
   const [boxAmount, setBoxAmount] = useState(1);
-  const [handlingAmount, setHandlingAmount] = useState(3);
+  const [handlingAmount, setHandlingAmount] = useState(1);
 
   return (
     <div id="input-container">
