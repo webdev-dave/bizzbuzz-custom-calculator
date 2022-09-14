@@ -1,6 +1,6 @@
 import { useState } from "react";
 
-const ProfitMargin = ({ id }) => {
+const ProfitMargin = ({ id, columnIndex }) => {
   const [currentMargin, setCurrentMargin] = useState(40);
   const [isSelected, setIsSelected] = useState(false);
   const handleChange = (e) => {

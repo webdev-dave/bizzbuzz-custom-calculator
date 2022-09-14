@@ -1,5 +1,5 @@
 import Input from "./input/Input";
-import Results from "./results/Result";
+import Results from "./results/Results";
 
 const Main = () => {
     return (
