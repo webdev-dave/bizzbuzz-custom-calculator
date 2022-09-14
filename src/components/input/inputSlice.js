@@ -3,7 +3,7 @@ import { createSlice } from "@reduxjs/toolkit";
 const initialState = {
     pricing: "",
     quantities: [50, 100, 250, 500, 1000, 2500, 5000],
-    unitPrice: [],
+    unitPrice: [0,0,0,0,0,0,0],
     unitCode: "",
     setupFee: "",
     setupCode: "",
