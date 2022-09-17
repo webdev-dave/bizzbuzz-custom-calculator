@@ -1,7 +1,7 @@
 import { useState } from "react";
 
 const HandlingType = ({defaultType, id}) => {
-  const types = ["box", "rush", "misc"];
+  const types = ["order", "box", "rush", "misc"];
   const [type, setType] = useState(types[defaultType]);
   return (
     <select

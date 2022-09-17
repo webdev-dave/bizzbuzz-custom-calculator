@@ -1,20 +1,27 @@
 import { useState } from "react";
+import { useSelector, useDispatch } from "react-redux";
+import { selectPricingType, updatePricingType } from "./inputSlice";
 
 const PricingType = () => {
-  const [currentSelection, setCurrentSelection] = useState("EQP");
+  const dispatch = useDispatch();
+  const storePricingType = useSelector(selectPricingType);
+  const [currentSelection, setCurrentSelection] = useState(storePricingType);
+  const handleChange = (e) => {
+    dispatch(updatePricingType(e.target.value));
+    setCurrentSelection(e.target.value);
+  }
   return (
     <select
-      className="pricing-type"
-      id="pricing-type-selector"
+      className="pricing-type selector"
       value={currentSelection}
-      onChange={(e) => setCurrentSelection(e.target.value)}
+      onChange={handleChange}
     >
       <option>EQP</option>
       <option>EQP-1%</option>
       <option>EQP-2%</option>
       <option>EQP-3%</option>
       <option>EQP-5%</option>
-      <option>Non EQP</option>
+      <option>Non-EQP</option>
     </select>
   );
 };

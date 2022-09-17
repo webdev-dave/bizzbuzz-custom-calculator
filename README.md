@@ -7,3 +7,4 @@
 - fix profit margin "focus" behavior
 - add a clear-all-fields btn
 - figure out how to get rid of displaying the default zero values
+- disable mouse scroll from changing input values

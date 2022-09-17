@@ -1,14 +1,14 @@
 import { useState } from "react";
 import { codes } from "../../assets/helpers/helperArrays";
 
-const UnitCode = () => {
+const UnitCode = ({id, columnIndex, maxSpan}) => {
 
   const [currentCode, setCurrentCode] = useState(codes[2]);
   return (
     <select
-      className="unit-code"
+      className={`unit-code ${maxSpan ? "max-span":""}`}
       value={currentCode}
-      id="unit-code-selector"
+      id={id}
       onChange={(e)=> setCurrentCode(e.target.value)}
     >
         {

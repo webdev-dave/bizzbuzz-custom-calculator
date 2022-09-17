@@ -1,4 +1,6 @@
+import { useSelector } from "react-redux";
 import { columnsArr } from "../../assets/helpers/helperArrays";
+import { selectQuantity } from "../input/inputSlice";
 import ProfitMargin from "./ProfitMargin";
 import ProfitPu from "./ProfitPu";
 import RetailPricePu from "./RetailPricePu";
@@ -7,7 +9,7 @@ import TotalProfit from "./TotalProfit";
 
 const Results = () => {
   //the qtyInput array needs to be changed to auto update state based on qty-input
-  const qtyInput = [50, 100, 250, 500, 1000, 2500, 5000];
+  const qtyInput = useSelector(selectQuantity);
   return (
     <div id="results-container">
       <h2>Results</h2>
@@ -18,8 +20,8 @@ const Results = () => {
           return (
             <h5
               className="pcs-head"
-              id={"pcs-head-" + (i + 1)}
-              key={"pcs-head-" + (i + 1)}
+              id={"pcs-head-"+i}
+              key={"pcs-head-"+i}
             >
               {qtyInput[i] + " pcs"}
             </h5>
@@ -31,8 +33,8 @@ const Results = () => {
           return (
             <RetailPricePu
               columnIndex={i}
-              id={"retail-price-pu-" + (i + 1)}
-              key={"retail-price-pu-" + (i + 1)}
+              id={"retail-price-pu-"+i}
+              key={"retail-price-pu-"+i}
             />
           );
         })}
@@ -42,8 +44,8 @@ const Results = () => {
           return (
             <RetailTotal
               columnIndex={i}
-              id={"retail-total-" + (i + 1)}
-              key={"retail-total-" + (i + 1)}
+              id={"retail-total-"+i}
+              key={"retail-total-"+i}
             />
           );
         })}
@@ -53,8 +55,8 @@ const Results = () => {
           return (
             <ProfitMargin
               columnIndex={i}
-              id={"profit-margin-" + (i + 1)}
-              key={"profit-margin-" + (i + 1)}
+              id={"profit-margin-"+i}
+              key={"profit-margin-"+i}
             />
           );
         })}
@@ -65,8 +67,8 @@ const Results = () => {
           return (
             <ProfitPu
               columnIndex={i}
-              id={"profit-pu-" + (i + 1)}
-              key={"profit-pu-" + (i + 1)}
+              id={"profit-pu-"+i}
+              key={"profit-pu-"+i}
             />
           );
         })}
@@ -75,8 +77,8 @@ const Results = () => {
         {columnsArr.map((column, i) => {
           return (
             <TotalProfit
-              id={"total-profit-" + (i + 1)}
-              key={"total-profit-" + (i + 1)}
+              id={"total-profit-"+i}
+              key={"total-profit-"+i}
             />
           );
         })}

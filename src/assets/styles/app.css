@@ -106,11 +106,11 @@ body {
   grid-row: 6/7;
 }
 
-.box-qty {
+.qty-pb {
   grid-row: 7/8;
 }
 
-.box-cost {
+.cost-pb {
   grid-row: 8/9;
 }
 
@@ -126,6 +126,7 @@ body {
 
 .input-head {
   place-self: center;
+  grid-column: 1/2;
 }
 
 .qty input,
@@ -134,16 +135,16 @@ body {
   width: 100%;
 }
 
+.unit-price.max-span, select.unit-code.max-span, select.pricing-type {
+  grid-column: 2/9; 
+}
+
+
+
 /* ---------------------------------------------input form elements------------------------------ */
 
 /* --------------------------------------------------------------------------------- Pricing Type */
 
-#pricing-type-selector,
-#unit-code-selector,
-#setup-code-selector {
-  grid-column: 2/9;
-  max-width: 100%;
-}
 
 /* ---------------------------------------------------------------------------------QTY */
 
@@ -155,17 +156,7 @@ body {
   display: flex;
 }
 
-/* .qty-sets input[type="checkbox"] {
-  width: 13px;
-  height: 13px;
-  margin-right: 7.5px;
-  margin-top: 1px;
-  -ms-transform: scale(1.6);
-  -moz-transform: scale(1.6);
-  -webkit-transform: scale(1.6);
-  -o-transform: scale(1.6);
-  transform: scale(1.6);
-} */
+
 
 /* ---------------------------------------------------------------------------------  Unit Price */
 
@@ -180,8 +171,8 @@ body {
   grid-row: 7/9;
 }
 
-#box-head + p,
-.box-qty + p {
+p.qty-pb ,
+p.cost-pb{
   justify-self: center;
 }
 

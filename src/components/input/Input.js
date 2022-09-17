@@ -1,3 +1,7 @@
+import { useSelector } from "react-redux";
+import { selectPricingType, selectQuantity } from "./inputSlice";
+
+
 import PricingType from "./PricingType";
 import Quantity from "./Quantity";
 import UnitPrice from "./UnitPrice";
@@ -10,11 +14,15 @@ import { columnsArr } from "../../assets/helpers/helperArrays";
 import BoxQty from "./BoxQty";
 import BoxCost from "./BoxCost";
 
+
 const Input = () => {
-  const quantities = [50, 100, 250, 500, 1000, 2500, 5000];
+  const storePricingType = useSelector(selectPricingType);
+  const quantities = useSelector(selectQuantity);
   
   const [boxAmount, setBoxAmount] = useState(1);
   const [handlingAmount, setHandlingAmount] = useState(1);
+  const isNonEQP = (storePricingType === "Non-EQP");
+ 
 
   return (
     <div id="input-container">
@@ -27,18 +35,22 @@ const Input = () => {
         {/* QTY */}
         <p className="qty input-head">Quantity</p>
         {quantities.map((qty, i) => {
-          return <Quantity qty={qty} id={"qty-input"+(i+1)} key={"qty-input"+(i+1)} />;
+          return <Quantity id={"qty-input"+i} columnIndex={i} key={"qty-input"+i} />;
         })}
 
         {/* unit price */}
         <p className="unit-price input-head">Unit Price</p>
-        {columnsArr.map((col, i) => {
-          return <UnitPrice key={"unit-price" + (i+1)} id={"unit-price" + (i+1)} />;
-        })}
+        {isNonEQP ? columnsArr.map((col, i) => {
+          return <UnitPrice  id={"unit-price"+i} columnIndex={i} key={"unit-price"+i} maxSpan={false} />;
+        }) : <UnitPrice id={"unit-price"+0} columnIndex={0} key={"unit-price"+0} maxSpan={true} />
+      }
 
         {/* Unit Code */}
         <p className="unit-code input-head">Unit Code</p>
-        <UnitCode />
+        {isNonEQP ? columnsArr.map((col, i)=> {
+            return <UnitCode id={"unit-code"+i} columnIndex={i} key={"unit-code"+i} maxSpan={false} />;
+          }) : <UnitCode id={"unit-code"+0} columnIndex={0} key={"unit-code"+0} maxSpan={true} />
+        }
 
         {/* Setup Fee */}
         <p className="setup-fee input-head">Setup Fee</p>
@@ -51,10 +63,10 @@ const Input = () => {
         <p id="box-head" className="input-head">
           Box
         </p>
-        <p className="box-qty">QTY</p>
-        {Array.from(Array(boxAmount)).map((box, i) => (<BoxQty id={"box-qty-" + (i+1)} key={"box-qty-" + (i+1)} />))}
-        <p className="box-cost">COST</p>
-        {Array.from(Array(boxAmount)).map((box, i) => (<BoxCost id={"box-cost-" + (i+1)} key={"box-cost-" + (i+1)} />))}
+        <p className="qty-pb">QTY-PB</p>
+        {Array.from(Array(boxAmount)).map((box, i) => (<BoxQty id={"qty-pb-"+i} key={"qty-pb-"+i} />))}
+        <p className="cost-pb">COST-PB</p>
+        {Array.from(Array(boxAmount)).map((box, i) => (<BoxCost id={"cost-pb-"+i} key={"cost-pb-"+i} />))}
         <button
           className="add-box box-btn"
           onClick={() => {
@@ -82,8 +94,8 @@ const Input = () => {
           return (
             <HandlingType
               defaultType={i}
-              id={"handling-type-" +(i+1)}
-              key={"handling-type-" + (i+1)}
+              id={"handling-type-"+i}
+              key={"handling-type-"+i}
             />
           );
         })}
@@ -92,8 +104,8 @@ const Input = () => {
             <input
               className="handling-fees-input"
               type="text"
-              id={"handling-fee-" + (i+1)}
-              key={"handling-fee-" + (i+1)}
+              id={"handling-fee-"+i}
+              key={"handling-fee-"+i}
             />
           );
         })}
