@@ -1,11 +1,5 @@
 import { useSelector, useDispatch } from "react-redux";
-import {
-  selectQuantity,
-  selectUnitCost,
-  selectIsEQP,
-  selectRetailPricePu,
-  updateRetailPricePu,
-} from "../main/mainSlice";
+import { selectRetailPricePu, updateRetailPricePu } from "../main/mainSlice";
 
 const RetailPricePu = ({ id, columnIndex }) => {
   const dispatch = useDispatch();

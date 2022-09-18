@@ -1,5 +1,6 @@
 import { createSlice } from "@reduxjs/toolkit";
 
+
 const getProfitMargin = (profitPu, retailPricePu) => {
   const profitMargin = (profitPu / retailPricePu ) * 100;
   return profitMargin;
