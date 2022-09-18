@@ -1,6 +1,6 @@
 import "../assets/styles/reset.css";
 import "../assets/styles/app.css";
-import Main from "../components/Main";
+import Main from "../components/main/Main";
 
 function App() {
   return (

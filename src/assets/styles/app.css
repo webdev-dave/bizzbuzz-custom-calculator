@@ -89,7 +89,7 @@ body {
   justify-self: stretch;
 }
 
-.unit-price {
+.unit-cost {
   grid-row: 3/4;
   justify-self: stretch;
 }
@@ -131,11 +131,11 @@ body {
 
 .qty input,
 .pricing-type input,
-.unit-price input {
+.unit-cost input {
   width: 100%;
 }
 
-.unit-price.max-span, select.unit-code.max-span, select.pricing-type {
+.unit-cost.max-span, select.unit-code.max-span, select.pricing-type {
   grid-column: 2/9; 
 }
 

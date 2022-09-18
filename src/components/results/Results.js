@@ -1,6 +1,6 @@
 import { useSelector } from "react-redux";
 import { columnsArr } from "../../assets/helpers/helperArrays";
-import { selectQuantity } from "../input/inputSlice";
+import { selectQuantity } from "../main/mainSlice";
 import ProfitMargin from "./ProfitMargin";
 import ProfitPu from "./ProfitPu";
 import RetailPricePu from "./RetailPricePu";
@@ -8,7 +8,7 @@ import RetailTotal from "./RetailTotal";
 import TotalProfit from "./TotalProfit";
 
 const Results = () => {
-  //the qtyInput array needs to be changed to auto update state based on qty-input
+ 
   const qtyInput = useSelector(selectQuantity);
   return (
     <div id="results-container">
@@ -77,6 +77,7 @@ const Results = () => {
         {columnsArr.map((column, i) => {
           return (
             <TotalProfit
+              columnIndex={i}
               id={"total-profit-"+i}
               key={"total-profit-"+i}
             />

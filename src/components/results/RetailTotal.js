@@ -1,11 +1,8 @@
 import { useSelector, useDispatch } from "react-redux";
-import { selectQuantity } from "../input/inputSlice";
-import { selectRetailTotal, updateRetailTotal } from "./resultsSlice";
+import { selectRetailTotal, updateRetailTotal } from "../main/mainSlice";
 
 const RetailTotal = ({ id, columnIndex }) => {
   const dispatch = useDispatch();
-
-  const qtyArr = useSelector(selectQuantity);
   const retailTotalArr = useSelector(selectRetailTotal);
   const retailTotal = retailTotalArr[columnIndex];
 
@@ -14,7 +11,6 @@ const RetailTotal = ({ id, columnIndex }) => {
       updateRetailTotal({
         columnIndex: columnIndex,
         value: e.target.value,
-        qty: qtyArr[columnIndex],
       })
     );
   };

@@ -1,19 +1,22 @@
 import { useSelector, useDispatch } from "react-redux";
-import { selectQuantity } from "../input/inputSlice";
-import { selectRetailPricePu, updateRetailPricePu } from "./resultsSlice";
+import {
+  selectQuantity,
+  selectUnitCost,
+  selectIsEQP,
+  selectRetailPricePu,
+  updateRetailPricePu,
+} from "../main/mainSlice";
 
 const RetailPricePu = ({ id, columnIndex }) => {
   const dispatch = useDispatch();
-  const qtyArr = useSelector(selectQuantity);
-  const storeValue = useSelector(selectRetailPricePu);
-  const retailPricePu = storeValue[columnIndex];
+  const retailPricePuArr = useSelector(selectRetailPricePu);
+  const retailPricePu = retailPricePuArr[columnIndex];
 
-  const onChange = (e) => {
+  const handleChange = (e) => {
     dispatch(
       updateRetailPricePu({
         columnIndex: columnIndex,
         value: e.target.value,
-        qty: qtyArr[columnIndex],
       })
     );
   };
@@ -23,7 +26,7 @@ const RetailPricePu = ({ id, columnIndex }) => {
       id={id}
       type="number"
       value={retailPricePu}
-      onChange={onChange}
+      onChange={handleChange}
     />
   );
 };

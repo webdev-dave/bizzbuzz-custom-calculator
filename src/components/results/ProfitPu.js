@@ -1,16 +1,27 @@
-import { useState } from "react";
+import { useSelector, useDispatch } from "react-redux";
+import { selectProfitPu, updateProfitPu } from "../main/mainSlice";
 
+ 
 
 const ProfitPu = ({id, columnIndex}) => {
+  const dispatch = useDispatch();
+  const profitPuArr = useSelector(selectProfitPu);
+  const profitPu = profitPuArr[columnIndex];
 
-  const [currentValue, setCurrentValue] = useState(0);
+
+
+  const handleChange = (e) => {
+    const newProfitPu = e.target.value;
+    dispatch(updateProfitPu({columnIndex: columnIndex, value: newProfitPu}));
+    //change everything accordingly
+  }
   return (
     <input
     className="result-data profit-pu"
     id={id}
     type="number"
-    value={currentValue}
-    onChange={(e)=>{setCurrentValue(e.target.value)}}
+    value={profitPu}
+    onChange={handleChange}
   />
    
   );

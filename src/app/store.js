@@ -1,10 +1,9 @@
 import { configureStore } from "@reduxjs/toolkit";
-import inputReducer from "../components/input/inputSlice";
-import resultsReducer from "../components/results/resultsSlice";
+
+import mainReducer from "../components/main/mainSlice";
 
 export default configureStore({
     reducer: {
-        input: inputReducer,
-        results: resultsReducer,
+        main: mainReducer, 
     }
 });

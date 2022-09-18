@@ -1,25 +1,24 @@
-import { useState } from "react";
+import { useSelector, useDispatch } from "react-redux";
+import { selectProfitMargin, updateProfitMargin } from "../main/mainSlice";
 
 const ProfitMargin = ({ id, columnIndex }) => {
-  const [currentMargin, setCurrentMargin] = useState(40);
-  const [isSelected, setIsSelected] = useState(false);
+  const dispatch = useDispatch();
+  const profitMarginArr = useSelector(selectProfitMargin);
+
+  const profitMargin = profitMarginArr[columnIndex];
+
   const handleChange = (e) => {
-    const newMargin = e.target.value;
-    if (newMargin >= 0 && newMargin <= 100) {
-      setCurrentMargin(newMargin);
-    }
+    dispatch(
+      updateProfitMargin({ columnIndex: columnIndex, value: e.target.value })
+    );
   };
   return (
-    <form
-      action=""
-      className={`result-data profit-margin ${isSelected ? "selected" : ""}`}
-      onClick={()=>{isSelected ? setIsSelected(false) : setIsSelected(true)}}
-    >
+    <form action="" className={`result-data profit-margin`}>
       <label htmlFor="profit-margin"></label>
       <input
         id={id}
-        type="number"
-        value={currentMargin}
+        type="text"
+        value={profitMargin}
         onChange={handleChange}
       />
       <p className="percentage-symbol">%</p>

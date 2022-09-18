@@ -1,10 +1,10 @@
 import { useSelector } from "react-redux";
-import { selectPricingType, selectQuantity } from "./inputSlice";
+import { selectIsEQP, selectQuantity } from "../main/mainSlice";
 
 
 import PricingType from "./PricingType";
 import Quantity from "./Quantity";
-import UnitPrice from "./UnitPrice";
+import UnitCost from "./UnitCost";
 import UnitCode from "./UnitCode";
 import SetupFee from "./SetupFee";
 import SetupCode from "./SetupCode";
@@ -16,12 +16,12 @@ import BoxCost from "./BoxCost";
 
 
 const Input = () => {
-  const storePricingType = useSelector(selectPricingType);
+
   const quantities = useSelector(selectQuantity);
   
   const [boxAmount, setBoxAmount] = useState(1);
   const [handlingAmount, setHandlingAmount] = useState(1);
-  const isNonEQP = (storePricingType === "Non-EQP");
+  const isEQP = useSelector(selectIsEQP);
  
 
   return (
@@ -38,18 +38,18 @@ const Input = () => {
           return <Quantity id={"qty-input"+i} columnIndex={i} key={"qty-input"+i} />;
         })}
 
-        {/* unit price */}
-        <p className="unit-price input-head">Unit Price</p>
-        {isNonEQP ? columnsArr.map((col, i) => {
-          return <UnitPrice  id={"unit-price"+i} columnIndex={i} key={"unit-price"+i} maxSpan={false} />;
-        }) : <UnitPrice id={"unit-price"+0} columnIndex={0} key={"unit-price"+0} maxSpan={true} />
+        {/* unit cost */}
+        <p className="unit-cost input-head">Unit Cost</p>
+        {!isEQP ? columnsArr.map((col, i) => {
+          return <UnitCost  id={"unit-cost"+i} columnIndex={i} key={"unit-cost"+i}  />;
+        }) : <UnitCost id={"unit-cost"+0} columnIndex={0} key={"unit-cost"+0}  />
       }
 
         {/* Unit Code */}
         <p className="unit-code input-head">Unit Code</p>
-        {isNonEQP ? columnsArr.map((col, i)=> {
-            return <UnitCode id={"unit-code"+i} columnIndex={i} key={"unit-code"+i} maxSpan={false} />;
-          }) : <UnitCode id={"unit-code"+0} columnIndex={0} key={"unit-code"+0} maxSpan={true} />
+        {!isEQP ? columnsArr.map((col, i)=> {
+            return <UnitCode id={"unit-code"+i} columnIndex={i} key={"unit-code"+i} />;
+          }) : <UnitCode id={"unit-code"+0} columnIndex={0} key={"unit-code"+0}  />
         }
 
         {/* Setup Fee */}

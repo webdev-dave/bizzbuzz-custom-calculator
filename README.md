@@ -1,10 +1,17 @@
 # BizzBuzz Calculator WebApp
 
 ## Todo
+
+- add default profit margin of 40
+- fix negative profit margin behavior (bug)
 - in Results, change "Net Cost PU to Profit PU
-- if EQP is selected, make unit price auto-fill based on first value added (anywhere?)
-- the qtyInput array (in results) needs to be changed to auto update state based on qty-input (in input)  
-- fix profit margin "focus" behavior
 - add a clear-all-fields btn
-- figure out how to get rid of displaying the default zero values
 - disable mouse scroll from changing input values
+- fix profit margin "focus" behavior
+
+### Notes
+
+- still need to add calc logic to:
+- input: Unit Code, Setup Fee, Setup Code, Box, Handling Fees
+- results: Profit Margin, Profit PU, Total Profit
+
