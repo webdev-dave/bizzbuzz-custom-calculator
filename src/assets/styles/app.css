@@ -197,15 +197,17 @@ p.cost-pb{
   grid-row: 9/11;
 }
 
-.handling.title-fee {
+.handling.title-type {
   grid-row: 9 / span 1;
   justify-self: center;
 }
 
-.handling.title-type {
+.handling.title-fee {
   grid-row: 10 / span 1;
   justify-self: center;
 }
+
+
 
 .handling-btn {
   grid-column: 8/-1;
