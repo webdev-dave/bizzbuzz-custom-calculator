@@ -275,15 +275,12 @@ h6.result-head {
 }
 
 /* get rid of default number step btns */
-.profit-margin input[type=number]::-webkit-inner-spin-button,
+/* .profit-margin input[type=number]::-webkit-inner-spin-button,
 input[type=number]::-webkit-outer-spin-button { 
 	-webkit-appearance: none;
-}
+} */
 
-.profit-margin input:focus {
- 
 
-}
 
 
 /* .profit-margin.selected {

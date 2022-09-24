@@ -4,7 +4,7 @@ import { selectRetailTotal, updateRetailTotal } from "../main/mainSlice";
 const RetailTotal = ({ id, columnIndex }) => {
   const dispatch = useDispatch();
   const retailTotalArr = useSelector(selectRetailTotal);
-  const retailTotal = retailTotalArr[columnIndex];
+  const retailTotal = parseFloat(retailTotalArr[columnIndex]);
 
   const handleChange = (e) => {
     dispatch(

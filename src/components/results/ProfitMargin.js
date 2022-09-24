@@ -16,7 +16,7 @@ const ProfitMargin = ({ id, columnIndex }) => {
       <label htmlFor="profit-margin"></label>
       <input
         id={id}
-        type="text"
+        type="number"
         value={profitMargin}
         onChange={handleChange}
       />
