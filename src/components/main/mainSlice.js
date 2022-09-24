@@ -1,8 +1,8 @@
 import { createSlice } from "@reduxjs/toolkit";
 
 
-const getProfitMargin = (profitPu, retailPricePu) => {
-  const profitMargin = (profitPu / retailPricePu ) * 100;
+const getProfitMargin = (profitPu, unitCost) => {
+  const profitMargin = (profitPu / unitCost ) * 100;
   return profitMargin;
 }
 //getProfitMargin(profitPu, state.retailPricePu[columnIndex]);
@@ -11,13 +11,13 @@ const getProfitMargin = (profitPu, retailPricePu) => {
 const initialState = {
   pricingType: "EQP",
   quantity: [100, 250, 500, 1000, 2500, 5000, 50],
-  unitCost: [0, 0, 0, 0, 0, 0, 0],
+  unitCost: [1, 1, 1, 1, 1, 1, 1],
   unitCode: "",
   setupFee: "",
   setupCode: "",
   box: [{ qty: "", cost: "" }],
   handlingFees: [{ fee: "", type: "" }],
-  retailPricePu: [0, 0, 0, 0, 0, 0, 0],
+  retailPricePu: [1, 1, 1, 1, 1, 1, 1],
   retailTotal: [0, 0, 0, 0, 0, 0, 0],
   profitMargin: [0, 0, 0, 0, 0, 0, 0],
   profitPu: [0, 0, 0, 0, 0, 0, 0],
@@ -54,7 +54,7 @@ const mainSlice = createSlice({
           //if is EQP then all result profit values are calculated/mutated based on the solo (col-0) value for unit price
           const unitCostColumnZero = state.unitCost[0];
           const profitPu = state.retailPricePu[i] - unitCostColumnZero;
-          const profitMargin = getProfitMargin(profitPu, state.retailPricePu[i]);
+          const profitMargin = getProfitMargin(profitPu, state.unitCost[i]);
           state.profitMargin[i] = profitMargin;
           //profit PU
           
@@ -67,7 +67,7 @@ const mainSlice = createSlice({
       
       //profit margin
       const profitPu = state.retailPricePu[columnIndex] - state.unitCost[columnIndex];
-      const profitMargin = getProfitMargin(profitPu, state.retailPricePu[columnIndex]);
+      const profitMargin = getProfitMargin(profitPu, state.unitCost[columnIndex]);
       state.profitMargin[columnIndex] = profitMargin;
       //profit PU
       state.profitPu[columnIndex] = profitPu;
@@ -92,7 +92,7 @@ const mainSlice = createSlice({
       state.retailTotal[columnIndex] = state.retailPricePu[columnIndex] * state.quantity[columnIndex];
       //profit margin
       const profitPu = state.retailPricePu[columnIndex] - state.unitCost[columnIndex];
-      state.profitMargin[columnIndex] = getProfitMargin(profitPu, state.retailPricePu[columnIndex]);
+      state.profitMargin[columnIndex] = getProfitMargin(profitPu, state.unitCost[columnIndex]);
       //profit PU    
       state.profitPu[columnIndex] = profitPu;
       //total profit
@@ -106,26 +106,28 @@ const mainSlice = createSlice({
       state.retailPricePu[columnIndex] = state.retailTotal[columnIndex] / state.quantity[columnIndex];
       //profit margin
       const profitPu = state.retailPricePu[columnIndex] - state.unitCost[columnIndex];
-      state.profitMargin[columnIndex] = getProfitMargin(profitPu, state.retailPricePu[columnIndex]);
+      state.profitMargin[columnIndex] = getProfitMargin(profitPu, state.unitCost[columnIndex]);
       //profit PU
       state.profitPu[columnIndex] = profitPu;
       //total profit
       state.totalProfit[columnIndex] = profitPu * state.quantity[columnIndex];
     },
     updateProfitMargin: (state, action) => {
-      // const columnIndex = action.payload.columnIndex;
-      // //profit margin
-      // state.profitMargin[columnIndex] = Number(action.payload.value);
-      // //retail price pu
-      // const profitMargin = Number(state.profitMargin[columnIndex]);
-      // state.retailPricePu[columnIndex] = 1 + ((state.unitCost[columnIndex]) * (profitMargin / 100));
-      // //retail total
-      // state.retailTotal[columnIndex] = state.retailPricePu[columnIndex] * state.quantity[columnIndex];
-      // //profit pu
-      // const profitPu = state.retailPricePu[columnIndex] - state.unitCost[columnIndex];
-      // state.profitPu[columnIndex] = profitPu;
-      // //total profit
-      // state.totalProfit[columnIndex] = profitPu * state.quantity[columnIndex]
+      const columnIndex = action.payload.columnIndex;
+      //profit margin
+      state.profitMargin[columnIndex] = action.payload.value;
+      //retail price pu
+      const profitMargin = state.profitMargin[columnIndex];
+      const unitCost = state.unitCost[columnIndex];
+      state.retailPricePu[columnIndex] = (unitCost + ((profitMargin * unitCost) / 100)).toFixed(2);
+      
+      //retail total
+      state.retailTotal[columnIndex] = state.retailPricePu[columnIndex] * state.quantity[columnIndex];
+      //profit pu
+      const profitPu = (state.retailPricePu[columnIndex] - state.unitCost[columnIndex]).toFixed(2);
+      state.profitPu[columnIndex] = profitPu;
+      //total profit
+      state.totalProfit[columnIndex] = profitPu * state.quantity[columnIndex]
     },
     updateProfitPu: (state, action) => {
       // state.profitPu[action.payload.columnIndex] = action.payload.value;

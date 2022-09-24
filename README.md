@@ -3,6 +3,7 @@
 ## Todo
 
 - add default profit margin of 40
+- flatten/hide after two decimal places? 
 - fix negative profit margin behavior (bug)
 - in Results, change "Net Cost PU to Profit PU
 - add a clear-all-fields btn
