@@ -5,7 +5,7 @@ const getProfitMargin = (profitPu, unitCost) => {
   const profitMargin = (profitPu / unitCost ) * 100;
   return profitMargin;
 }
-//getProfitMargin(profitPu, state.retailPricePu[columnIndex]);
+
 
 
 const initialState = {
@@ -130,10 +130,38 @@ const mainSlice = createSlice({
       state.totalProfit[columnIndex] = profitPu * state.quantity[columnIndex]
     },
     updateProfitPu: (state, action) => {
-      // state.profitPu[action.payload.columnIndex] = action.payload.value;
+      const columnIndex = action.payload.columnIndex;
+      //profit pu
+      state.profitPu[columnIndex] = action.payload.value;
+      const profitPu = state.profitPu[columnIndex];
+      console.log("profitPU: " + typeof(profitPu));
+      //retail price pu
+      state.retailPricePu[columnIndex] = (state.unitCost[columnIndex] + profitPu).toFixed(2);
+      //retail total
+      state.retailTotal[columnIndex] = (state.retailPricePu[columnIndex] * state.quantity[columnIndex]).toFixed(2);
+      //profit margin 
+      state.profitMargin[columnIndex] = getProfitMargin(profitPu, state.unitCost[columnIndex]);
+      //total profit
+      state.totalProfit[columnIndex] = (profitPu * state.quantity[columnIndex]).toFixed(2);
+
+
+
     },
     updateTotalProfit: (state, action) => {
-      // state.totalProfit[action.payload.columnIndex] = action.payload.value;
+      const columnIndex = action.payload.columnIndex;
+      //total profit
+      state.totalProfit[columnIndex] = action.payload.value;
+      const totalProfit = state.totalProfit[columnIndex];
+      //profit pu
+      state.profitPu[columnIndex] = (totalProfit / state.quantity[columnIndex]).toFixed(2);
+      const profitPu = parseFloat(state.profitPu[columnIndex]);
+      //retail price pu
+      state.retailPricePu[columnIndex] = (state.unitCost[columnIndex] + profitPu).toFixed(2);
+      //retail total
+      state.retailTotal[columnIndex] = (state.retailPricePu[columnIndex] * state.quantity[columnIndex]).toFixed(2);
+      //profit margin 
+      state.profitMargin[columnIndex] = getProfitMargin(profitPu, state.unitCost[columnIndex]);
+      
     },
     loadDefaultProfits:  (state, action) => {
       

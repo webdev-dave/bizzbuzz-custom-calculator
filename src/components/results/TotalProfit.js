@@ -4,15 +4,15 @@ import { selectTotalProfit, updateTotalProfit } from "../main/mainSlice";
 const TotalProfit = ({ id, columnIndex }) => {
   const dispatch = useDispatch();
   const totalProfitArr = useSelector(selectTotalProfit);
-
   const totalProfit = totalProfitArr[columnIndex];
 
   const handleChange = (e) => {
-    const newTotalProfit = e.target.value;
     dispatch(
-      updateTotalProfit({ columnIndex: columnIndex, value: newTotalProfit })
+      updateTotalProfit({
+        columnIndex: columnIndex,
+        value: parseFloat(e.target.value),
+      })
     );
-    //change everything accordingly
   };
 
   return (

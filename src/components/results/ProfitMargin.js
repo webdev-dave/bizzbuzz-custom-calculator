@@ -4,7 +4,6 @@ import { selectProfitMargin, updateProfitMargin } from "../main/mainSlice";
 const ProfitMargin = ({ id, columnIndex }) => {
   const dispatch = useDispatch();
   const profitMarginArr = useSelector(selectProfitMargin);
-
   const profitMargin = profitMarginArr[columnIndex];
 
   const handleChange = (e) => {

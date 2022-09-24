@@ -2,6 +2,7 @@
 
 ## Todo
 
+- if we keep dafual value (of 1) for retailPricePu then we must also load a default retail total
 - add default profit margin of 40
 - flatten/hide after two decimal places? 
 - fix negative profit margin behavior (bug)
