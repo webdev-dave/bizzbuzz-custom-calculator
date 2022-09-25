@@ -1,3 +1,4 @@
+import { useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { selectIsEQP, selectUnitCost, updateUnitCost } from "../main/mainSlice";
 
@@ -5,8 +6,13 @@ const UnitCost = ({ id, columnIndex }) => {
   const dispatch = useDispatch();
   const unitCostArr = useSelector(selectUnitCost);
   const isEQP = useSelector(selectIsEQP);
-
   const unitCost = unitCostArr[columnIndex];
+
+  //this effect forces all results to render based on default values (in the beginning when handleChange has yet to be called)
+  useEffect(()=> {
+    dispatch(updateUnitCost({columnIndex: columnIndex, value: unitCost, isEQP: isEQP}));
+    //console.log(unitCost);
+  },[columnIndex, unitCost, isEQP, dispatch])
 
   const handleChange = (e) => {
     dispatch(

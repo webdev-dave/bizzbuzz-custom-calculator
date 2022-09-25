@@ -1,6 +1,7 @@
 import { useSelector } from "react-redux";
 import { columnsArr } from "../../assets/helpers/helperArrays";
 import { selectQuantity } from "../main/mainSlice";
+import NetUnitCost from "./netUnitCost";
 import ProfitMargin from "./ProfitMargin";
 import ProfitPu from "./ProfitPu";
 import RetailPricePu from "./RetailPricePu";
@@ -8,7 +9,6 @@ import RetailTotal from "./RetailTotal";
 import TotalProfit from "./TotalProfit";
 
 const Results = () => {
- 
   const qtyInput = useSelector(selectQuantity);
   return (
     <div id="results-container">
@@ -18,13 +18,20 @@ const Results = () => {
         <div id="blank-div"></div>
         {columnsArr.map((column, i) => {
           return (
-            <h5
-              className="pcs-head"
-              id={"pcs-head-"+i}
-              key={"pcs-head-"+i}
-            >
+            <h5 className="pcs-head" id={"pcs-head-" + i} key={"pcs-head-" + i}>
               {qtyInput[i] + " pcs"}
             </h5>
+          );
+        })}
+
+        <h6 className="result-head">Net Unit Cost</h6>
+        {columnsArr.map((column, i) => {
+          return (
+            <NetUnitCost
+              columnIndex={i}
+              id={"net-unit-cost-" + i}
+              key={"net-unit-cost-" + i}
+            />
           );
         })}
 
@@ -33,8 +40,8 @@ const Results = () => {
           return (
             <RetailPricePu
               columnIndex={i}
-              id={"retail-price-pu-"+i}
-              key={"retail-price-pu-"+i}
+              id={"retail-price-pu-" + i}
+              key={"retail-price-pu-" + i}
             />
           );
         })}
@@ -44,8 +51,8 @@ const Results = () => {
           return (
             <RetailTotal
               columnIndex={i}
-              id={"retail-total-"+i}
-              key={"retail-total-"+i}
+              id={"retail-total-" + i}
+              key={"retail-total-" + i}
             />
           );
         })}
@@ -55,8 +62,8 @@ const Results = () => {
           return (
             <ProfitMargin
               columnIndex={i}
-              id={"profit-margin-"+i}
-              key={"profit-margin-"+i}
+              id={"profit-margin-" + i}
+              key={"profit-margin-" + i}
             />
           );
         })}
@@ -67,8 +74,8 @@ const Results = () => {
           return (
             <ProfitPu
               columnIndex={i}
-              id={"profit-pu-"+i}
-              key={"profit-pu-"+i}
+              id={"profit-pu-" + i}
+              key={"profit-pu-" + i}
             />
           );
         })}
@@ -78,8 +85,8 @@ const Results = () => {
           return (
             <TotalProfit
               columnIndex={i}
-              id={"total-profit-"+i}
-              key={"total-profit-"+i}
+              id={"total-profit-" + i}
+              key={"total-profit-" + i}
             />
           );
         })}
