@@ -1,3 +1,4 @@
+
 import { useSelector, useDispatch } from "react-redux";
 import { selectNetUnitCost, updateNetUnitCost } from "../main/mainSlice";
 
@@ -5,6 +6,8 @@ const NetUnitCost = ({ id, columnIndex }) => {
   const dispatch = useDispatch();
   const netUnitCostArr = useSelector(selectNetUnitCost);
   const netUnitCost = parseFloat(netUnitCostArr[columnIndex]);
+
+
 
   const handleChange = (e) => {
     dispatch(

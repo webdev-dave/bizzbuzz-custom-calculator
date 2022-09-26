@@ -12,7 +12,7 @@ const UnitCost = ({ id, columnIndex }) => {
   useEffect(()=> {
     dispatch(updateUnitCost({columnIndex: columnIndex, value: unitCost, isEQP: isEQP}));
     //console.log(unitCost);
-  },[columnIndex, unitCost, isEQP, dispatch])
+  },[columnIndex, unitCost, isEQP]);
 
   const handleChange = (e) => {
     dispatch(

@@ -1,6 +1,15 @@
+export const unitCodes = [
+  "A",
+  "P",
+  "C",
+  "R",
+  "G",
+  "V",
+];
 
 
-export const codes = [
+
+export const setupCodes = [
     "A",
     "B",
     "C",

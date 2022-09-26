@@ -1,5 +1,7 @@
 import { createSlice } from "@reduxjs/toolkit";
 
+import { unitCodeDiscountValues } from "../../assets/helpers/helperObjects";
+
 
 const getProfitMargin = (profitPu, unitCost) => {
   const profitMargin = (profitPu / unitCost ) * 100;
@@ -12,7 +14,8 @@ const initialState = {
   pricingType: "EQP",
   quantity: [100, 250, 500, 1000, 2500, 5000, 50],
   unitCost: [1, 1, 1, 1, 1, 1, 1],
-  unitCode: "",
+  //unitCode: [2,2,2,2,2,2,2],
+  unitCode: ["C","C","C","C","C","C","C"],
   setupFee: "",
   setupCode: "",
   box: [{ qty: "", cost: "" }],
@@ -31,11 +34,23 @@ const mainSlice = createSlice({
   reducers: {
     updatePricingType: (state, action) => {
       state.pricingType = action.payload.value;
-      //make sure to clear all column values (except col-0) when NON-EQP
-      if (action.payload !== "Non-EQP") {
+      //make sure to copy col-0 values into all other columns when transitioning from "EQP" to "NON-EQP"
+      if (action.payload.value !== "Non-EQP") {
+        //if is EQP
         const colZeroUnitPrice = state.unitCost[0];
         state.unitCost = state.unitCost.map(unitP => {
           return colZeroUnitPrice;
+        });
+        const colZeroNetUnitCost = state.netUnitCost[0];
+        state.netUnitCost = state.netUnitCost.map(unitC => {
+          return colZeroNetUnitCost;
+        });
+
+      } else {
+        //if is Non-EQP
+        const colZeroUnitCode = state.unitCode[0];
+        state.unitCode = state.unitCode.map(unitC => {
+          return colZeroUnitCode;
         });
       }
     },
@@ -84,7 +99,22 @@ const mainSlice = createSlice({
      
 
     },
-    updateUnitCode: (state, action) => {},
+    updateUnitCode: (state, action) => {
+      const columnIndex = action.payload.columnIndex;
+      const unitCode = action.payload.value;
+      state.unitCode[columnIndex] = unitCode;
+      const codeDiscountValue = unitCodeDiscountValues[unitCode];
+      //net unit cost
+      console.log(codeDiscountValue);
+      const unitCost = state.unitCost[columnIndex];
+      state.netUnitCost[columnIndex] = parseFloat(unitCost - (unitCost * codeDiscountValue)); 
+      //if pricing type is eqp - apply code discount (col-0) to all columns
+      if(state.pricingType !== "Non-EQP"){
+        for(let i = 0; i < 7; i++){
+          state.netUnitCost[i] = parseFloat(unitCost - (unitCost * codeDiscountValue)); 
+        }
+      }
+    },
     updateSetupFee: (state, action) => {},
     updateSetupCode: (state, action) => {},
     updateQtyPb: (state, action) => {},
@@ -92,7 +122,7 @@ const mainSlice = createSlice({
     updateHandlingFee: (state, action) => {},
     updateHandlingType: (state, action) => {},
     updateNetUnitCost: (state, action) => {
-      
+
     },
     updateRetailPricePu: (state, action) => {
       const columnIndex = action.payload.columnIndex;
@@ -180,6 +210,7 @@ const mainSlice = createSlice({
 export const selectPricingType = (state) => state.main.pricingType;
 export const selectQuantity = (state) => state.main.quantity;
 export const selectUnitCost = (state) => state.main.unitCost;
+export const selectUnitCode = (state) => state.main.unitCode;
 export const selectIsEQP = (state) => state.main.pricingType !== "Non-EQP";
 export const selectNetUnitCost = (state) => state.main.netUnitCost;
 export const selectRetailPricePu = (state) => state.main.retailPricePu;
@@ -187,7 +218,7 @@ export const selectRetailTotal = (state) => state.main.retailTotal;
 export const selectProfitMargin = (state) => state.main.profitMargin;
 export const selectProfitPu = (state) => state.main.profitPu;
 export const selectTotalProfit = (state) => state.main.totalProfit;
-export const {updateQuantity, updatePricingType, updateUnitCost, updateNetUnitCost ,updateRetailPricePu, updateRetailTotal, updateProfitMargin, updateProfitPu, updateTotalProfit, updateProfits} =
+export const {updateQuantity, updatePricingType, updateUnitCost, updateUnitCode, updateNetUnitCost ,updateRetailPricePu, updateRetailTotal, updateProfitMargin, updateProfitPu, updateTotalProfit, updateProfits} =
   mainSlice.actions;
   
 
