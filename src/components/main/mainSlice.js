@@ -1,5 +1,5 @@
 import { createSlice } from "@reduxjs/toolkit";
-import { setupCodeDiscountValues, unitCodeDiscountValues } from "../../assets/helpers/helperObjects";
+import { initialBox, setupCodeDiscountValues, unitCodeDiscountValues } from "../../assets/helpers/helperObjects";
 
 const getProfitMargin = (profitPu, unitCost) => {
   const profitMargin = (profitPu / unitCost ) * 100;
@@ -13,8 +13,8 @@ const initialState = {
   unitCode: ["C","C","C","C","C","C","C"],
   setupFee: 0,
   setupCode: "V",
-  box: [{ qty: "", cost: "" }],
-  handlingFees: [{ fee: "", type: "" }],
+  box: [initialBox, initialBox, initialBox, initialBox, initialBox],
+  handlingFees: [{ fee: 0, type: "order" },{ fee: 0, type: "box" },{ fee: 0, type: "rush" },{ fee: 0, type: "misc" },{ fee: 0, type: "order" }],
   netUnitCost: [1, 1, 1, 1, 1, 1, 1],
   retailPricePu: [1, 1, 1, 1, 1, 1, 1],
   retailTotal: [0, 0, 0, 0, 0, 0, 0],
@@ -100,8 +100,26 @@ const mainSlice = createSlice({
     updateSetupCode: (state, action) => {
       state.setupCode = action.payload.value;
     },
-    updateQtyPb: (state, action) => {},
-    updateCostPb: (state, action) => {},
+    updateQtyPerBox: (state, action) => {
+      const boxIndex = action.payload.boxIndex;
+      const qtyPerBox = action.payload.value;
+      state.box[boxIndex].qty = qtyPerBox;
+      //update boxData
+      state.box[boxIndex].data = state.box[boxIndex].data.map((data, columnIndex) => {
+        const quantity = state.quantity[columnIndex];
+        const boxesRequired = Math.ceil(quantity / qtyPerBox);
+        const totalCost = Number((boxesRequired * state.box[boxIndex].cost).toFixed(2));
+        return {
+          boxesRequired: boxesRequired,
+          totalCost: totalCost
+        };
+      })
+    },
+    updateCostPerBox: (state, action) => {
+      const boxIndex = action.payload.boxIndex;
+      const costPerBox = action.payload.value;
+      state.box[boxIndex].cost = costPerBox;
+    },
     updateHandlingFee: (state, action) => {},
     updateHandlingType: (state, action) => {},
     updateNetUnitCost: (state, action) => {
@@ -222,6 +240,7 @@ export const selectUnitCost = (state) => state.main.unitCost;
 export const selectUnitCode = (state) => state.main.unitCode;
 export const selectSetupFee = (state) => state.main.setupFee;
 export const selectSetupCode = (state) => state.main.setupCode;
+export const selectBoxes = (state) => state.main.box;
 export const selectIsEQP = (state) => state.main.pricingType !== "Non-EQP";
 export const selectNetUnitCost = (state) => state.main.netUnitCost;
 export const selectRetailPricePu = (state) => state.main.retailPricePu;
@@ -229,7 +248,7 @@ export const selectRetailTotal = (state) => state.main.retailTotal;
 export const selectProfitMargin = (state) => state.main.profitMargin;
 export const selectProfitPu = (state) => state.main.profitPu;
 export const selectTotalProfit = (state) => state.main.totalProfit;
-export const {updateQuantity, updatePricingType, updateUnitCost, updateSetupFee, updateSetupCode, updateUnitCode, updateNetUnitCost ,updateRetailPricePu, updateRetailTotal, updateProfitMargin, updateProfitPu, updateTotalProfit, updateProfits} =
+export const {updateQuantity, updatePricingType, updateUnitCost, updateUnitCode, updateSetupFee, updateSetupCode, updateQtyPerBox, updateCostPerBox, updateNetUnitCost ,updateRetailPricePu, updateRetailTotal, updateProfitMargin, updateProfitPu, updateTotalProfit, updateProfits} =
   mainSlice.actions;
   
 

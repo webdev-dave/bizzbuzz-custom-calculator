@@ -3,6 +3,8 @@
 [view live version here](https://bizzbuzz-calculator.netlify.app)
 ## Todo
 
+
+- get rid of multi unitCode columns (event with non EQP)
 - block user from being able to edit netUnitCost
 - make all results update based on netUnitCost (as opposed to unitCost)
 - make netUnitCost update based on: Unit Code, Setup Fee, Setup Code, Box, Handling Fees (& EQP % calc)
@@ -11,7 +13,8 @@
 - disable mouse scroll from changing input values
 
 ### Notes
-
+- as of now, the app is only built to handle one Box size 
 ### potential extra features
 
 - fix profitMargin "focus" behavior
+- add boxesRequired element in Results 

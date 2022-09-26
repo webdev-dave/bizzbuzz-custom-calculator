@@ -1,7 +1,5 @@
 import { useSelector } from "react-redux";
 import { selectIsEQP, selectQuantity } from "../main/mainSlice";
-
-
 import PricingType from "./PricingType";
 import Quantity from "./Quantity";
 import UnitCost from "./UnitCost";
@@ -11,8 +9,8 @@ import SetupCode from "./SetupCode";
 import HandlingType from "./HandlingType";
 import { useState } from "react";
 import { columnsArr } from "../../assets/helpers/helperArrays";
-import BoxQty from "./BoxQty";
-import BoxCost from "./BoxCost";
+import QtyPerBox from "./QtyPerBox";
+import CostPerBox from "./CostPerBox";
 
 
 const Input = () => {
@@ -64,9 +62,9 @@ const Input = () => {
           Box
         </p>
         <p className="qty-pb">QTY-PB</p>
-        {Array.from(Array(boxAmount)).map((box, i) => (<BoxQty id={"qty-pb-"+i} key={"qty-pb-"+i} />))}
+        {Array.from(Array(boxAmount)).map((box, i) => (<QtyPerBox id={"qty-pb-"+i} boxIndex={i} key={"qty-pb-"+i} />))}
         <p className="cost-pb">COST-PB</p>
-        {Array.from(Array(boxAmount)).map((box, i) => (<BoxCost id={"cost-pb-"+i} key={"cost-pb-"+i} />))}
+        {Array.from(Array(boxAmount)).map((box, i) => (<CostPerBox id={"cost-pb-"+i} boxIndex={i} key={"cost-pb-"+i} />))}
         <button
           className="add-box box-btn"
           onClick={() => {
