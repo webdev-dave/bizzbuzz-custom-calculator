@@ -13,6 +13,7 @@ const UnitCode = ({id, columnIndex}) => {
  
   useEffect(()=>{
     dispatch(updateUnitCode({columnIndex: columnIndex, value: unitCode}))
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   },[])
 
 
