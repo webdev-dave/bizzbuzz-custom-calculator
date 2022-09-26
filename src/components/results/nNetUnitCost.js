@@ -8,7 +8,6 @@ const NetUnitCost = ({ id, columnIndex }) => {
   const netUnitCost = parseFloat(netUnitCostArr[columnIndex]);
 
 
-
   const handleChange = (e) => {
     dispatch(
         updateNetUnitCost({

@@ -1,7 +1,7 @@
 import { useSelector } from "react-redux";
 import { columnsArr } from "../../assets/helpers/helperArrays";
 import { selectQuantity } from "../main/mainSlice";
-import NetUnitCost from "./NetUnitCost";
+import NetUnitCost from "./nNetUnitCost";
 import ProfitMargin from "./ProfitMargin";
 import ProfitPu from "./ProfitPu";
 import RetailPricePu from "./RetailPricePu";
