@@ -67,6 +67,7 @@ const Input = () => {
         {Array.from(Array(boxAmount)).map((box, i) => (<CostPerBox id={"cost-pb-"+i} boxIndex={i} key={"cost-pb-"+i} />))}
         <button
           className="add-box box-btn"
+          disabled={true}
           onClick={() => {
             boxAmount < 5 && setBoxAmount(boxAmount + 1);
           }}
@@ -75,6 +76,7 @@ const Input = () => {
         </button>
         <button
           className="remove-box box-btn"
+          disabled={true}
           onClick={() => {
             boxAmount > 1 && setBoxAmount(boxAmount - 1);
           }}

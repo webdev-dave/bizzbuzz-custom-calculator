@@ -1,5 +1,5 @@
 import { useSelector, useDispatch } from "react-redux";
-import { selectBoxes, updateCostPerBox, updateQtyPerBox } from "../main/mainSlice";
+import { selectBoxes, updateCostPerBox, updateQtyPerBox, updateNetUnitCost } from "../main/mainSlice";
 
 
 const CostPerBox = ({id, boxIndex}) => {
@@ -9,8 +9,10 @@ const CostPerBox = ({id, boxIndex}) => {
   const qtyPerBox = boxesArr[boxIndex].qty;
   const handleChange = (e) => {
     dispatch(updateCostPerBox({boxIndex: boxIndex, value: e.target.value }));
-    //makes sure to update box data when box price changes
+    //makes sure to update box data when box price changes (box data only updates in updateQtyPerBox)
     dispatch(updateQtyPerBox({boxIndex: boxIndex, value: qtyPerBox}));
+    //update net unit cost based on total box data
+    dispatch(updateNetUnitCost({}));
   }
   return <input className="cost-pb" id={id} type="number" value={costPerBox} onChange={handleChange}  />;
 };

@@ -130,10 +130,12 @@ const mainSlice = createSlice({
       state.netUnitCost = state.netUnitCost.map((nuc, index) => {
         const codeDiscountValue = parseFloat(unitCodeDiscountValues[state.unitCode[index]]);
         const unitCost = parseFloat(state.unitCost[index]);
-        const netUnitCost =  parseFloat(unitCost - (unitCost * codeDiscountValue));
+        const baseNetUC =  parseFloat(unitCost - (unitCost * codeDiscountValue));
         const quantity = parseFloat(state.quantity[index]);
         const discountedSetupFeePerUnit = parseFloat(discountedSetupFee / quantity);
-        return parseFloat((netUnitCost + discountedSetupFeePerUnit).toFixed(4));
+        const boxCostPerUnit =  Number((state.box[0].data[index].totalCost / quantity).toFixed(4));
+        //console.log(`quantity: ${quantity} baseNetUC: ${baseNetUC} discountedSetupFeePerUnit: ${discountedSetupFeePerUnit} boxCostPerUnit: ${boxCostPerUnit}`)
+        return Number((baseNetUC + discountedSetupFeePerUnit + boxCostPerUnit).toFixed(4));
       })
 
       //update all results accordingly

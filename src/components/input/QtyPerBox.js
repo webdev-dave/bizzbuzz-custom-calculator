@@ -1,5 +1,5 @@
 import { useSelector, useDispatch } from "react-redux";
-import { selectBoxes, updateQtyPerBox } from "../main/mainSlice";
+import { selectBoxes, updateNetUnitCost, updateQtyPerBox } from "../main/mainSlice";
 
 const QtyPerBox = ({ id, boxIndex}) => {
   const dispatch = useDispatch();
@@ -8,6 +8,7 @@ const QtyPerBox = ({ id, boxIndex}) => {
   
   const handleChange = (e) => {
     dispatch(updateQtyPerBox({boxIndex: boxIndex, value: e.target.value}));
+    dispatch(updateNetUnitCost({}));
   };
 
   return (

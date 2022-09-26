@@ -26,6 +26,6 @@ export const unitCodeDiscountValues = {
     Z: 0
   }
 
-export const initialBox =  { qty: 0, cost: 0, data: [{boxesRequired: 0, totalCost: 0}, {boxesRequired: 0, totalCost: 0}, {boxesRequired: 0, totalCost: 0}, {boxesRequired: 0, totalCost: 0}, {boxesRequired: 0, totalCost: 0}, {boxesRequired: 0, totalCost: 0}, {boxesRequired: 0, totalCost: 0}] };
+export const initialBox =  { qty: 100, cost: 0, data: [{boxesRequired: 0, totalCost: 0}, {boxesRequired: 0, totalCost: 0}, {boxesRequired: 0, totalCost: 0}, {boxesRequired: 0, totalCost: 0}, {boxesRequired: 0, totalCost: 0}, {boxesRequired: 0, totalCost: 0}, {boxesRequired: 0, totalCost: 0}] };
 
  
