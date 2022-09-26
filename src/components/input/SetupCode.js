@@ -1,14 +1,22 @@
-import { useState } from "react";
+import { useSelector, useDispatch } from "react-redux";
 import { setupCodes } from "../../assets/helpers/helperArrays";
+import { selectSetupCode, selectSetupFee, updateSetupCode, updateSetupFee } from "../main/mainSlice";
 
-const SetupCodes = () => {
-  const [currentCode, setCurrentCode] = useState(setupCodes[14]);
+const SetupCode = () => {
+  const dispatch = useDispatch();
+  const setupCode = useSelector(selectSetupCode);
+  const setupFee = useSelector(selectSetupFee);
+  const handleChange = (e) => {
+    dispatch(updateSetupCode({value: e.target.value}));
+    //this is to update netUnitCost based on the newly discounted setupFee 
+    dispatch(updateSetupFee({value: setupFee}));
+  }
   return (
     <select
       className="setup-code"
-      value={currentCode}
+      value={setupCode}
       id="unit-code-selector"
-      onChange={(e) => setCurrentCode(e.target.value)}
+      onChange={handleChange}
     >
       {setupCodes.map((code) => (
         <option key={"setup-code-" + code} value={code}>{code}</option>
@@ -17,4 +25,4 @@ const SetupCodes = () => {
   );
 };
 
-export default SetupCodes;
+export default SetupCode;

@@ -10,23 +10,21 @@ export const unitCodes = [
 
 
 export const setupCodes = [
-    "A",
-    "B",
-    "C",
-    "D",
-    "E",
-    "F",
-    "G",
-    "H",
-    "P",
-    "Q",
-    "R",
-    "S",
-    "T",
-    "U",
-    "V",
-    "W",
-    "Z",
+  "A",
+  "P",
+  "C",
+  "R",
+  "D",
+  "S",
+  "E",
+  "T",
+  "F",
+  "U",
+  "G",
+  "V",
+  "H",
+  "W",
+  "Z",
   ];
 
  export const columnsArr = ["", "", "", "", "", "", ""];

@@ -3,6 +3,7 @@
 [view live version here](https://bizzbuzz-calculator.netlify.app)
 ## Todo
 
+- block user from being able to edit netUnitCost
 - make all results update based on netUnitCost (as opposed to unitCost)
 - make netUnitCost update based on: Unit Code, Setup Fee, Setup Code, Box, Handling Fees (& EQP % calc)
 - fix "0" unit cost behavior (bug)

@@ -1,6 +1,6 @@
 import { useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
-import { selectIsEQP, selectUnitCost, updateUnitCost } from "../main/mainSlice";
+import { selectIsEQP, selectUnitCost, updateNetUnitCost, updateUnitCost } from "../main/mainSlice";
 
 const UnitCost = ({ id, columnIndex }) => {
   const dispatch = useDispatch();
@@ -11,13 +11,15 @@ const UnitCost = ({ id, columnIndex }) => {
   //this effect forces all results to render based on default values (in the beginning when handleChange has yet to be called)
   useEffect(()=> {
     dispatch(updateUnitCost({columnIndex: columnIndex, value: unitCost, isEQP: isEQP}));
-    //console.log(unitCost);
-  },[columnIndex, unitCost, isEQP]);
+    dispatch(updateNetUnitCost({}));
+  },[]);
 
   const handleChange = (e) => {
     dispatch(
       updateUnitCost({ columnIndex: columnIndex, value: e.target.value, isEQP: isEQP })
     );
+    //make sure to update netUnitCost based on the new Unit Cost Value 
+    dispatch(updateNetUnitCost({}));
   };
   return (
     <div className={`unit-cost ${isEQP ? "max-span" : ""}`} id={id}>

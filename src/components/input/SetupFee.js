@@ -1,13 +1,20 @@
-import { useState } from "react";
+import { useSelector, useDispatch } from "react-redux";
+import {selectSetupFee, updateNetUnitCost, updateSetupFee, } from "../main/mainSlice"
 
 const SetupFee = () => {
-  const [currentValue, setCurrentValue] = useState('');
+  const dispatch = useDispatch();
+  const setupFee = useSelector(selectSetupFee);
+  const handleChange = (e) => {
+    dispatch(updateSetupFee({value: e.target.value}));
+    dispatch(updateNetUnitCost({}));
+  }
+ 
   return (
     <input
       className="setup-fee"
       type="number"
-      value={currentValue}
-      onChange={(e) => setCurrentValue(e.target.value)}
+      value={setupFee}
+      onChange={handleChange}
     />
   );
 };
