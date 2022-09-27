@@ -1,13 +1,12 @@
 import { useEffect } from "react";
 import { useSelector, useDispatch} from "react-redux";
 import { unitCodes } from "../../assets/helpers/helperArrays";
-import { selectIsEQP, selectUnitCode, updateNetUnitCost, updateUnitCode } from "../main/mainSlice";
+import { selectUnitCode, updateNetUnitCost, updateUnitCode } from "../main/mainSlice";
 
 
 const UnitCode = ({id, columnIndex}) => {
 
   const dispatch = useDispatch();
-  //const isEQP = useSelector(selectIsEQP);
   const unitCode = useSelector(selectUnitCode);
  
   useEffect(()=>{

@@ -16,6 +16,7 @@
 
 ### Notes
 
+- in order to clean up the results reducer all i have to do is update whatever component needs updating and leave the rest up to calling updateNetUnitCost 
 - as of now, the app is only built to handle one Box size
 
 ### potential add-on features

@@ -1,10 +1,8 @@
 import { createSlice } from "@reduxjs/toolkit";
+import { getProfitMargin, addEqpDiscount } from "../../assets/helpers/helperFunctions";
 import { initialBox, setupCodeDiscountValues, unitCodeDiscountValues } from "../../assets/helpers/helperObjects";
 
-const getProfitMargin = (profitPu, unitCost) => {
-  const profitMargin = (profitPu / unitCost ) * 100;
-  return profitMargin.toFixed(2);
-}
+
 
 const initialState = {
   pricingType: "EQP",
@@ -106,8 +104,9 @@ const mainSlice = createSlice({
       state.netUnitCost = state.netUnitCost.map((nuc, index) => {
         const codeDiscountValue = parseFloat(unitCodeDiscountValues[state.unitCode]);
         const unitCost = parseFloat(state.unitCost[index]);
-        const unitCodeDiscount = Number((unitCost * codeDiscountValue).toFixed(4))
+        const unitCodeDiscount = Number((unitCost * codeDiscountValue).toFixed(4));
         const discountedUnitCost =  Number((unitCost - unitCodeDiscount).toFixed(4));
+        const discountedUnitCostPostEqp = addEqpDiscount(state.pricingType, discountedUnitCost);
         const quantity = parseFloat(state.quantity[index]);
         const discountedSetupFeePerUnit = parseFloat(discountedSetupFee / quantity);
         const totalBoxCost = parseFloat(state.box[0].data[index].totalCost);
@@ -116,13 +115,15 @@ const mainSlice = createSlice({
           return accumulator + Number(obj.fee);
         }, 0);
         const handlingFeePerUnit = Number((totalHandlingFees / quantity).toFixed(4));
-        console.log(handlingFeePerUnit);
 
         const additionalData = {
           quantity: quantity,
           unitCost: unitCost,
           unitCodeDiscount: unitCodeDiscount,
           discountedUnitCost: discountedUnitCost,
+          pricingType: state.pricingType,
+          eqpDiscount: Number((discountedUnitCost - discountedUnitCostPostEqp).toFixed(4)),
+          discountedUnitCostPostEqp: discountedUnitCostPostEqp,
           setupFee: setupFee,
           setupFeeDiscount: setupFeeDiscount,
           discountedSetupFee: discountedSetupFee,
@@ -134,10 +135,10 @@ const mainSlice = createSlice({
         }
         state.additionalData[index] = additionalData;
      
-        return Number((discountedUnitCost + discountedSetupFeePerUnit + boxCostPerUnit + handlingFeePerUnit).toFixed(4));
+        return Number((discountedUnitCostPostEqp + discountedSetupFeePerUnit + boxCostPerUnit + handlingFeePerUnit).toFixed(4));
       })
 
-      //update all Results components accordingly
+      //update all Results components based on the new net cost
       for(let i = 0; i < 7; i++){
         const netUnitCost = parseFloat(state.netUnitCost[i]);
         //retailPricePu

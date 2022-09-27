@@ -27,5 +27,3 @@ const TotalProfit = ({ id, columnIndex }) => {
 };
 
 export default TotalProfit;
-
-//total profit needs to change if qty changes
