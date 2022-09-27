@@ -1,14 +1,20 @@
-import { useState } from "react";
+import { useSelector, useDispatch  } from "react-redux";
+import { selectHandling, updateHandlingType } from "../main/mainSlice";
 
-const HandlingType = ({defaultType, id}) => {
+const HandlingType = ({handlingIndex, id}) => {
+  const dispatch = useDispatch();
   const types = ["order", "box", "rush", "misc"];
-  const [type, setType] = useState(types[defaultType]);
+  const handlingArr = useSelector(selectHandling);
+  const handlingType = handlingArr[handlingIndex].type;
+  const handleChange = (e) => {
+    dispatch(updateHandlingType({handlingIndex: handlingIndex, value: e.target.value}));
+  }
   return (
     <select
       className="handling-fees-selector"
       id={id}
-      value={type}
-      onChange={(e) => setType(e.target.value)}
+      value={handlingType}
+      onChange={handleChange}
     >
       {types.map((type) => {
         return (

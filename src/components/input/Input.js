@@ -1,5 +1,5 @@
-import { useSelector } from "react-redux";
-import { selectIsEQP, selectQuantity } from "../main/mainSlice";
+import { useDispatch, useSelector } from "react-redux";
+import { selectIsEQP, selectQuantity, clearHandlingFee, updateNetUnitCost } from "../main/mainSlice";
 import PricingType from "./PricingType";
 import Quantity from "./Quantity";
 import UnitCost from "./UnitCost";
@@ -11,10 +11,11 @@ import { useState } from "react";
 import { columnsArr } from "../../assets/helpers/helperArrays";
 import QtyPerBox from "./QtyPerBox";
 import CostPerBox from "./CostPerBox";
+import HandlingFee from "./HandlingFee";
 
 
 const Input = () => {
-
+  const dispatch = useDispatch();
   const quantities = useSelector(selectQuantity);
   
   const [boxAmount, setBoxAmount] = useState(1);
@@ -87,26 +88,25 @@ const Input = () => {
         <p className="input-head" id="handling-head">
           Handling Fees
         </p>
-        <p className="handling title-type">TYPE</p>
-        <p className="handling title-fee">FEE</p>
 
+        <p className="handling title-type">TYPE</p>
         {Array.from(Array(handlingAmount)).map((h, i) => {
           return (
             <HandlingType
-              defaultType={i}
+              handlingIndex={i}
               id={"handling-type-"+i}
               key={"handling-type-"+i}
             />
           );
         })}
+
+        <p className="handling title-fee">FEE</p>
         {Array.from(Array(handlingAmount)).map((h, i) => {
           return (
-            <input
-              className="handling-fees-input"
-              type="text"
+            <HandlingFee
+              handlingIndex={i}
               id={"handling-fee-"+i}
-              key={"handling-fee-"+i}
-            />
+              key={"handling-fee-"+i}/>
           );
         })}
 
@@ -122,6 +122,8 @@ const Input = () => {
           className="remove-fee handling-btn"
           onClick={() => {
             handlingAmount > 1 && setHandlingAmount(handlingAmount - 1);
+            handlingAmount > 1 && dispatch(clearHandlingFee({handlingIndex: (handlingAmount - 1)}));
+            handlingAmount > 1 && dispatch(updateNetUnitCost({}));
           }}
         >
           Remove Fee
