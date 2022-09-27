@@ -10,7 +10,7 @@ const initialState = {
   pricingType: "EQP",
   quantity: [100, 250, 500, 1000, 2500, 5000, 50],
   unitCost: [1, 1, 1, 1, 1, 1, 1],
-  unitCode: ["C","C","C","C","C","C","C"],
+  unitCode: "C",
   setupFee: 0,
   setupCode: "V",
   box: [initialBox, initialBox, initialBox, initialBox, initialBox],
@@ -30,37 +30,23 @@ const mainSlice = createSlice({
   reducers: {
     updatePricingType: (state, action) => {
       state.pricingType = action.payload.value;
-      //make sure to copy col-0 values into all other columns when transitioning from "EQP" to "NON-EQP"
+      //when transitioning from "NON-EQP to "EQP", make sure to copy col-0 values into all the (hidden unitPrice elements)
       if (action.payload.value !== "Non-EQP") {
-        //if is EQP
+        //upon changing to EQP
         const colZeroUnitPrice = state.unitCost[0];
         state.unitCost = state.unitCost.map(unitP => {
           return colZeroUnitPrice;
         });
-        const colZeroNetUnitCost = state.netUnitCost[0];
-        state.netUnitCost = state.netUnitCost.map(unitC => {
-          return colZeroNetUnitCost;
-        });
-
-      } else {
-        //if is Non-EQP
-        const colZeroUnitCode = state.unitCode[0];
-        state.unitCode = state.unitCode.map(unitC => {
-          return colZeroUnitCode;
-        });
-      }
+      } 
     },
     updateQuantity: (state, action) => {
       const columnIndex = action.payload.columnIndex;
-      state.quantity[columnIndex] = action.payload.value;
-      state.retailTotal[columnIndex] = state.retailPricePu[columnIndex] * state.quantity[columnIndex];
-      state.totalProfit[columnIndex] = state.profitPu[columnIndex] * state.quantity[columnIndex];
+      state.quantity[columnIndex] = Number(action.payload.value);
     },
     updateUnitCost: (state, action) => {
       const columnIndex = action.payload.columnIndex;
       state.unitCost[columnIndex] = action.payload.value;
       if(action.payload.isEQP){
-        //profit margin
         for(let i = 0; i < 7; i++){
           //if is EQP then all (hidden unitPrice elements) are equal to col-0
           state.unitCost[i] = state.unitCost[0];
@@ -68,58 +54,36 @@ const mainSlice = createSlice({
       }
     },
     updateUnitCode: (state, action) => {
-      const columnIndex = action.payload.columnIndex;
-      const unitCode = action.payload.value;
-      state.unitCode[columnIndex] = unitCode;
-      const codeDiscountValue = unitCodeDiscountValues[unitCode];
-      //net unit cost
-      const unitCost = state.unitCost[columnIndex];
-      state.netUnitCost[columnIndex] = parseFloat(unitCost - (unitCost * codeDiscountValue)); 
-      //if pricing type is eqp - apply code discount (col-0) to all columns
-      if(state.pricingType !== "Non-EQP"){
-        for(let i = 0; i < 7; i++){
-          state.netUnitCost[i] = parseFloat(unitCost - (unitCost * codeDiscountValue)); 
-        }
-      }
+      state.unitCode = action.payload.value;
     },
     updateSetupFee: (state, action) => {
       state.setupFee = action.payload.value;
-      const setupFee = state.setupFee;
-      const discountedSetupFee = setupFee - (setupFee * parseFloat(setupCodeDiscountValues[state.setupCode]));
-     
-      //net unit cost 
-      state.netUnitCost = state.netUnitCost.map((nuc, index) => {
-        const codeDiscountValue = parseFloat(unitCodeDiscountValues[state.unitCode[index]]);
-        const unitCost = parseFloat(state.unitCost[index]);
-        const netUnitCost =  parseFloat(unitCost - (unitCost * codeDiscountValue));
-        const quantity = parseFloat(state.quantity[index]);
-        const discountedSetupFeePerUnit = parseFloat(discountedSetupFee / quantity);
-        return parseFloat((netUnitCost + discountedSetupFeePerUnit).toFixed(4));
-      })
-
     },
     updateSetupCode: (state, action) => {
       state.setupCode = action.payload.value;
     },
     updateQtyPerBox: (state, action) => {
       const boxIndex = action.payload.boxIndex;
-      const qtyPerBox = action.payload.value;
-      state.box[boxIndex].qty = qtyPerBox;
-      //update boxData
-      state.box[boxIndex].data = state.box[boxIndex].data.map((data, columnIndex) => {
-        const quantity = state.quantity[columnIndex];
-        const boxesRequired = Math.ceil(quantity / qtyPerBox);
-        const totalCost = Number((boxesRequired * state.box[boxIndex].cost).toFixed(2));
-        return {
-          boxesRequired: boxesRequired,
-          totalCost: totalCost
-        };
-      })
+      state.box[boxIndex].qtyPB = action.payload.value;
     },
     updateCostPerBox: (state, action) => {
       const boxIndex = action.payload.boxIndex;
       const costPerBox = action.payload.value;
-      state.box[boxIndex].cost = costPerBox;
+      state.box[boxIndex].costPB = costPerBox;
+    },
+    updateBoxData: (state, action) => {
+      const boxIndex = action.payload.boxIndex;
+      const qtyPerBox = state.box[boxIndex].qtyPB;
+      state.box[boxIndex].data = state.box[boxIndex].data.map((data, columnIndex) => {
+        const quantity = state.quantity[columnIndex];
+        const boxesRequired = Math.ceil(quantity / qtyPerBox);
+        const totalCost = Number((boxesRequired * state.box[boxIndex].costPB).toFixed(2));
+        return {
+          orderQuantity: quantity,
+          boxesRequired: boxesRequired,
+          totalCost: totalCost
+        };
+      })
     },
     updateHandlingType: (state, action) => {
       const handlingIndex = action.payload.handlingIndex;
@@ -140,7 +104,7 @@ const mainSlice = createSlice({
 
       //update net unit cost
       state.netUnitCost = state.netUnitCost.map((nuc, index) => {
-        const codeDiscountValue = parseFloat(unitCodeDiscountValues[state.unitCode[index]]);
+        const codeDiscountValue = parseFloat(unitCodeDiscountValues[state.unitCode]);
         const unitCost = parseFloat(state.unitCost[index]);
         const unitCodeDiscount = Number((unitCost * codeDiscountValue).toFixed(4))
         const discountedUnitCost =  Number((unitCost - unitCodeDiscount).toFixed(4));
@@ -173,11 +137,11 @@ const mainSlice = createSlice({
         return Number((discountedUnitCost + discountedSetupFeePerUnit + boxCostPerUnit + handlingFeePerUnit).toFixed(4));
       })
 
-      //update all results accordingly
+      //update all Results components accordingly
       for(let i = 0; i < 7; i++){
         const netUnitCost = parseFloat(state.netUnitCost[i]);
         //retailPricePu
-        const retailPricePu = netUnitCost + parseFloat((netUnitCost * (state.profitMargin[i]/100)).toFixed(2));
+        const retailPricePu = netUnitCost + Number((netUnitCost * (state.profitMargin[i]/100)).toFixed(2));
         state.retailPricePu[i] = Number((retailPricePu).toFixed(2));
         //retailTotal
         state.retailTotal[i] = Number(retailPricePu * state.quantity[i]).toFixed(2);
@@ -286,7 +250,7 @@ export const selectRetailTotal = (state) => state.main.retailTotal;
 export const selectProfitMargin = (state) => state.main.profitMargin;
 export const selectProfitPu = (state) => state.main.profitPu;
 export const selectTotalProfit = (state) => state.main.totalProfit;
-export const {updateQuantity, updatePricingType, updateUnitCost, updateUnitCode, updateSetupFee, updateSetupCode, updateQtyPerBox, updateCostPerBox, updateHandlingType, updateHandlingFee, clearHandlingFee, updateNetUnitCost ,updateRetailPricePu, updateRetailTotal, updateProfitMargin, updateProfitPu, updateTotalProfit, updateProfits} =
+export const {updateQuantity, updatePricingType, updateUnitCost, updateUnitCode, updateSetupFee, updateSetupCode, updateQtyPerBox, updateCostPerBox,updateBoxData, updateHandlingType, updateHandlingFee, clearHandlingFee, updateNetUnitCost ,updateRetailPricePu, updateRetailTotal, updateProfitMargin, updateProfitPu, updateTotalProfit, updateProfits} =
   mainSlice.actions;
   
 

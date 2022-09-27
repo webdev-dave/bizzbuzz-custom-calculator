@@ -1,15 +1,13 @@
 import { useSelector, useDispatch } from "react-redux";
 import { setupCodes } from "../../assets/helpers/helperArrays";
-import { selectSetupCode, selectSetupFee, updateSetupCode, updateSetupFee } from "../main/mainSlice";
+import { selectSetupCode, updateNetUnitCost, updateSetupCode } from "../main/mainSlice";
 
 const SetupCode = () => {
   const dispatch = useDispatch();
   const setupCode = useSelector(selectSetupCode);
-  const setupFee = useSelector(selectSetupFee);
   const handleChange = (e) => {
     dispatch(updateSetupCode({value: e.target.value}));
-    //this is to update netUnitCost based on the newly discounted setupFee 
-    dispatch(updateSetupFee({value: setupFee}));
+    dispatch(updateNetUnitCost({}));
   }
   return (
     <select

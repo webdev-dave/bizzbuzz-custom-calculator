@@ -46,9 +46,7 @@ const Input = () => {
 
         {/* Unit Code */}
         <p className="unit-code input-head">Unit Code</p>
-        {!isEQP ? columnsArr.map((col, i)=> {
-            return <UnitCode id={"unit-code"+i} columnIndex={i} key={"unit-code"+i} />;
-          }) : <UnitCode id={"unit-code"+0} columnIndex={0} key={"unit-code"+0}  />
+        {<UnitCode id={"unit-code"+0} columnIndex={0} key={"unit-code"+0}  />
         }
 
         {/* Setup Fee */}

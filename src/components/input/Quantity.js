@@ -1,7 +1,9 @@
 import { useSelector, useDispatch } from "react-redux";
 import {
   selectQuantity,
-  updateQuantity,
+  updateBoxData,
+  updateNetUnitCost,
+  updateQuantity
 } from "../main/mainSlice";
 
 const Quantity = ({ id, columnIndex }) => {
@@ -10,11 +12,9 @@ const Quantity = ({ id, columnIndex }) => {
 
   const dispatch = useDispatch();
   const handleChange = (e) => {
-    dispatch(
-      updateQuantity({ columnIndex: columnIndex, value: e.target.value,  })
-    );
-
-  
+    dispatch(updateQuantity({ columnIndex: columnIndex, value: e.target.value}));
+    dispatch(updateBoxData({boxIndex: 0}));
+    dispatch(updateNetUnitCost({}));
   };
   return (
     //outer div might be unnecessary
