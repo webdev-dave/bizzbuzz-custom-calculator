@@ -23,3 +23,41 @@ export const addEqpDiscount = (pricingType, price) => {
   }
   return Number(discountedPrice.toFixed(4));
 };
+
+
+
+
+
+
+
+export const getBoxSize = (boxesArr, quantitiesArr) => {
+  const boxSizes = boxesArr.map(box => box.qtyPB);
+  //get rid of duplicate box sizes
+  const boxSizesObj = {};
+  for (const key of boxSizes){
+    boxSizesObj[key] = 0;
+  }
+
+  const sortedBoxSizesArr = Object.keys(boxSizesObj).sort((a,b) => b-a);
+
+  const quantitiesObj = {};
+  for (const key of quantitiesArr){
+    quantitiesObj[key] = "";
+  }
+ 
+
+  for(let i = 0; i < quantitiesArr.length; i++){
+    const qty = parseFloat(quantitiesArr[i]);
+    const smallestBox = sortedBoxSizesArr[(sortedBoxSizesArr.length -1)];
+    
+    quantitiesObj[qty] = sortedBoxSizesArr.map(boxSize => {
+      return { [boxSize]: (qty/boxSize)}
+    });
+     
+  }
+
+  
+  return quantitiesObj;
+  
+  
+}

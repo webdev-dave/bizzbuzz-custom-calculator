@@ -1,10 +1,11 @@
 import { createSlice } from "@reduxjs/toolkit";
-import { getProfitMargin, addEqpDiscount } from "../../assets/helpers/helperFunctions";
+import { getProfitMargin, addEqpDiscount, getBoxSize } from "../../assets/helpers/helperFunctions";
 import { initialBox, setupCodeDiscountValues, unitCodeDiscountValues } from "../../assets/helpers/helperObjects";
 
 
 
 const initialState = {
+  autoBoxPairing: "",
   pricingType: "EQP",
   quantity: [100, 250, 500, 1000, 2500, 5000, 50],
   unitCost: [1, 1, 1, 1, 1, 1, 1],
@@ -20,6 +21,7 @@ const initialState = {
   profitPu: [0, 0, 0, 0, 0, 0, 0],
   totalProfit: [0, 0, 0, 0, 0, 0, 0],
   additionalData: [{},{},{},{},{},{},{}],
+  
 };
 
 const mainSlice = createSlice({
@@ -100,6 +102,10 @@ const mainSlice = createSlice({
       const setupFeeDiscount = Number((setupFee * parseFloat(setupCodeDiscountValues[state.setupCode])).toFixed(4))
       const discountedSetupFee = Number(setupFee - setupFeeDiscount);
 
+      //update smart box calc
+      const autoBoxPairing = getBoxSize(state.box, state.quantity);
+      state.autoBoxPairing = autoBoxPairing;
+
       //update net unit cost
       state.netUnitCost = state.netUnitCost.map((nuc, index) => {
         const codeDiscountValue = parseFloat(unitCodeDiscountValues[state.unitCode]);
@@ -109,6 +115,14 @@ const mainSlice = createSlice({
         const discountedUnitCostPostEqp = addEqpDiscount(state.pricingType, discountedUnitCost);
         const quantity = parseFloat(state.quantity[index]);
         const discountedSetupFeePerUnit = parseFloat(discountedSetupFee / quantity);
+        
+
+
+        
+  
+      
+        
+
         const totalBoxCost = parseFloat(state.box[0].data[index].totalCost);
         const boxCostPerUnit =  Number((totalBoxCost / quantity).toFixed(4));
         const totalHandlingFees = state.handling.reduce((accumulator, obj) => {
@@ -137,6 +151,13 @@ const mainSlice = createSlice({
      
         return Number((discountedUnitCostPostEqp + discountedSetupFeePerUnit + boxCostPerUnit + handlingFeePerUnit).toFixed(4));
       })
+      
+
+
+
+
+
+
 
       //update all Results components based on the new net cost
       for(let i = 0; i < 7; i++){

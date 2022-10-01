@@ -18,7 +18,7 @@ const Input = () => {
   const dispatch = useDispatch();
   const quantities = useSelector(selectQuantity);
   
-  const [boxAmount, setBoxAmount] = useState(1);
+  const [boxAmount, setBoxAmount] = useState(3);
   const [handlingAmount, setHandlingAmount] = useState(1);
   const isEQP = useSelector(selectIsEQP);
  
@@ -66,18 +66,18 @@ const Input = () => {
         {Array.from(Array(boxAmount)).map((box, i) => (<CostPerBox id={"cost-pb-"+i} boxIndex={i} key={"cost-pb-"+i} />))}
         <button
           className="add-box box-btn"
-          disabled={true}
           onClick={() => {
             boxAmount < 5 && setBoxAmount(boxAmount + 1);
+            boxAmount < 5 && dispatch(updateNetUnitCost({}));
           }}
         >
           Add Box
         </button>
         <button
           className="remove-box box-btn"
-          disabled={true}
           onClick={() => {
             boxAmount > 1 && setBoxAmount(boxAmount - 1);
+            boxAmount > 1 && dispatch(updateNetUnitCost({}));
           }}
         >
           Remove Box
