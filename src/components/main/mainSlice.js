@@ -1,5 +1,5 @@
 import { createSlice } from "@reduxjs/toolkit";
-import { getProfitMargin, addEqpDiscount, getBoxSize } from "../../assets/helpers/helperFunctions";
+import { getProfitMargin, addEqpDiscount, getTotalBoxConfiguration } from "../../assets/helpers/helperFunctions";
 import { initialBox, setupCodeDiscountValues, unitCodeDiscountValues } from "../../assets/helpers/helperObjects";
 
 
@@ -13,6 +13,7 @@ const initialState = {
   setupFee: 0,
   setupCode: "V",
   box: [initialBox, initialBox, initialBox, initialBox, initialBox],
+  boxData: {},
   handling: [{ fee: 0, type: "order" },{ fee: 0, type: "box" },{ fee: 0, type: "rush" },{ fee: 0, type: "misc" },{ fee: 0, type: "order" }],
   netUnitCost: [0, 0, 0, 0, 0, 0, 0],
   retailPricePu: [0, 0, 0, 0, 0, 0, 0],
@@ -68,22 +69,16 @@ const mainSlice = createSlice({
     },
     updateCostPerBox: (state, action) => {
       const boxIndex = action.payload.boxIndex;
-      const costPerBox = action.payload.value;
-      state.box[boxIndex].costPB = costPerBox;
+      state.box[boxIndex].costPB =  action.payload.value;
     },
     updateBoxData: (state, action) => {
-      const boxIndex = action.payload.boxIndex;
-      const qtyPerBox = state.box[boxIndex].qtyPB;
-      state.box[boxIndex].data = state.box[boxIndex].data.map((data, columnIndex) => {
-        const quantity = state.quantity[columnIndex];
-        const boxesRequired = Math.ceil(quantity / qtyPerBox);
-        const totalCost = Number((boxesRequired * state.box[boxIndex].costPB).toFixed(2));
-        return {
-          orderQuantity: quantity,
-          boxesRequired: boxesRequired,
-          totalCost: totalCost
-        };
-      })
+
+   
+      const totalBoxConfiguration = getTotalBoxConfiguration(state.box, state.quantity);
+      //state.autoBoxPairing = totalBoxConfiguration;
+
+      state.boxData = totalBoxConfiguration;
+  
     },
     updateHandlingType: (state, action) => {
       const handlingIndex = action.payload.handlingIndex;
@@ -102,9 +97,7 @@ const mainSlice = createSlice({
       const setupFeeDiscount = Number((setupFee * parseFloat(setupCodeDiscountValues[state.setupCode])).toFixed(4))
       const discountedSetupFee = Number(setupFee - setupFeeDiscount);
 
-      //update smart box calc
-      const autoBoxPairing = getBoxSize(state.box, state.quantity);
-      state.autoBoxPairing = autoBoxPairing;
+
 
       //update net unit cost
       state.netUnitCost = state.netUnitCost.map((nuc, index) => {
@@ -122,8 +115,8 @@ const mainSlice = createSlice({
   
       
         
-
-        const totalBoxCost = parseFloat(state.box[0].data[index].totalCost);
+        //fix this once auto calculate box cost works
+        const totalBoxCost = parseFloat(0);
         const boxCostPerUnit =  Number((totalBoxCost / quantity).toFixed(4));
         const totalHandlingFees = state.handling.reduce((accumulator, obj) => {
           return accumulator + Number(obj.fee);

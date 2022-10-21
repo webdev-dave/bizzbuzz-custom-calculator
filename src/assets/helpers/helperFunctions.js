@@ -30,34 +30,36 @@ export const addEqpDiscount = (pricingType, price) => {
 
 
 
-export const getBoxSize = (boxesArr, quantitiesArr) => {
+export const getTotalBoxConfiguration = (boxesArr, quantitiesArr) => {
   const boxSizes = boxesArr.map(box => box.qtyPB);
   //get rid of duplicate box sizes
   const boxSizesObj = {};
-  for (const key of boxSizes){
-    boxSizesObj[key] = 0;
+  for (const boxSize of boxSizes){
+    boxSizesObj[boxSize] = 0;
   }
 
+  //sort from highest to lowest box size
   const sortedBoxSizesArr = Object.keys(boxSizesObj).sort((a,b) => b-a);
 
-  const quantitiesObj = {};
-  for (const key of quantitiesArr){
-    quantitiesObj[key] = "";
+  const boxDataObj = {};
+  for (const qty of quantitiesArr){
+    boxDataObj["orderQty_"+qty] = sortedBoxSizesArr.map(boxSize => ({["boxSize_" + boxSize]: {boxesRequired: 0}}));
+  }
+
+  //configure boxes here
+  for(let i=0; i < 7; i++){
+    const currentQty = quantitiesArr[i];
+    sortedBoxSizesArr.map((box, index) => {
+      console.log(box);
+      boxDataObj["orderQty_"+currentQty] = boxDataObj["orderQty_"+currentQty].map((boxSize, index) => ({["boxSize_" + sortedBoxSizesArr[index]]: {boxesRequired: "tbd"}}));
+      return boxDataObj;
+    })
+    
+   
+   
   }
  
 
-  for(let i = 0; i < quantitiesArr.length; i++){
-    const qty = parseFloat(quantitiesArr[i]);
-    const smallestBox = sortedBoxSizesArr[(sortedBoxSizesArr.length -1)];
-    
-    quantitiesObj[qty] = sortedBoxSizesArr.map(boxSize => {
-      return { [boxSize]: (qty/boxSize)}
-    });
-     
-  }
-
-  
-  return quantitiesObj;
-  
+  return boxDataObj;
   
 }
