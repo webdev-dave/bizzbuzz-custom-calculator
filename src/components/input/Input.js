@@ -1,5 +1,5 @@
 import { useDispatch, useSelector } from "react-redux";
-import { selectIsEQP, selectQuantity, clearHandlingFee, updateNetUnitCost } from "../main/mainSlice";
+import { selectIsEQP, selectQuantity, clearHandlingFee, updateNetUnitCost, updateQtyPerBox, updateCostPerBox, updateBoxData } from "../main/mainSlice";
 import PricingType from "./PricingType";
 import Quantity from "./Quantity";
 import UnitCost from "./UnitCost";
@@ -68,7 +68,8 @@ const Input = () => {
           className="add-box box-btn"
           onClick={() => {
             boxAmount < 5 && setBoxAmount(boxAmount + 1);
-            boxAmount < 5 && dispatch(updateNetUnitCost({}));
+            //update box data accordingly
+            boxAmount < 5 && dispatch(updateBoxData({}));
           }}
         >
           Add Box
@@ -77,7 +78,12 @@ const Input = () => {
           className="remove-box box-btn"
           onClick={() => {
             boxAmount > 1 && setBoxAmount(boxAmount - 1);
-            boxAmount > 1 && dispatch(updateNetUnitCost({}));
+            console.log(boxAmount)
+            //clear box values upon box removal
+            boxAmount > 1 && dispatch(updateQtyPerBox({boxIndex: (boxAmount -1), value: 0}));
+            boxAmount > 1 && dispatch(updateCostPerBox({boxIndex: (boxAmount -1), value: 0}));
+            //update box data accordingly
+            boxAmount > 1 && dispatch(updateBoxData({}));
           }}
         >
           Remove Box

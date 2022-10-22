@@ -65,6 +65,7 @@ const mainSlice = createSlice({
     },
     updateQtyPerBox: (state, action) => {
       const boxIndex = action.payload.boxIndex;
+      console.log(boxIndex);
       state.box[boxIndex].qtyPB = Number(action.payload.value);
     },
     updateCostPerBox: (state, action) => {
@@ -257,6 +258,7 @@ export const selectUnitCode = (state) => state.main.unitCode;
 export const selectSetupFee = (state) => state.main.setupFee;
 export const selectSetupCode = (state) => state.main.setupCode;
 export const selectBoxes = (state) => state.main.box;
+export const selectBoxData = (state) => state.main.boxData;
 export const selectHandling = (state) => state.main.handling;
 export const selectIsEQP = (state) => state.main.pricingType !== "Non-EQP";
 export const selectNetUnitCost = (state) => state.main.netUnitCost;

@@ -231,7 +231,7 @@ p.cost-pb{
   border-radius: 5px;
 }
 
-/* ------------------------------------- output--------------------- */
+/* ------------------------------------- results --------------------- */
 
 #results-grid {
   display: grid;
@@ -311,5 +311,20 @@ input[type=number]::-webkit-outer-spin-button {
 }
 
 
+/* ---------------------------------------------------------------------- Profit Margin --------------------- */
 
+#additional-data-grid {
+  display: grid;
+  grid-gap: 1rem 1.6rem;
+  grid-template-columns: minmax(30px, 1.2fr) repeat(7, minmax(40px, 1fr));
+  grid-auto-rows: minmax(25px, auto);
+  align-items: center;
+  justify-items: stretch;
+
+}
+
+#additional-data-grid .grid-child {
+  background-color: #fff;
+  padding: 3px;
+}
 
