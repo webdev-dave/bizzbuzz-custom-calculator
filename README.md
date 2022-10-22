@@ -3,7 +3,7 @@
 [view live version here](https://bizzbuzz-calculator.netlify.app)
 ## Todo
 
-- fix add box button, currently program crashes on btn click!!!!!!
+- upon removing a box make sure to clear all values related to that box!!!
 - get rid of multi unitCode columns (event with non EQP)
 - block user from being able to edit netUnitCost
 - make all results update based on netUnitCost (as opposed to unitCost)

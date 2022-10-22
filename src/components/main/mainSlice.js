@@ -12,7 +12,7 @@ const initialState = {
   unitCode: "C",
   setupFee: 0,
   setupCode: "V",
-  box: [initialBox, initialBox, initialBox],
+  box: [{ qtyPB: 100, costPB: 0 }, { qtyPB: 500, costPB: 0 }, { qtyPB: 1000, costPB: 0 }, { qtyPB: 0, costPB: 0 }, { qtyPB: 0, costPB: 0 }],
   boxData: {},
   handling: [{ fee: 0, type: "order" },{ fee: 0, type: "box" },{ fee: 0, type: "rush" },{ fee: 0, type: "misc" },{ fee: 0, type: "order" }],
   netUnitCost: [0, 0, 0, 0, 0, 0, 0],
@@ -65,19 +65,19 @@ const mainSlice = createSlice({
     },
     updateQtyPerBox: (state, action) => {
       const boxIndex = action.payload.boxIndex;
-      state.box[boxIndex].qtyPB = action.payload.value;
+      state.box[boxIndex].qtyPB = Number(action.payload.value);
     },
     updateCostPerBox: (state, action) => {
       const boxIndex = action.payload.boxIndex;
-      state.box[boxIndex].costPB =  action.payload.value;
+      state.box[boxIndex].costPB =  Number(action.payload.value);
     },
     updateBoxData: (state, action) => {
       //const boxIndex = action.payload.boxIndex;
    
-      const totalBoxConfiguration = configureBoxes(state.box, state.quantity);
+      const configuredBoxes = configureBoxes(state.box, state.quantity);
       //state.autoBoxPairing = totalBoxConfiguration;
 
-      state.boxData = totalBoxConfiguration;
+      state.boxData = configuredBoxes;
   
     },
     updateHandlingType: (state, action) => {

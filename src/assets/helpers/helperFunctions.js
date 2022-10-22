@@ -35,48 +35,49 @@ export const addEqpDiscount = (pricingType, price) => {
 
 export const configureBoxes = (boxesArr, quantitiesArr) => {
   const boxSizes = boxesArr.map(box => box.qtyPB);
-  //get rid of duplicate box sizes
+  const boxPrices = boxesArr.map(box => box.costPB);
   const boxSizesObj = {};
-  for (const boxSize of boxSizes){
-    boxSizesObj[boxSize] = 0;
+  for (let i = 0; i < boxSizes.length; i++){
+    const boxSize = boxSizes[i];
+    const boxPrice = boxPrices[i];
+    //get rid of sizeZero boxes and get rid of size duplicates
+    if(boxSize > 0){
+      boxSizesObj[boxSize] = {boxSize: boxSize, boxPrice: boxPrice};
+    }
   }
+  
   //sort from highest to lowest box size
   const sortedBoxSizesArr = Object.keys(boxSizesObj).sort((a,b) => b-a);
-  const boxConfigurationsObj = {}
-  const smallestBoxSize = sortedBoxSizesArr[sortedBoxSizesArr.length - 1]
-  //console.log(smallestBoxSize);
-
-
+  const finalIndex = sortedBoxSizesArr.length -1;
+  const smallestBoxSize = sortedBoxSizesArr[finalIndex];
+  const boxConfigurationsObj = {};
 
   for (const currentOrderQty of quantitiesArr){
     
-    //console.log("orderQtyRound")
     let orderQtyState = Number(currentOrderQty);
-    boxConfigurationsObj[currentOrderQty] = {}
+    boxConfigurationsObj["orderQty_"+currentOrderQty] = {};
+    boxConfigurationsObj["orderQty_"+currentOrderQty].totalBoxCost = 0;
     for (const currentBoxSize of sortedBoxSizesArr){
-      
+      const currentBoxPrice = boxSizesObj[currentBoxSize].boxPrice;
       if(orderQtyState > 0){
-        if(Math.floor(orderQtyState / currentBoxSize) > 0){
-          const fullBoxes = Math.floor(orderQtyState / currentBoxSize);
+        if(Math.floor(orderQtyState / currentBoxSize) > 0 || currentBoxSize === smallestBoxSize){
+          const fullBoxes = currentBoxSize === smallestBoxSize ? Math.ceil(orderQtyState / currentBoxSize) : Math.floor(orderQtyState / currentBoxSize);
           const fulfilledQty = Number(fullBoxes * currentBoxSize);
           orderQtyState -= fulfilledQty;
-          //console.log(fullBoxes);
-          //console.log(orderQtyState);
-          boxConfigurationsObj[currentOrderQty][currentBoxSize] = fullBoxes
-          
-            
-          } else if (currentBoxSize === smallestBoxSize){
-            const fullBoxes = Math.ceil(orderQtyState / currentBoxSize);
-            const fulfilledQty = Number(fullBoxes * currentBoxSize);
-            orderQtyState -= fulfilledQty;
-            console.log(fullBoxes);
-            console.log(orderQtyState);
-            boxConfigurationsObj[currentOrderQty][currentBoxSize] = fullBoxes
-          }
+          //box count
+          boxConfigurationsObj["orderQty_"+currentOrderQty]["boxSize_"+currentBoxSize] = {boxCount : fullBoxes}
+          //box price
+          boxConfigurationsObj["orderQty_"+currentOrderQty]["boxSize_"+currentBoxSize].boxPrice = currentBoxPrice;
+          //box total
+          const totalPrice = Number(boxConfigurationsObj["orderQty_"+currentOrderQty]["boxSize_"+currentBoxSize].boxPrice * fullBoxes);
+          boxConfigurationsObj["orderQty_"+currentOrderQty]["boxSize_"+currentBoxSize].totalPrice = totalPrice;
+          //update totalBoxesCost
+          boxConfigurationsObj["orderQty_"+currentOrderQty].totalBoxCost += totalPrice;
+          } 
         }
       }
     }
-
+    
     return boxConfigurationsObj;
   }
 
@@ -88,4 +89,3 @@ export const configureBoxes = (boxesArr, quantitiesArr) => {
 
 
 
-  
