@@ -1,5 +1,5 @@
 import { createSlice } from "@reduxjs/toolkit";
-import { getProfitMargin, addEqpDiscount, getTotalBoxConfiguration } from "../../assets/helpers/helperFunctions";
+import { getProfitMargin, addEqpDiscount, configureBoxes } from "../../assets/helpers/helperFunctions";
 import { initialBox, setupCodeDiscountValues, unitCodeDiscountValues } from "../../assets/helpers/helperObjects";
 
 
@@ -12,7 +12,7 @@ const initialState = {
   unitCode: "C",
   setupFee: 0,
   setupCode: "V",
-  box: [initialBox, initialBox, initialBox, initialBox, initialBox],
+  box: [initialBox, initialBox, initialBox],
   boxData: {},
   handling: [{ fee: 0, type: "order" },{ fee: 0, type: "box" },{ fee: 0, type: "rush" },{ fee: 0, type: "misc" },{ fee: 0, type: "order" }],
   netUnitCost: [0, 0, 0, 0, 0, 0, 0],
@@ -72,9 +72,9 @@ const mainSlice = createSlice({
       state.box[boxIndex].costPB =  action.payload.value;
     },
     updateBoxData: (state, action) => {
-
+      //const boxIndex = action.payload.boxIndex;
    
-      const totalBoxConfiguration = getTotalBoxConfiguration(state.box, state.quantity);
+      const totalBoxConfiguration = configureBoxes(state.box, state.quantity);
       //state.autoBoxPairing = totalBoxConfiguration;
 
       state.boxData = totalBoxConfiguration;

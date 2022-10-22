@@ -30,36 +30,62 @@ export const addEqpDiscount = (pricingType, price) => {
 
 
 
-export const getTotalBoxConfiguration = (boxesArr, quantitiesArr) => {
+
+
+
+export const configureBoxes = (boxesArr, quantitiesArr) => {
   const boxSizes = boxesArr.map(box => box.qtyPB);
   //get rid of duplicate box sizes
   const boxSizesObj = {};
   for (const boxSize of boxSizes){
     boxSizesObj[boxSize] = 0;
   }
-
   //sort from highest to lowest box size
   const sortedBoxSizesArr = Object.keys(boxSizesObj).sort((a,b) => b-a);
+  const boxConfigurationsObj = {}
+  const smallestBoxSize = sortedBoxSizesArr[sortedBoxSizesArr.length - 1]
+  //console.log(smallestBoxSize);
 
-  const boxDataObj = {};
-  for (const qty of quantitiesArr){
-    boxDataObj["orderQty_"+qty] = sortedBoxSizesArr.map(boxSize => ({["boxSize_" + boxSize]: {boxesRequired: 0}}));
-  }
 
-  //configure boxes here
-  for(let i=0; i < 7; i++){
-    const currentQty = quantitiesArr[i];
-    sortedBoxSizesArr.map((box, index) => {
-      console.log(box);
-      boxDataObj["orderQty_"+currentQty] = boxDataObj["orderQty_"+currentQty].map((boxSize, index) => ({["boxSize_" + sortedBoxSizesArr[index]]: {boxesRequired: "tbd"}}));
-      return boxDataObj;
-    })
+
+  for (const currentOrderQty of quantitiesArr){
     
-   
-   
-  }
- 
+    //console.log("orderQtyRound")
+    let orderQtyState = Number(currentOrderQty);
+    boxConfigurationsObj[currentOrderQty] = {}
+    for (const currentBoxSize of sortedBoxSizesArr){
+      
+      if(orderQtyState > 0){
+        if(Math.floor(orderQtyState / currentBoxSize) > 0){
+          const fullBoxes = Math.floor(orderQtyState / currentBoxSize);
+          const fulfilledQty = Number(fullBoxes * currentBoxSize);
+          orderQtyState -= fulfilledQty;
+          //console.log(fullBoxes);
+          //console.log(orderQtyState);
+          boxConfigurationsObj[currentOrderQty][currentBoxSize] = fullBoxes
+          
+            
+          } else if (currentBoxSize === smallestBoxSize){
+            const fullBoxes = Math.ceil(orderQtyState / currentBoxSize);
+            const fulfilledQty = Number(fullBoxes * currentBoxSize);
+            orderQtyState -= fulfilledQty;
+            console.log(fullBoxes);
+            console.log(orderQtyState);
+            boxConfigurationsObj[currentOrderQty][currentBoxSize] = fullBoxes
+          }
+        }
+      }
+    }
 
-  return boxDataObj;
+    return boxConfigurationsObj;
+  }
+
+
+
   
-}
+
+
+
+
+
+  
