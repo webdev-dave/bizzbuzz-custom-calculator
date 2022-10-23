@@ -57,11 +57,10 @@ body {
   padding: 0 5% 3% 5%;
 }
 
-#results-container {
-  background-color: bisque;
-  grid-column: 3/4;
-  padding: 0 5% 3% 5%;
+#input-container h2 {
+  padding-top: 3rem;
 }
+
 
 /* ---------------------------------------- input form grid ------------------------------------------------------- */
 
@@ -231,7 +230,18 @@ p.cost-pb{
   border-radius: 5px;
 }
 
-/* ------------------------------------- results --------------------- */
+/* ---------------------------------------------------------------- Results --------------------- */
+
+#results-container {
+  background-color: bisque;
+  grid-column: 3/4;
+  padding: 0 5% 3% 5%;
+}
+
+
+#results-container h2 {
+  padding-top: 3rem;
+}
 
 #results-grid {
   display: grid;
@@ -313,6 +323,16 @@ input[type=number]::-webkit-outer-spin-button {
 
 /* ---------------------------------------------------------------------- Profit Margin --------------------- */
 
+#additional-data-container {
+  background-color: aquamarine;
+  grid-column: 1/2;
+  padding: 0 5% 3% 5%;
+}
+
+#additional-data-container h2 {
+  padding-top: 3rem;
+}
+
 #additional-data-grid {
   display: grid;
   grid-gap: 1rem 1.6rem;
@@ -320,7 +340,7 @@ input[type=number]::-webkit-outer-spin-button {
   grid-auto-rows: minmax(25px, auto);
   align-items: center;
   justify-items: stretch;
-
+  font-size: 1rem;
 }
 
 #additional-data-grid .grid-child {
@@ -328,3 +348,25 @@ input[type=number]::-webkit-outer-spin-button {
   padding: 3px;
 }
 
+/* ------------------------------------- Box Data --------------------- */
+
+#additional-data-grid .box-data {
+  align-self: stretch;
+  background-color: #fff;
+}
+
+.box-data .box-data-text-container {
+  margin: 0.3rem 0.4rem 1rem 0.4rem;
+  
+}
+
+.box-data p {
+  line-height: 24px;
+  font-size: 1.4rem;
+}
+
+.box-data p span.colored-text {
+  color: red;
+  font-weight: 600;
+  font-size: 1.6rem;
+}

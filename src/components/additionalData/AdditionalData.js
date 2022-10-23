@@ -7,18 +7,18 @@ import TotalBoxCost from "./TotalBoxCost";
 const AdditionalData = () => {
   const qtyInput = useSelector(selectQuantity);
   return (
-    <div id="results-container">
+    <div id="additional-data-container">
       <h2>Additional Data</h2>
       <div id="additional-data-grid">
         {/* blank div is here in order to assist with the grid placement of "pcs-head" */}
         <div id="blank-div"></div>
-        {/* {columnsArr.map((column, i) => {
+        {columnsArr.map((column, i) => {
           return (
             <h5 className="pcs-head" id={"pcs-head-" + i} key={"pcs-head-" + i}>
               {qtyInput[i] + " pcs"}
             </h5>
           );
-        })} */}
+        })}
 
         <h6 className="result-head">Total Box Cost</h6>
         {columnsArr.map((column, i) => {
@@ -36,8 +36,8 @@ const AdditionalData = () => {
           return (
             <BoxData
               columnIndex={i}
-              id={"box-data" + i}
-              key={"box-data" + i}
+              id={"box-data-" + i}
+              key={"box-data-" + i}
             />
           );
         })}

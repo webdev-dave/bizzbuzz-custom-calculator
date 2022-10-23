@@ -8,16 +8,19 @@ const BoxData = ({id, columnIndex}) => {
     const boxDataObj = useSelector(selectBoxData);
     const currentQty = quantitiesArr[columnIndex];
     const currentBoxDataObj = boxDataObj["orderQty_"+currentQty] && boxDataObj["orderQty_"+currentQty];
-    const currentBoxSizesArr = currentBoxDataObj && Object.keys(currentBoxDataObj).filter(key => key !== "totalBoxCost");
+    const currentBoxSizesArr = currentBoxDataObj && Object.keys(currentBoxDataObj).filter(key => key !== "totalBoxCost" && key !== "totalBoxCount" );
   
     
     const currentBoxData = currentBoxSizesArr && currentBoxSizesArr.map((boxSizeKey, i) => {
-        console.log(currentBoxDataObj[boxSizeKey])
-        return <p key={"box-text-data-"+i}>{`Box Size: ${boxSizeKey.slice(8)} Boxes Req: ${currentBoxDataObj[boxSizeKey].boxCount} Cost: ${currentBoxDataObj[boxSizeKey].boxPrice}`}</p>
+        return <div key={"box-size"+i} className="box-data-text-container">
+            <p>Box Size: <span className="colored-text">&nbsp;{boxSizeKey.slice(8)}</span></p>
+            <p> Boxes Req: <span className="colored-text">&nbsp;{currentBoxDataObj[boxSizeKey].boxCount}</span></p>
+            <p>Cost pb: <span className="colored-text">&nbsp;{currentBoxDataObj[boxSizeKey].boxPrice}</span></p>
+        </div>
         
     });
     return (
-        <div className="grid-child" id={id} >{currentBoxData && currentBoxData}</div>
+        <div className="grid-child box-data" id={id} >{currentBoxData && currentBoxData}</div>
     )
 }
 

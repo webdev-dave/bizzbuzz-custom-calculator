@@ -67,9 +67,11 @@ const Input = () => {
         <button
           className="add-box box-btn"
           onClick={() => {
-            boxAmount < 5 && setBoxAmount(boxAmount + 1);
-            //update box data accordingly
-            boxAmount < 5 && dispatch(updateBoxData({}));
+            if(boxAmount < 5){
+              setBoxAmount(boxAmount + 1);
+              dispatch(updateBoxData({}));
+              dispatch(updateNetUnitCost({}));
+            }
           }}
         >
           Add Box
@@ -77,13 +79,15 @@ const Input = () => {
         <button
           className="remove-box box-btn"
           onClick={() => {
-            boxAmount > 1 && setBoxAmount(boxAmount - 1);
-            console.log(boxAmount)
-            //clear box values upon box removal
-            boxAmount > 1 && dispatch(updateQtyPerBox({boxIndex: (boxAmount -1), value: 0}));
-            boxAmount > 1 && dispatch(updateCostPerBox({boxIndex: (boxAmount -1), value: 0}));
-            //update box data accordingly
-            boxAmount > 1 && dispatch(updateBoxData({}));
+            if(boxAmount > 1){
+              boxAmount > 1 && setBoxAmount(boxAmount - 1);
+              //clear box values upon box removal
+              dispatch(updateQtyPerBox({boxIndex: (boxAmount -1), value: 0}));
+              dispatch(updateCostPerBox({boxIndex: (boxAmount -1), value: 0}));
+              //update box data accordingly
+              dispatch(updateBoxData({}));
+              dispatch(updateNetUnitCost({}));
+            }
           }}
         >
           Remove Box

@@ -1,11 +1,11 @@
 import { createSlice } from "@reduxjs/toolkit";
 import { getProfitMargin, addEqpDiscount, configureBoxes } from "../../assets/helpers/helperFunctions";
-import { initialBox, setupCodeDiscountValues, unitCodeDiscountValues } from "../../assets/helpers/helperObjects";
+import { setupCodeDiscountValues, unitCodeDiscountValues } from "../../assets/helpers/helperObjects";
+
 
 
 
 const initialState = {
-  autoBoxPairing: "",
   pricingType: "EQP",
   quantity: [100, 250, 500, 1000, 2500, 5000, 50],
   unitCost: [1, 1, 1, 1, 1, 1, 1],
@@ -76,10 +76,7 @@ const mainSlice = createSlice({
       //const boxIndex = action.payload.boxIndex;
    
       const configuredBoxes = configureBoxes(state.box, state.quantity);
-      //state.autoBoxPairing = totalBoxConfiguration;
-
       state.boxData = configuredBoxes;
-  
     },
     updateHandlingType: (state, action) => {
       const handlingIndex = action.payload.handlingIndex;
@@ -112,16 +109,31 @@ const mainSlice = createSlice({
         
 
 
-        
-  
       
         
         //fix this once auto calculate box cost works
-        const totalBoxCost = parseFloat(0);
+        const totalBoxCost = state.boxData["orderQty_"+quantity] ? Number(state.boxData["orderQty_"+quantity].totalBoxCost) : 0;
+        const totalBoxCount = state.boxData["orderQty_"+quantity] ? Number(state.boxData["orderQty_"+quantity].totalBoxCount) : 0;
+        //boxFee should be updated by box handling fees via state.handling
+        let boxFee = 0;
+        state.handling.forEach((handlingFee, i) => {
+          if(handlingFee.type === "box"){
+            boxFee += Number(handlingFee.fee)
+          }
+        });
+        const totalBoxFees = Number(totalBoxCount * boxFee);
+        const totalBoxCostWithFees = totalBoxCost + totalBoxFees;
         const boxCostPerUnit =  Number((totalBoxCost / quantity).toFixed(4));
-        const totalHandlingFees = state.handling.reduce((accumulator, obj) => {
-          return accumulator + Number(obj.fee);
-        }, 0);
+        const boxCostPerUnitWithFees =  Number((totalBoxCostWithFees / quantity).toFixed(4));
+
+
+
+        let totalHandlingFees = 0;
+        state.handling.forEach((handlingFee, i) => {
+          if(handlingFee.type !== "box"){
+            totalHandlingFees += Number(handlingFee.fee)
+          };
+        });
         const handlingFeePerUnit = Number((totalHandlingFees / quantity).toFixed(4));
 
         const additionalData = {
@@ -138,6 +150,9 @@ const mainSlice = createSlice({
           discountedSetupFeePerUnit: discountedSetupFeePerUnit,
           totalBoxCost: totalBoxCost,
           boxCostPerUnit: boxCostPerUnit,
+          totalBoxFees: totalBoxFees,
+          totalBoxCostWithFees: totalBoxCostWithFees,
+          boxCostPerUnitWithFees: boxCostPerUnitWithFees,
           totalHandlingFees: totalHandlingFees,
           handlingFeePerUnit: handlingFeePerUnit, 
         }

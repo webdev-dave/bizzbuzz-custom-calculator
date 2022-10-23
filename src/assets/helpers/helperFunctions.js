@@ -57,22 +57,24 @@ export const configureBoxes = (boxesArr, quantitiesArr) => {
     let orderQtyState = Number(currentOrderQty);
     boxConfigurationsObj["orderQty_"+currentOrderQty] = {};
     boxConfigurationsObj["orderQty_"+currentOrderQty].totalBoxCost = 0;
+    boxConfigurationsObj["orderQty_"+currentOrderQty].totalBoxCount = 0;
     for (const currentBoxSize of sortedBoxSizesArr){
       const currentBoxPrice = boxSizesObj[currentBoxSize].boxPrice;
       if(orderQtyState > 0){
         if(Math.floor(orderQtyState / currentBoxSize) > 0 || currentBoxSize === smallestBoxSize){
-          const fullBoxes = currentBoxSize === smallestBoxSize ? Math.ceil(orderQtyState / currentBoxSize) : Math.floor(orderQtyState / currentBoxSize);
-          const fulfilledQty = Number(fullBoxes * currentBoxSize);
+          const boxCount = currentBoxSize === smallestBoxSize ? Math.ceil(orderQtyState / currentBoxSize) : Math.floor(orderQtyState / currentBoxSize);
+          const fulfilledQty = Number(boxCount * currentBoxSize);
           orderQtyState -= fulfilledQty;
           //box count
-          boxConfigurationsObj["orderQty_"+currentOrderQty]["boxSize_"+currentBoxSize] = {boxCount : fullBoxes}
+          boxConfigurationsObj["orderQty_"+currentOrderQty]["boxSize_"+currentBoxSize] = {boxCount : boxCount}
           //box price
           boxConfigurationsObj["orderQty_"+currentOrderQty]["boxSize_"+currentBoxSize].boxPrice = currentBoxPrice;
           //box total
-          const totalPrice = Number(boxConfigurationsObj["orderQty_"+currentOrderQty]["boxSize_"+currentBoxSize].boxPrice * fullBoxes);
+          const totalPrice = Number(boxConfigurationsObj["orderQty_"+currentOrderQty]["boxSize_"+currentBoxSize].boxPrice * boxCount);
           boxConfigurationsObj["orderQty_"+currentOrderQty]["boxSize_"+currentBoxSize].totalPrice = totalPrice;
           //update totalBoxesCost
           boxConfigurationsObj["orderQty_"+currentOrderQty].totalBoxCost += totalPrice;
+          boxConfigurationsObj["orderQty_"+currentOrderQty].totalBoxCount += boxCount;
           } 
         }
       }
