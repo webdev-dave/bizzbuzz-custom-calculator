@@ -92,18 +92,20 @@ const mainSlice = createSlice({
     },
     updateNetUnitCost: (state, action) => {
       const setupFee = state.setupFee;
-      const setupFeeDiscount = Number((setupFee * parseFloat(setupCodeDiscountValues[state.setupCode])).toFixed(4))
-      const discountedSetupFee = Number(setupFee - setupFeeDiscount);
+      const setupCodeDiscountRate = Number(setupCodeDiscountValues[state.setupCode])
+      const setupFeeDiscountSum = Number((setupFee * setupCodeDiscountRate).toFixed(4))
+      const discountedSetupFee = Number(setupFee - setupFeeDiscountSum);
 
 
 
       //update net unit cost
       state.netUnitCost = state.netUnitCost.map((nuc, index) => {
-        const codeDiscountValue = parseFloat(unitCodeDiscountValues[state.unitCode]);
+        const unitCodeDiscountRate = parseFloat(unitCodeDiscountValues[state.unitCode]);
         const unitCost = parseFloat(state.unitCost[index]);
-        const unitCodeDiscount = Number((unitCost * codeDiscountValue).toFixed(4));
-        const discountedUnitCost =  Number((unitCost - unitCodeDiscount).toFixed(4));
-        const discountedUnitCostPostEqp = addEqpDiscount(state.pricingType, discountedUnitCost);
+        const unitCodeDiscountSum = Number((unitCost * unitCodeDiscountRate).toFixed(4));
+        const unitCostPostCodeDiscount =  Number((unitCost - unitCodeDiscountSum).toFixed(4));
+        const eqpDiscountRate = state.pricingType && state.pricingType.slice(-1) !== "P" ? state.pricingType.slice(-2) : "0%";
+        const discountedUnitCostPostEqp = addEqpDiscount(state.pricingType, unitCostPostCodeDiscount);
         const quantity = parseFloat(state.quantity[index]);
         const discountedSetupFeePerUnit = parseFloat(discountedSetupFee / quantity);
         
@@ -134,31 +136,35 @@ const mainSlice = createSlice({
             totalHandlingFees += Number(handlingFee.fee)
           };
         });
-        const handlingFeePerUnit = Number((totalHandlingFees / quantity).toFixed(4));
+        const handlingFeesPerUnit = Number((totalHandlingFees / quantity).toFixed(4));
 
         const additionalData = {
           quantity: quantity,
           unitCost: unitCost,
-          unitCodeDiscount: unitCodeDiscount,
-          discountedUnitCost: discountedUnitCost,
+          unitCodeDiscountRate: unitCodeDiscountRate,
+          unitCodeDiscountSum: unitCodeDiscountSum,
+          unitCostPostCodeDiscount: unitCostPostCodeDiscount,
           pricingType: state.pricingType,
-          eqpDiscount: Number((discountedUnitCost - discountedUnitCostPostEqp).toFixed(4)),
+          eqpDiscountRate: eqpDiscountRate, 
+          eqpDiscountSum: Number(((unitCostPostCodeDiscount - discountedUnitCostPostEqp)).toFixed(4)),
           discountedUnitCostPostEqp: discountedUnitCostPostEqp,
           setupFee: setupFee,
-          setupFeeDiscount: setupFeeDiscount,
+          setupCodeDiscountRate: setupCodeDiscountRate,
+          setupFeeDiscountSum: setupFeeDiscountSum,
           discountedSetupFee: discountedSetupFee,
           discountedSetupFeePerUnit: discountedSetupFeePerUnit,
           totalBoxCost: totalBoxCost,
           boxCostPerUnit: boxCostPerUnit,
           totalBoxFees: totalBoxFees,
+          totalBoxCount: totalBoxCount,
           totalBoxCostWithFees: totalBoxCostWithFees,
           boxCostPerUnitWithFees: boxCostPerUnitWithFees,
           totalHandlingFees: totalHandlingFees,
-          handlingFeePerUnit: handlingFeePerUnit, 
+          handlingFeesPerUnit: handlingFeesPerUnit, 
         }
         state.additionalData[index] = additionalData;
      
-        return Number((discountedUnitCostPostEqp + discountedSetupFeePerUnit + boxCostPerUnit + handlingFeePerUnit).toFixed(4));
+        return Number((discountedUnitCostPostEqp + discountedSetupFeePerUnit + totalBoxCostWithFees + handlingFeesPerUnit).toFixed(4));
       })
       
 
@@ -273,7 +279,7 @@ export const selectUnitCode = (state) => state.main.unitCode;
 export const selectSetupFee = (state) => state.main.setupFee;
 export const selectSetupCode = (state) => state.main.setupCode;
 export const selectBoxes = (state) => state.main.box;
-export const selectBoxData = (state) => state.main.boxData;
+export const selectBoxConfiguration = (state) => state.main.boxData;
 export const selectHandling = (state) => state.main.handling;
 export const selectIsEQP = (state) => state.main.pricingType !== "Non-EQP";
 export const selectNetUnitCost = (state) => state.main.netUnitCost;
@@ -282,6 +288,7 @@ export const selectRetailTotal = (state) => state.main.retailTotal;
 export const selectProfitMargin = (state) => state.main.profitMargin;
 export const selectProfitPu = (state) => state.main.profitPu;
 export const selectTotalProfit = (state) => state.main.totalProfit;
+export const selectAdditionalData = (state) => state.main.additionalData;
 export const {updateQuantity, updatePricingType, updateUnitCost, updateUnitCode, updateSetupFee, updateSetupCode, updateQtyPerBox, updateCostPerBox,updateBoxData, updateHandlingType, updateHandlingFee, clearHandlingFee, updateNetUnitCost ,updateRetailPricePu, updateRetailTotal, updateProfitMargin, updateProfitPu, updateTotalProfit, updateProfits} =
   mainSlice.actions;
   

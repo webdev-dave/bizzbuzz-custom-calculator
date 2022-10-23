@@ -348,25 +348,34 @@ input[type=number]::-webkit-outer-spin-button {
   padding: 3px;
 }
 
-/* ------------------------------------- Box Data --------------------- */
-
-#additional-data-grid .box-data {
-  align-self: stretch;
-  background-color: #fff;
-}
-
-.box-data .box-data-text-container {
+.additional-data-text-container {
   margin: 0.3rem 0.4rem 1rem 0.4rem;
   
 }
 
-.box-data p {
+.additional-data-text-container p {
   line-height: 24px;
   font-size: 1.4rem;
 }
 
-.box-data p span.colored-text {
+#additional-data-grid span.colored-text, #additional-data-grid p.colored-text {
   color: red;
   font-weight: 600;
   font-size: 1.6rem;
+}
+
+/* ------------------------------------------------------------------ Box Configuration  */
+
+#additional-data-grid .box-configuration {
+  align-self: stretch;
+  background-color: #fff;
+}
+
+
+
+
+/* ------------------------------------------------------------------ Extra Data  */
+
+.additional-data-text-container .extra-data-child {
+  margin-bottom: 0.8rem;
 }

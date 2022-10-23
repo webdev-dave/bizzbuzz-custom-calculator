@@ -4,7 +4,7 @@
 
 ## Todo
 
-- in totalBoxCost and boxData Additional Data components, pull all data info from state.additionalData
+- make extra data one grid child spanning all 7 columns (for all info that doesn't change based on column qty)
 - make sure all results add up correctly
 - add Additional Data section (should be collapsible)
 - get rid of multi unitCode columns (event with non EQP)
