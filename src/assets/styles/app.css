@@ -333,6 +333,13 @@ input[type=number]::-webkit-outer-spin-button {
   padding-top: 3rem;
 }
 
+#additional-data-container h5 {
+  font-size: 1.8rem;
+  font-weight: 600;
+  font-family:'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  margin-bottom: 1.6rem;
+}
+
 #additional-data-grid {
   display: grid;
   grid-gap: 1rem 1.6rem;
@@ -376,6 +383,9 @@ input[type=number]::-webkit-outer-spin-button {
 
 /* ------------------------------------------------------------------ Extra Data  */
 
+
+
 .additional-data-text-container .extra-data-child {
-  margin-bottom: 0.8rem;
+  margin-bottom: 5rem;
+  margin-top: 1rem;
 }

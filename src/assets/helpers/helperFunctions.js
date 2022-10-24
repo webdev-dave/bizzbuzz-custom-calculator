@@ -3,6 +3,14 @@ export const getProfitMargin = (profitPu, unitCost) => {
     return profitMargin.toFixed(2);
   }
 
+// export const shaveExtraZeros = (number) => {
+//   const textNum = number.toString();
+//   //console.log(textNum.length)
+//   let shavedText = textNum;
+// }
+
+
+
 export const addEqpDiscount = (pricingType, price) => {
   let discountedPrice;
   switch (pricingType) {

@@ -148,7 +148,7 @@ const mainSlice = createSlice({
           eqpDiscountRate: eqpDiscountRate, 
           eqpDiscountSum: Number(((unitCostPostCodeDiscount - discountedUnitCostPostEqp)).toFixed(4)),
           discountedUnitCostPostEqp: discountedUnitCostPostEqp,
-          setupFee: setupFee,
+          setupFee: Number(setupFee),
           setupCodeDiscountRate: setupCodeDiscountRate,
           setupFeeDiscountSum: setupFeeDiscountSum,
           discountedSetupFee: discountedSetupFee,
