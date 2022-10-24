@@ -162,11 +162,7 @@ const mainSlice = createSlice({
           handlingFeesPerUnit: handlingFeesPerUnit, 
         }
         state.additionalData[index] = additionalData;
-        
-        //console.log(discountedUnitCostPostEqp);
-        console.log(discountedSetupFeePerUnit);
-        //console.log(handlingFeesPerUnit);
-        //console.log(boxCostPerUnitWithFees);
+
      
         return Number((discountedUnitCostPostEqp + discountedSetupFeePerUnit + handlingFeesPerUnit + boxCostPerUnitWithFees).toFixed(4));
       })

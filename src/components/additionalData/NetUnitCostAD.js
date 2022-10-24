@@ -1,7 +1,7 @@
 import { useSelector } from "react-redux";
 import { selectAdditionalData } from "../main/mainSlice";
 
-const ExtraData = ({ id, columnIndex }) => {
+const NetUnitCostAD = ({ id, columnIndex }) => {
   const additionalDataArr = useSelector(selectAdditionalData);
   const orderQty = additionalDataArr[columnIndex].quantity;
   //unit code
@@ -35,34 +35,38 @@ const ExtraData = ({ id, columnIndex }) => {
     <div className="grid-child extra-data" id={id}>
       <div className="additional-data-text-container">
         {/* unit code discount */}
-        <div className="extra-data-child">
+        <div className="net-ucad-child">
+            <h6>Unit Code</h6>
             <p>u-code dis rate</p>
             <p className="colored-text">{unitCodeDiscountRate}%</p>
             <p>u-code dis sum</p>
             <p className="colored-text">{unitCodeDiscountSum && unitCodeDiscountSum.toFixed(2)}</p>
         </div>
         {/* EQP discount */}
-        <div className="extra-data-child">
+        <div className="net-ucad-child">
+            <h6>EQP</h6>
             <p>eqp dis rate</p>
             <p className="colored-text">{eqpDiscountRate}</p>
             <p>eqp dis sum</p>
             <p className="colored-text">{eqpDiscountSum && eqpDiscountSum}</p>
         </div>
         {/* setup fee */}
-        <div className="extra-data-child">
-            <p>initial setup-f</p>
+        <div className="net-ucad-child">
+            <h6>Setup Fee</h6>
+            <p>initial</p>
             <p className="colored-text">{initialSetupFee && initialSetupFee.toFixed(2)}</p>
-            <p>setup-f dis rate</p>
+            <p>dis rate</p>
             <p className="colored-text">{setupCodeDiscountRate}%</p>
-            <p>setup-f dis sum</p>
+            <p>dis sum</p>
             <p className="colored-text">{setupFeeDiscountSum && setupFeeDiscountSum.toFixed(2)}</p>
-            <p>disc setup-f</p>
+            <p>post dis</p>
             <p className="colored-text">{discountedSetupFee && discountedSetupFee.toFixed(2)}</p>
-            <p>disc setup-f pu</p>
+            <p>pu</p>
             <p className="colored-text">{discountedSetupFeePerUnit && discountedSetupFeePerUnit.toFixed(2)}</p>
         </div>
         {/* handling fees */}
-        <div className="extra-data-child">
+        <div className="net-ucad-child">
+            <h6>Handling Fees</h6>
             <p>h-fees total</p>
             <p className="colored-text">{totalHandlingFees && totalHandlingFees.toFixed(2)}</p>
             <p>h-fees pu</p>
@@ -71,16 +75,17 @@ const ExtraData = ({ id, columnIndex }) => {
 
 
 
-        <div className="extra-data-child">
-            <p>box cost pu</p>
+        <div className="net-ucad-child">
+            <h6>Box Cost</h6>
+            <p>PU</p>
             <p className="colored-text">{boxCostPerUnit && boxCostPerUnit.toFixed(2)}</p>
         </div>
 
 
-        
-        <div className="extra-data-child">
-            <h5>Unit Cost</h5>
-            <p>initial u-cost</p>
+        {/* unit cost */}
+        <div className="net-ucad-child">
+            <h6>Unit Cost</h6>
+            <p>initial</p>
             <p className="colored-text">{initialUnitCost && initialUnitCost.toFixed(2)}</p>
             <p></p>
             <p>post code dis</p>
@@ -99,7 +104,7 @@ const ExtraData = ({ id, columnIndex }) => {
         </div>
 
 
-        <div className="extra-data-child">
+        <div className="net-ucad-child">
             <p></p>
             <p className="colored-text"></p>
         </div>
@@ -116,4 +121,4 @@ const ExtraData = ({ id, columnIndex }) => {
   );
 };
 
-export default ExtraData;
+export default NetUnitCostAD;

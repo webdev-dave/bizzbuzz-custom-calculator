@@ -2,7 +2,7 @@ import { useSelector } from "react-redux";
 import { selectBoxConfiguration } from "../../main/mainSlice";
 import { selectQuantity } from "../../main/mainSlice";
 
-const BoxConfiguration = ({ id, columnIndex }) => {
+const BoxLogic = ({ id, columnIndex }) => {
   const quantitiesArr = useSelector(selectQuantity);
   const boxDataObj = useSelector(selectBoxConfiguration);
   const currentQty = quantitiesArr[columnIndex];
@@ -20,7 +20,7 @@ const BoxConfiguration = ({ id, columnIndex }) => {
     currentBoxSizesArr &&
     currentBoxSizesArr.map((boxSizeKey, i) => {
       return (
-        <div key={"box-size" + i} className="additional-data-text-container">
+        <div key={"BoxLogic" + i} className="additional-data-text-container">
           <p>
             box size:{" "}
             <span className="colored-text">&nbsp;{boxSizeKey.slice(8)}</span>
@@ -48,4 +48,4 @@ const BoxConfiguration = ({ id, columnIndex }) => {
   );
 };
 
-export default BoxConfiguration;
+export default BoxLogic;

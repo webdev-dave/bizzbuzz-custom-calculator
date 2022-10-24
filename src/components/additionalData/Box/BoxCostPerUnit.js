@@ -1,7 +1,7 @@
 import { useSelector } from "react-redux";
 import { selectAdditionalData } from "../../main/mainSlice";
 
-const TotalBoxCost = ({id, columnIndex}) => {
+const BoxCostPerUnit = ({id, columnIndex}) => {
     const additionalDataArr = useSelector(selectAdditionalData);
   
     const totalBoxCostWithFees = additionalDataArr[columnIndex].totalBoxCostWithFees;
@@ -13,4 +13,4 @@ const TotalBoxCost = ({id, columnIndex}) => {
     )
 }
 
-export default TotalBoxCost;
+export default BoxCostPerUnit;

@@ -1,11 +1,12 @@
 import { useSelector } from "react-redux";
 import { columnsArr } from "../../assets/helpers/helperArrays";
 import { selectQuantity } from "../main/mainSlice";
-import BoxConfiguration from "./Box/BoxConfiguration";
+import BoxLogic from "./Box/BoxLogic";
 import BoxCount from "./Box/BoxCount";
 import BoxFees from "./Box/BoxFees";
-import TotalBoxCost from "./Box/TotalBoxCost";
-import ExtraData from "./ExtraData";
+import BoxCostPerUnit from "./Box/BoxCostPerUnit";
+import NetUnitCostAD from "./NetUnitCostAD";
+
 
 const AdditionalData = () => {
   const qtyInput = useSelector(selectQuantity);
@@ -23,24 +24,13 @@ const AdditionalData = () => {
           );
         })}
 
-        <h6 className="result-head">Total Box Cost</h6>
+        <h6 className="result-head">Box Logic</h6>
         {columnsArr.map((column, i) => {
           return (
-            <TotalBoxCost
+            <BoxLogic
               columnIndex={i}
-              id={"total-box-cost-col-" + i}
-              key={"total-box-cost-col" + i}
-            />
-          );
-        })}
-
-        <h6 className="result-head">Box cnfg</h6>
-        {columnsArr.map((column, i) => {
-          return (
-            <BoxConfiguration
-              columnIndex={i}
-              id={"box-configuration-col-" + i}
-              key={"box-configuration-col-" + i}
+              id={"box-logic-col-" + i}
+              key={"box-logic-col-" + i}
             />
           );
         })}
@@ -64,14 +54,25 @@ const AdditionalData = () => {
             />
           );
         })}
-
-        <h6 className="result-head">Extra Data (PU)</h6>
+        
+        <h6 className="result-head">Box Cost PU</h6>
         {columnsArr.map((column, i) => {
           return (
-            <ExtraData
+            <BoxCostPerUnit
               columnIndex={i}
-              id={"extra-data-col-" + i}
-              key={"extra-data-col-" + i}
+              id={"box-cost-pu-col-" + i}
+              key={"box-cost-pu-col-" + i}
+            />
+          );
+        })}
+
+        <h6 className="result-head">Net-UC</h6>
+        {columnsArr.map((column, i) => {
+          return (
+            <NetUnitCostAD
+              columnIndex={i}
+              id={"net-ucad-col-" + i}
+              key={"net-ucad-col-" + i}
             />
           );
         })}
