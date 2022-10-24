@@ -116,7 +116,6 @@ const mainSlice = createSlice({
         //fix this once auto calculate box cost works
         const totalBoxCost = state.boxData["orderQty_"+quantity] ? Number(state.boxData["orderQty_"+quantity].totalBoxCost) : 0;
         const totalBoxCount = state.boxData["orderQty_"+quantity] ? Number(state.boxData["orderQty_"+quantity].totalBoxCount) : 0;
-        //boxFee should be updated by box handling fees via state.handling
         let boxFee = 0;
         state.handling.forEach((handlingFee, i) => {
           if(handlingFee.type === "box"){
@@ -124,7 +123,7 @@ const mainSlice = createSlice({
           }
         });
         const totalBoxFees = Number(totalBoxCount * boxFee);
-        const totalBoxCostWithFees = totalBoxCost + totalBoxFees;
+        const totalBoxCostWithFees = Number(totalBoxCost + totalBoxFees);
         const boxCostPerUnit =  Number((totalBoxCost / quantity).toFixed(4));
         const boxCostPerUnitWithFees =  Number((totalBoxCostWithFees / quantity).toFixed(4));
 
@@ -163,8 +162,13 @@ const mainSlice = createSlice({
           handlingFeesPerUnit: handlingFeesPerUnit, 
         }
         state.additionalData[index] = additionalData;
+        
+        //console.log(discountedUnitCostPostEqp);
+        console.log(discountedSetupFeePerUnit);
+        //console.log(handlingFeesPerUnit);
+        //console.log(boxCostPerUnitWithFees);
      
-        return Number((discountedUnitCostPostEqp + discountedSetupFeePerUnit + totalBoxCostWithFees + handlingFeesPerUnit).toFixed(4));
+        return Number((discountedUnitCostPostEqp + discountedSetupFeePerUnit + handlingFeesPerUnit + boxCostPerUnitWithFees).toFixed(4));
       })
       
 
