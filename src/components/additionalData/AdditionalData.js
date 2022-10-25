@@ -1,5 +1,6 @@
 import { useSelector } from "react-redux";
 import { columnsArr } from "../../assets/helpers/helperArrays";
+import { injectColumnQuantities } from "../../assets/helpers/helperFunctions";
 import { selectQuantity } from "../main/mainSlice";
 import BoxLogic from "./Box/BoxLogic";
 import BoxCount from "./Box/BoxCount";
@@ -32,15 +33,6 @@ import TotalNUC from "./NetUnitCost/TotalNUC";
 const AdditionalData = () => {
   const quantitiesArr = useSelector(selectQuantity);
 
-  const injectColumnQty = (columnsArray, quantitiesArray) => {
-    return columnsArray.map((column, i) => {
-        return (
-          <h5 className="pcs-head" id={"pcs-head-" + i} key={"pcs-head-" + i}>
-            {quantitiesArray[i] + " pcs"}
-          </h5>
-        );
-      })
-}
 
 
 
@@ -58,7 +50,7 @@ const AdditionalData = () => {
         {/* -----------------------------------------------------------------------------------  Box */}
         <h5 className="sub-header box">Box</h5>
         <div className="blank--head-column-div"></div>
-        {injectColumnQty(columnsArr, quantitiesArr)}
+        {injectColumnQuantities(columnsArr, quantitiesArr)}
         <h6 className="row-head">Box Logic</h6>
         {columnsArr.map((column, i) => {
           return (
@@ -103,7 +95,7 @@ const AdditionalData = () => {
         {/* ---------------------------------------------------------------------------------  Unit Code */}
         <h5 className="sub-header">Unit Code</h5>
         <div className="blank--head-column-div"></div>
-        {injectColumnQty(columnsArr, quantitiesArr)}
+        {injectColumnQuantities(columnsArr, quantitiesArr)}
         <h6 className="row-head">dis rate</h6>
         {columnsArr.map((column, i) => {
           return (
@@ -130,7 +122,7 @@ const AdditionalData = () => {
         {/* ---------------------------------------------------------------------------------  EQP */}
         <h5 className="sub-header">EQP</h5>
         <div className="blank--head-column-div"></div>
-        {injectColumnQty(columnsArr, quantitiesArr)}
+        {injectColumnQuantities(columnsArr, quantitiesArr)}
 
         <h6 className="row-head">dis rate</h6>
         {columnsArr.map((column, i) => {
@@ -156,7 +148,7 @@ const AdditionalData = () => {
         {/* ---------------------------------------------------------------------------------  Setup Fee */}
         <h5 className="sub-header">Setup Fee</h5>
         <div className="blank--head-column-div"></div>
-        {injectColumnQty(columnsArr, quantitiesArr)}
+        {injectColumnQuantities(columnsArr, quantitiesArr)}
 
 
         <h6 className="row-head">initial</h6>
@@ -212,7 +204,7 @@ const AdditionalData = () => {
         {/* ---------------------------------------------------------------------------------  Handling Fees */}
         <h5 className="sub-header">Handling Fees</h5>
         <div className="blank--head-column-div"></div>
-        {injectColumnQty(columnsArr, quantitiesArr)}
+        {injectColumnQuantities(columnsArr, quantitiesArr)}
 
         <h6 className="row-head">total</h6>
         {columnsArr.map((column, i) => {
@@ -243,7 +235,7 @@ const AdditionalData = () => {
         {/* ---------------------------------------------------------------------------------  Net Unit Cost */}
         <h5 className="sub-header">Net UC</h5>
         <div className="blank--head-column-div"></div>
-        {injectColumnQty(columnsArr, quantitiesArr)}
+        {injectColumnQuantities(columnsArr, quantitiesArr)}
 
         <h6 className="row-head">initial</h6>
         {columnsArr.map((column, i) => {

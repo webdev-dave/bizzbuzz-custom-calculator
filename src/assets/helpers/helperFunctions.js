@@ -9,7 +9,15 @@ export const getProfitMargin = (profitPu, unitCost) => {
 //   let shavedText = textNum;
 // }
 
-
+export const injectColumnQuantities = (columnsArray, quantitiesArray) => {
+  return columnsArray.map((column, i) => {
+      return (
+        <h5 className="pcs-head" id={"pcs-head-" + i} key={"pcs-head-" + i}>
+          {quantitiesArray[i] + " pcs"}
+        </h5>
+      );
+    })
+}
 
 
 export const addEqpDiscount = (pricingType, price) => {
