@@ -24,7 +24,7 @@ const Results = () => {
           );
         })}
 
-        <h6 className="result-head">Net Unit Cost</h6>
+        <h6 className="row-head">Net Unit Cost</h6>
         {columnsArr.map((column, i) => {
           return (
             <NetUnitCost
@@ -35,7 +35,7 @@ const Results = () => {
           );
         })}
 
-        <h6 className="result-head">Retail Price PU</h6>
+        <h6 className="row-head">Retail Price PU</h6>
         {columnsArr.map((column, i) => {
           return (
             <RetailPricePu
@@ -46,7 +46,7 @@ const Results = () => {
           );
         })}
 
-        <h6 className="result-head">Retail Total</h6>
+        <h6 className="row-head">Retail Total</h6>
         {columnsArr.map((column, i) => {
           return (
             <RetailTotal
@@ -57,7 +57,7 @@ const Results = () => {
           );
         })}
 
-        <h6 className="result-head">Profit Margin</h6>
+        <h6 className="row-head">Profit Margin</h6>
         {columnsArr.map((column, i) => {
           return (
             <ProfitMargin
@@ -68,7 +68,7 @@ const Results = () => {
           );
         })}
 
-        <h6 className="result-head">Profit PU:</h6>
+        <h6 className="row-head">Profit PU:</h6>
 
         {columnsArr.map((column, i) => {
           return (
@@ -80,7 +80,7 @@ const Results = () => {
           );
         })}
 
-        <h6 className="result-head">Total Profit</h6>
+        <h6 className="row-head">Total Profit</h6>
         {columnsArr.map((column, i) => {
           return (
             <TotalProfit

@@ -34,36 +34,8 @@ const NetUnitCostAD = ({ id, columnIndex }) => {
   return (
     <div className="grid-child extra-data" id={id}>
       <div className="additional-data-text-container">
-        {/* unit code discount */}
-        <div className="net-ucad-child">
-            <h6>Unit Code</h6>
-            <p>u-code dis rate</p>
-            <p className="colored-text">{unitCodeDiscountRate}%</p>
-            <p>u-code dis sum</p>
-            <p className="colored-text">{unitCodeDiscountSum && unitCodeDiscountSum.toFixed(2)}</p>
-        </div>
-        {/* EQP discount */}
-        <div className="net-ucad-child">
-            <h6>EQP</h6>
-            <p>eqp dis rate</p>
-            <p className="colored-text">{eqpDiscountRate}</p>
-            <p>eqp dis sum</p>
-            <p className="colored-text">{eqpDiscountSum && eqpDiscountSum}</p>
-        </div>
-        {/* setup fee */}
-        <div className="net-ucad-child">
-            <h6>Setup Fee</h6>
-            <p>initial</p>
-            <p className="colored-text">{initialSetupFee && initialSetupFee.toFixed(2)}</p>
-            <p>dis rate</p>
-            <p className="colored-text">{setupCodeDiscountRate}%</p>
-            <p>dis sum</p>
-            <p className="colored-text">{setupFeeDiscountSum && setupFeeDiscountSum.toFixed(2)}</p>
-            <p>post dis</p>
-            <p className="colored-text">{discountedSetupFee && discountedSetupFee.toFixed(2)}</p>
-            <p>pu</p>
-            <p className="colored-text">{discountedSetupFeePerUnit && discountedSetupFeePerUnit.toFixed(2)}</p>
-        </div>
+
+
         {/* handling fees */}
         <div className="net-ucad-child">
             <h6>Handling Fees</h6>
@@ -72,17 +44,14 @@ const NetUnitCostAD = ({ id, columnIndex }) => {
             <p>h-fees pu</p>
             <p className="colored-text">{handlingFeesPerUnit && handlingFeesPerUnit.toFixed(4)}</p>
         </div>
-
-
-
-        <div className="net-ucad-child">
+        {/* Box Cost  */}
+        {/* <div className="net-ucad-child">
             <h6>Box Cost</h6>
             <p>PU</p>
             <p className="colored-text">{boxCostPerUnit && boxCostPerUnit.toFixed(2)}</p>
-        </div>
+        </div> */}
 
-
-        {/* unit cost */}
+        {/* Unit Cost */}
         <div className="net-ucad-child">
             <h6>Unit Cost</h6>
             <p>initial</p>

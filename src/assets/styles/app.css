@@ -39,6 +39,17 @@ button {
   cursor: pointer;
 }
 
+h6.row-head {
+  justify-self: start;
+  align-self: center;
+  font-size: 1.4rem;
+}
+
+h5.pcs-head {
+  font-size: 1.4rem;
+  justify-self: center;
+}
+
 /* -----------------------------------------------------main grid-------------------------------- */
 
 body {
@@ -71,12 +82,6 @@ body {
   grid-auto-rows: minmax(25px, auto);
   align-items: center;
   justify-items: stretch;
-}
-
-#input-grid .input-head {
-  justify-self: start;
-  align-self: center;
-  font-size: 1.6rem;
 }
 
 /* -------------------------------------------------------grid placement by row */
@@ -122,11 +127,6 @@ body {
 }
 
 /* grid group settings */
-
-.input-head {
-  place-self: center;
-  grid-column: 1/2;
-}
 
 .qty input,
 .pricing-type input,
@@ -253,18 +253,6 @@ p.cost-pb{
 
 }
 
-h5.pcs-head {
-  font-size: 1.4rem;
-  justify-self: center;
-}
-
-h6.result-head {
-  font-size: 1.6rem;
-  grid-column: 1 / span 1;
-  align-self: center;
-}
-
-
 
 .result-data {
   background-color: white;
@@ -333,7 +321,6 @@ input[type=number]::-webkit-outer-spin-button {
   padding-top: 3rem;
 }
 
-
 #additional-data-grid {
   display: grid;
   grid-gap: 1rem 1.6rem;
@@ -344,9 +331,22 @@ input[type=number]::-webkit-outer-spin-button {
   font-size: 1rem;
 }
 
+#additional-data-grid .sub-header {
+  grid-column: 1/9;
+  font-size: 1.8rem;
+  font-weight: 600;
+  font-family:'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  margin-top: 1rem;
+  border-top: 2px dotted black;
+  padding-top: 0.4rem;
+  /* margin-top: 2rem; */
+}
+
+
 #additional-data-grid .grid-child {
   background-color: #fff;
   padding: 3px;
+  /* border: 1px solid darkgreen; */
 }
 
 .additional-data-text-container {

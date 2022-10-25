@@ -28,36 +28,36 @@ const Input = () => {
       <h2>Input</h2>
       <div id="input-grid">
         {/* Pricing Type */}
-        <p className="pricing-type input-head">Pricing</p>
+        <p className="pricing-type row-head">Pricing</p>
         <PricingType />
 
         {/* QTY */}
-        <p className="qty input-head">Quantity</p>
+        <p className="qty row-head">Quantity</p>
         {quantities.map((qty, i) => {
           return <Quantity id={"qty-input"+i} columnIndex={i} key={"qty-input"+i} />;
         })}
 
         {/* unit cost */}
-        <p className="unit-cost input-head">Unit Cost</p>
+        <p className="unit-cost row-head">Unit Cost</p>
         {!isEQP ? columnsArr.map((col, i) => {
           return <UnitCost  id={"unit-cost"+i} columnIndex={i} key={"unit-cost"+i}  />;
         }) : <UnitCost id={"unit-cost"+0} columnIndex={0} key={"unit-cost"+0}  />
       }
 
         {/* Unit Code */}
-        <p className="unit-code input-head">Unit Code</p>
+        <p className="unit-code row-head">Unit Code</p>
         {<UnitCode id={"unit-code"+0} columnIndex={0} key={"unit-code"+0}  />
         }
 
         {/* Setup Fee */}
-        <p className="setup-fee input-head">Setup Fee</p>
+        <p className="setup-fee row-head">Setup Fee</p>
         <SetupFee />
         {/* Setup Code */}
-        <p className="setup-code input-head">Setup Code</p>
+        <p className="setup-code row-head">Setup Code</p>
         <SetupCode />
 
         {/* Box Qty/Cost */}
-        <p id="box-head" className="input-head">
+        <p id="box-head" className="row-head">
           Box
         </p>
         <p className="qty-pb">QTY-PB</p>
@@ -74,7 +74,7 @@ const Input = () => {
             }
           }}
         >
-          Add Box
+          + Box
         </button>
         <button
           className="remove-box box-btn"
@@ -90,10 +90,10 @@ const Input = () => {
             }
           }}
         >
-          Remove Box
+          - Box
         </button>
         {/* Handling Fees */}
-        <p className="input-head" id="handling-head">
+        <p className="row-head" id="handling-head">
           Handling Fees
         </p>
 
@@ -124,7 +124,7 @@ const Input = () => {
             handlingAmount < 5 && setHandlingAmount(handlingAmount + 1);
           }}
         >
-          Add Fee
+          + Fee
         </button>
         <button
           className="remove-fee handling-btn"
@@ -134,7 +134,7 @@ const Input = () => {
             handlingAmount > 1 && dispatch(updateNetUnitCost({}));
           }}
         >
-          Remove Fee
+          - Fee
         </button>
         {/* input-grid closer */}
       </div>
