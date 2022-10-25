@@ -20,7 +20,7 @@ const BoxLogic = ({ id, columnIndex }) => {
     currentBoxSizesArr &&
     currentBoxSizesArr.map((boxSizeKey, i) => {
       return (
-        <div key={"BoxLogic" + i} className="additional-data-text-container">
+        <div key={"box-logic" + i} className="additional-data-text-container">
           <p>
             box size:{" "}
             <span className="colored-text">&nbsp;{boxSizeKey.slice(8)}</span>
@@ -42,7 +42,7 @@ const BoxLogic = ({ id, columnIndex }) => {
       );
     });
   return (
-    <div className="grid-child box-configuration" id={id}>
+    <div className="grid-child box-logic" id={id}>
       {currentBoxData}   
     </div>
   );

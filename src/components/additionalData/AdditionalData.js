@@ -5,7 +5,6 @@ import BoxLogic from "./Box/BoxLogic";
 import BoxCount from "./Box/BoxCount";
 import BoxFees from "./Box/BoxFees";
 import BoxCostPerUnit from "./Box/BoxCostPerUnit";
-import NetUnitCostAD from "./NetUnitCostAD";
 import UnitCodeDiscountRate from "./UnitCode/UnitCodeDiscountRate";
 import UnitCodeDiscountSum from "./UnitCode/UnitCodeDiscountSum";
 import EqpDiscountRate from "./EQP/EqpDiscountRate";
@@ -15,27 +14,51 @@ import SetupFeeDiscountSum from "./SetupFee/SetupFeeDiscountSum";
 import SetupFeeDiscountRate from "./SetupFee/SetupFeeDiscountRate";
 import SetupFeePostDiscount from "./SetupFee/SetupFeePostDiscount";
 import SetupFeePerUnit from "./SetupFee/SetupFeePerUnit";
+import HandlingFeesTotal from "./HandlingFees/HandlingFeesTotal";
+import HandlingFeesPerUnit from "./HandlingFees/HandlingFeesPerUnit";
+import InitialNUC from "./NetUnitCost/InitialNUC";
+import CodeDiscountNUC from "./NetUnitCost/CodeDiscountNUC";
+import EqpDiscountNUC from "./NetUnitCost/EqpDiscountNUC";
+import SetupFeeNUC from "./NetUnitCost/SetupFeeNUC";
+import HandlingFeesNUC from "./NetUnitCost/HandlingFeesNUC";
+import BoxNUC from "./NetUnitCost/BoxNUC";
+import TotalNUC from "./NetUnitCost/TotalNUC";
+
+
+
 
 
 
 const AdditionalData = () => {
-  const qtyInput = useSelector(selectQuantity);
+  const quantitiesArr = useSelector(selectQuantity);
+
+  const injectColumnQty = (columnsArray, quantitiesArray) => {
+    return columnsArray.map((column, i) => {
+        return (
+          <h5 className="pcs-head" id={"pcs-head-" + i} key={"pcs-head-" + i}>
+            {quantitiesArray[i] + " pcs"}
+          </h5>
+        );
+      })
+}
+
+
+
+
+
+
+
+
   return (
     <div id="additional-data-container" className="additional-data">
       <h2>Additional Data</h2>
       <div id="additional-data-grid">
-        {/* blank div is here in order to assist with the grid placement of "pcs-head" */}
-        <div id="blank-div"></div>
-        {columnsArr.map((column, i) => {
-          return (
-            <h5 className="pcs-head" id={"pcs-head-" + i} key={"pcs-head-" + i}>
-              {qtyInput[i] + " pcs"}
-            </h5>
-          );
-        })}
+
  
         {/* -----------------------------------------------------------------------------------  Box */}
-        <h5 className="sub-header">Box</h5>
+        <h5 className="sub-header box">Box</h5>
+        <div className="blank--head-column-div"></div>
+        {injectColumnQty(columnsArr, quantitiesArr)}
         <h6 className="row-head">Box Logic</h6>
         {columnsArr.map((column, i) => {
           return (
@@ -79,6 +102,8 @@ const AdditionalData = () => {
         })}
         {/* ---------------------------------------------------------------------------------  Unit Code */}
         <h5 className="sub-header">Unit Code</h5>
+        <div className="blank--head-column-div"></div>
+        {injectColumnQty(columnsArr, quantitiesArr)}
         <h6 className="row-head">dis rate</h6>
         {columnsArr.map((column, i) => {
           return (
@@ -104,8 +129,10 @@ const AdditionalData = () => {
 
         {/* ---------------------------------------------------------------------------------  EQP */}
         <h5 className="sub-header">EQP</h5>
-        <h6 className="row-head">dis rate</h6>
+        <div className="blank--head-column-div"></div>
+        {injectColumnQty(columnsArr, quantitiesArr)}
 
+        <h6 className="row-head">dis rate</h6>
         {columnsArr.map((column, i) => {
           return (
             <EqpDiscountRate
@@ -126,9 +153,11 @@ const AdditionalData = () => {
             />
           );
         })}
-
         {/* ---------------------------------------------------------------------------------  Setup Fee */}
         <h5 className="sub-header">Setup Fee</h5>
+        <div className="blank--head-column-div"></div>
+        {injectColumnQty(columnsArr, quantitiesArr)}
+
 
         <h6 className="row-head">initial</h6>
         {columnsArr.map((column, i) => {
@@ -180,74 +209,127 @@ const AdditionalData = () => {
             />
           );
         })}
-
-
         {/* ---------------------------------------------------------------------------------  Handling Fees */}
         <h5 className="sub-header">Handling Fees</h5>
+        <div className="blank--head-column-div"></div>
+        {injectColumnQty(columnsArr, quantitiesArr)}
 
-        <h6 className="row-head">999</h6>
-        {/* {columnsArr.map((column, i) => {
-          return (
-            <999
-              columnIndex={i}
-              id={"unit-code-discount-sum-col-" + i}
-              key={"unit-code-discount-sum-col-" + i}
-            />
-          );
-        })} */}
-
-        <h6 className="row-head">999</h6>
-
-        {/* {columnsArr.map((column, i) => {
-          return (
-            <999
-              columnIndex={i}
-              id={"unit-code-discount-sum-col-" + i}
-              key={"unit-code-discount-sum-col-" + i}
-            />
-          );
-        })} */}
-        {/* ---------------------------------------------------------------------------------  Net Unit Cost */}
-        <h5 className="sub-header">Net UC</h5>
-
-        <h6 className="row-head">999</h6>
-        {/* {columnsArr.map((column, i) => {
-          return (
-            <999
-              columnIndex={i}
-              id={"unit-code-discount-sum-col-" + i}
-              key={"unit-code-discount-sum-col-" + i}
-            />
-          );
-        })} */}
-
-        <h6 className="row-head">999</h6>
-
-        {/* {columnsArr.map((column, i) => {
-          return (
-            <999
-              columnIndex={i}
-              id={"unit-code-discount-sum-col-" + i}
-              key={"unit-code-discount-sum-col-" + i}
-            />
-          );
-        })} */}
-
-
-        
-
-
-
-        <h6 className="row-head">Net-UC</h6>
+        <h6 className="row-head">total</h6>
         {columnsArr.map((column, i) => {
           return (
-            <NetUnitCostAD
+            <HandlingFeesTotal
               columnIndex={i}
-              id={"net-ucad-col-" + i}
-              key={"net-ucad-col-" + i}
+              id={"-col-" + i}
+              key={"-col-" + i}
             />
           );
         })}
+
+        <h6 className="row-head">pu</h6>
+
+        {columnsArr.map((column, i) => {
+          return (
+            <HandlingFeesPerUnit
+              columnIndex={i}
+              id={"-col-" + i}
+              key={"-col-" + i}
+            />
+          );
+        })}
+
+
+
+
+        {/* ---------------------------------------------------------------------------------  Net Unit Cost */}
+        <h5 className="sub-header">Net UC</h5>
+        <div className="blank--head-column-div"></div>
+        {injectColumnQty(columnsArr, quantitiesArr)}
+
+        <h6 className="row-head">initial</h6>
+        {columnsArr.map((column, i) => {
+          return (
+            <InitialNUC
+              columnIndex={i}
+              id={"-col-" + i}
+              key={"-col-" + i}
+            />
+          );
+        })}
+
+        <h6 className="row-head">+ code dis</h6>
+
+        {columnsArr.map((column, i) => {
+          return (
+            <CodeDiscountNUC
+              columnIndex={i}
+              id={"-col-" + i}
+              key={"-col-" + i}
+            />
+          );
+        })}
+
+        <h6 className="row-head">+ eqp dis</h6>
+
+        {columnsArr.map((column, i) => {
+          return (
+            <EqpDiscountNUC
+              columnIndex={i}
+              id={"-col-" + i}
+              key={"-col-" + i}
+            />
+          );
+        })}
+
+        <h6 className="row-head">+ setup-f</h6>
+
+        {columnsArr.map((column, i) => {
+          return (
+            <SetupFeeNUC
+              columnIndex={i}
+              id={"-col-" + i}
+              key={"-col-" + i}
+            />
+          );
+        })}
+        
+        <h6 className="row-head">+ h-fees</h6>
+
+        {columnsArr.map((column, i) => {
+          return (
+            <HandlingFeesNUC
+              columnIndex={i}
+              id={"-col-" + i}
+              key={"-col-" + i}
+            />
+          );
+        })}
+
+        <h6 className="row-head">+ box</h6>
+
+        {columnsArr.map((column, i) => {
+          return (
+            <BoxNUC
+              columnIndex={i}
+              id={"-col-" + i}
+              key={"-col-" + i}
+            />
+          );
+        })}
+
+        <h6 className="row-head">total</h6>
+
+        {columnsArr.map((column, i) => {
+          return (
+            <TotalNUC
+              columnIndex={i}
+              id={"-col-" + i}
+              key={"-col-" + i}
+            />
+          );
+        })}
+
+
+    
 
         {/* additional-data-container closer */}
       </div>

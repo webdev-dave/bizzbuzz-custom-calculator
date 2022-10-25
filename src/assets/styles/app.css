@@ -23,6 +23,7 @@ h2 {
   font-weight: 600;
   text-align: center;
   margin: 4rem 0 3rem 0;
+  font-family: 'Times New Roman', Times, serif;
 }
 
 h3 {
@@ -30,6 +31,7 @@ h3 {
   text-align: center;
   margin: 2rem 0;
 }
+
 
 p {
   font-size: 1.6rem;
@@ -42,12 +44,8 @@ button {
 h6.row-head {
   justify-self: start;
   align-self: center;
-  font-size: 1.4rem;
-}
-
-h5.pcs-head {
-  font-size: 1.4rem;
-  justify-self: center;
+  font-size: 1.5rem;
+  font-weight: 5;
 }
 
 /* -----------------------------------------------------main grid-------------------------------- */
@@ -230,7 +228,7 @@ p.cost-pb{
   border-radius: 5px;
 }
 
-/* ---------------------------------------------------------------- Results --------------------- */
+/* ----------------------------------------------------------------------------------------- Results --------------------- */
 
 #results-container {
   background-color: bisque;
@@ -242,6 +240,13 @@ p.cost-pb{
 #results-container h2 {
   padding-top: 3rem;
 }
+
+#results-container h5.pcs-head {
+  font-size: 1.6rem;
+  font-weight: 600;
+  text-align: center;
+}
+
 
 #results-grid {
   display: grid;
@@ -309,7 +314,7 @@ input[type=number]::-webkit-outer-spin-button {
 }
 
 
-/* ---------------------------------------------------------------------- Profit Margin --------------------- */
+/* -------------------------------------------------------------------------------- Additional Data ------- */
 
 #additional-data-container {
   background-color: aquamarine;
@@ -319,6 +324,13 @@ input[type=number]::-webkit-outer-spin-button {
 
 #additional-data-container h2 {
   padding-top: 3rem;
+}
+
+#additional-data-container h5.pcs-head {
+  font-size: 1.3rem;
+  font-weight: 500;
+  text-align: center;
+  font-family:'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
 }
 
 #additional-data-grid {
@@ -331,16 +343,21 @@ input[type=number]::-webkit-outer-spin-button {
   font-size: 1rem;
 }
 
-#additional-data-grid .sub-header {
+#additional-data-grid h5.sub-header {
   grid-column: 1/9;
   font-size: 1.8rem;
   font-weight: 600;
   font-family:'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-  margin-top: 1rem;
+  margin-top: 8rem;
+  margin-bottom: 1rem;
   border-top: 2px dotted black;
-  padding-top: 0.4rem;
-  /* margin-top: 2rem; */
+  padding-top: 0.6rem;
 }
+
+#additional-data-grid h5.sub-header.box {
+  margin-top: 4rem;
+}
+
 
 
 #additional-data-grid .grid-child {
@@ -365,9 +382,9 @@ input[type=number]::-webkit-outer-spin-button {
   font-size: 1.6rem;
 }
 
-/* ------------------------------------------------------------------ Box Configuration  */
+/* ------------------------------------------------------------------ Box Logic  */
 
-#additional-data-grid .box-configuration {
+#additional-data-grid .box-logic {
   align-self: stretch;
   background-color: #fff;
 }
@@ -375,21 +392,6 @@ input[type=number]::-webkit-outer-spin-button {
 
 
 
-/* ------------------------------------------------------------------ Net Unit Cost Additional Data  */
-
-.grid-child .extra-data {
-  padding-top: 20rem;
-}
-
-.net-ucad-child h6 {
-  font-size: 1.8rem;
-  font-weight: 600;
-  font-family:'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-  margin-bottom: 1.6rem;
-}
 
 
-.additional-data-text-container .net-ucad-child {
-  margin-bottom: 5rem;
-  margin-top: 1rem;
-}
+

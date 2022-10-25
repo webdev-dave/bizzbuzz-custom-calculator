@@ -11,6 +11,7 @@ export const getProfitMargin = (profitPu, unitCost) => {
 
 
 
+
 export const addEqpDiscount = (pricingType, price) => {
   let discountedPrice;
   switch (pricingType) {

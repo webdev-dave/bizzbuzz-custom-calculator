@@ -4,8 +4,8 @@
 
 ## Todo
 
-- extraData should be split into multiple components
-- make sure all results add up correctly
+- add box fee pu, box cost pu, total pu
+- add media queries that shrink text size on smaller screens
 - add Additional Data section (should be collapsible)
 - get rid of multi unitCode columns (event with non EQP)
 - block user from being able to edit netUnitCost
@@ -16,6 +16,7 @@
 - disable mouse scroll from changing input values
 - test for bugs and edge cases
 - add styles to beautify and ease usability
+- make sure all results add up correctly
 
 ### Notes
 

@@ -1,17 +1,18 @@
 import { useSelector } from "react-redux";
 import { selectAdditionalData } from "../../main/mainSlice";
 
-const InitialSetupFee = ({ id, columnIndex }) => {
+const HandlingFeesPerUnit = ({ id, columnIndex }) => {
   const additionalDataArr = useSelector(selectAdditionalData);
-  const initialSetupFee = additionalDataArr[columnIndex].setupFee;
+  const handlingFeesPerUnit =
+    additionalDataArr[columnIndex].handlingFeesPerUnit;
 
   return (
     <div className="grid-child" id={id}>
       <p>
-        {initialSetupFee && initialSetupFee.toFixed(2)}
+        {handlingFeesPerUnit && handlingFeesPerUnit.toFixed(4)}
       </p>
     </div>
   );
 };
 
-export default InitialSetupFee;
+export default HandlingFeesPerUnit;
