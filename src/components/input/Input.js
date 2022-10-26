@@ -106,7 +106,7 @@ const Input = () => {
         <p className="row-head hide-if-mobile" id="handling-head">Handling Fees</p>
         <p className="row-head mobile-abbreviation" id="handling-head">HFs</p>
 
-        <p className="">TYPE</p>
+
         <p className="handling title-type hide-if-mobile">TYPE</p>
         <p className="handling title-type mobile-abbreviation">type</p>
         {Array.from(Array(handlingAmount)).map((h, i) => {
