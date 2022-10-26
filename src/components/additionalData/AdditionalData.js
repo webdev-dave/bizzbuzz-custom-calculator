@@ -49,7 +49,7 @@ const AdditionalData = () => {
             />
           );
         })}
-        <h6 className="row-head">count</h6>
+        <h6 className="row-head">t-count</h6>
         {columnsArr.map((column, i) => {
           return (
             <BoxCount

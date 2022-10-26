@@ -22,8 +22,7 @@ h2 {
   font-size: 3.5rem;
   font-weight: 600;
   text-align: center;
-  margin: 4rem 0 3rem 0;
-  font-family: 'Times New Roman', Times, serif;
+  margin: 9rem 0 6rem 0;
 }
 
 h3 {
@@ -48,6 +47,10 @@ h6.row-head {
   font-weight: 5;
 }
 
+p.mobile-text {
+  font-size: 0.5rem;
+}
+
 /* -----------------------------------------------------main grid-------------------------------- */
 
 body {
@@ -57,32 +60,33 @@ body {
   align-items: stretch;
   justify-items: stretch;
   width: 100%;
-  padding: 2%;
 }
 
 #input-container {
   background-color: lightblue;
   grid-column: 1/2;
-  padding: 0 5% 3% 5%;
+  padding: 3rem 5% 10rem 5%;
 }
 
-#input-container h2 {
-  padding-top: 3rem;
-}
 
 
 /* ---------------------------------------- input form grid ------------------------------------------------------- */
 
+
+
 #input-grid {
   display: grid;
   grid-gap: 1rem 1.6rem;
-  grid-template-columns: minmax(30px, 1.2fr) repeat(7, minmax(40px, 1fr));
+  grid-template-columns: minmax(30px, 1.2fr) repeat(7, minmax(20px, 1fr));
   grid-auto-rows: minmax(25px, auto);
   align-items: center;
   justify-items: stretch;
 }
 
+
+
 /* -------------------------------------------------------grid placement by row */
+
 .pricing-type {
   grid-row: 1/2;
 }
@@ -129,16 +133,13 @@ body {
 .qty input,
 .pricing-type input,
 .unit-cost input {
-  width: 100%;
+  max-width: 100%;
 }
 
-.unit-cost.max-span, select.unit-code.max-span, select.pricing-type {
+select.unit-code.max-span, select.pricing-type {
   grid-column: 2/9; 
 }
 
-
-
-/* ---------------------------------------------input form elements------------------------------ */
 
 /* --------------------------------------------------------------------------------- Pricing Type */
 
@@ -155,7 +156,8 @@ body {
 
 
 
-/* ---------------------------------------------------------------------------------  Unit Price */
+/* ---------------------------------------------------------------------------------  Unit Cost */
+
 
 /* ---------------------------------------------------------------------------------  Code (Unit) */
 
@@ -177,6 +179,8 @@ p.cost-pb{
   grid-column: 8/-1;
   max-width: 100%;
   border-radius: 5px;
+  padding: 3px 10px 3px 8px;
+  text-align: center;
 }
 
 .box-btn.add-box {
@@ -228,18 +232,14 @@ p.cost-pb{
   border-radius: 5px;
 }
 
-/* ----------------------------------------------------------------------------------------- Results --------------------- */
+/* ------------------------------------------------------------------------------------------- Results -- */
 
 #results-container {
   background-color: bisque;
   grid-column: 3/4;
-  padding: 0 5% 3% 5%;
+  padding: 3rem 5% 10rem 5%;
 }
 
-
-#results-container h2 {
-  padding-top: 3rem;
-}
 
 #results-container h5.pcs-head {
   font-size: 1.6rem;
@@ -319,11 +319,7 @@ input[type=number]::-webkit-outer-spin-button {
 #additional-data-container {
   background-color: aquamarine;
   grid-column: 1/2;
-  padding: 0 5% 3% 5%;
-}
-
-#additional-data-container h2 {
-  padding-top: 3rem;
+  padding: 3rem 5% 10rem 5%;
 }
 
 #additional-data-container h5.pcs-head {
@@ -355,7 +351,7 @@ input[type=number]::-webkit-outer-spin-button {
 }
 
 #additional-data-grid h5.sub-header.box {
-  margin-top: 4rem;
+  margin-top: 0;
 }
 
 
@@ -368,7 +364,6 @@ input[type=number]::-webkit-outer-spin-button {
 
 .additional-data-text-container {
   margin: 0.3rem 0.4rem 1rem 0.4rem;
-  
 }
 
 .additional-data-text-container p {
@@ -382,6 +377,15 @@ input[type=number]::-webkit-outer-spin-button {
   font-size: 1.6rem;
 }
 
+@media only screen and (max-width: 650px) {
+  #additional-data-grid span.colored-text.mobile-text {
+    font-size: 1rem;
+  }
+  .additional-data-text-container {
+    margin: 0.3rem 0.2rem 2.5rem 0.2rem;
+  }
+}
+
 /* ------------------------------------------------------------------ Box Logic  */
 
 #additional-data-grid .box-logic {
@@ -389,9 +393,36 @@ input[type=number]::-webkit-outer-spin-button {
   background-color: #fff;
 }
 
+#small-x {
+  font-size: 1.25rem;
+}
 
 
 
+/* ------------------------------------------------------------------------ mobile grid styles */
+@media only screen and (max-width: 600px) {
+  #input-container {
+    padding: 0 2.5%;
+  }
 
+  #input-grid, #results-grid, #additional-data-grid  {
+    grid-template-columns: minmax(0px, 1.2fr) repeat(7, minmax(0px, 1fr));
+    grid-gap: 1rem 0.8rem;
+  }
+}
 
+/* ------------------------------------------------------------------------ mobile grid styles */
+
+.mobile-abbreviation {
+  display: none;
+}
+
+@media only screen and (max-width: 750px) {
+  .mobile-abbreviation {
+    display: block;
+  }
+  .hide-if-mobile {
+    display: none;
+  }
+}
 

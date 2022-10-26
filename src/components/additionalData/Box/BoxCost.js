@@ -1,9 +1,8 @@
 import { useSelector } from "react-redux";
-import { selectAdditionalData, selectQuantity } from "../../main/mainSlice";
+import { selectAdditionalData} from "../../main/mainSlice";
 
 const BoxCost = ({ id, columnIndex }) => {
   const additionalDataArr = useSelector(selectAdditionalData);
-  const quantitiesArr = useSelector(selectQuantity);
   const totalBoxCost = additionalDataArr ? additionalDataArr[columnIndex].totalBoxCost : 0;
   const boxCostPerUnit = additionalDataArr ? Number(additionalDataArr[columnIndex].boxCostPerUnit) : 0;
 

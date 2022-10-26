@@ -28,41 +28,50 @@ const Input = () => {
       <h2>Input</h2>
       <div id="input-grid">
         {/* Pricing Type */}
-        <p className="pricing-type row-head">Pricing</p>
+        <p className="pricing-type row-head hide-if-mobile">Pricing Type</p>
+        <p className="pricing-type row-head mobile-abbreviation">PT</p>
         <PricingType />
 
         {/* QTY */}
-        <p className="qty row-head">Quantity</p>
+        <p className="qty row-head">Qty</p>
         {quantities.map((qty, i) => {
           return <Quantity id={"qty-input"+i} columnIndex={i} key={"qty-input"+i} />;
         })}
 
         {/* unit cost */}
-        <p className="unit-cost row-head">Unit Cost</p>
+        <p className="unit-cost row-head hide-if-mobile">Unit Cost</p>
+        <p className="unit-cost row-head mobile-abbreviation">UC</p>
         {!isEQP ? columnsArr.map((col, i) => {
           return <UnitCost  id={"unit-cost"+i} columnIndex={i} key={"unit-cost"+i}  />;
         }) : <UnitCost id={"unit-cost"+0} columnIndex={0} key={"unit-cost"+0}  />
       }
 
         {/* Unit Code */}
-        <p className="unit-code row-head">Unit Code</p>
+        <p className="unit-code row-head hide-if-mobile">Unit Code</p>
+        <p className="unit-code row-head mobile-abbreviation">Code</p>
         {<UnitCode id={"unit-code"+0} columnIndex={0} key={"unit-code"+0}  />
         }
 
         {/* Setup Fee */}
-        <p className="setup-fee row-head">Setup Fee</p>
+        <p className="setup-fee row-head hide-if-mobile">Setup Fee</p>
+        <p className="setup-fee row-head mobile-abbreviation">SF</p>
         <SetupFee />
         {/* Setup Code */}
-        <p className="setup-code row-head">Setup Code</p>
+        <p className="setup-code row-head hide-if-mobile">Setup Code</p>
+        <p className="setup-code row-head mobile-abbreviation">SC</p>
         <SetupCode />
 
         {/* Box Qty/Cost */}
         <p id="box-head" className="row-head">
           Box
         </p>
-        <p className="qty-pb">QTY-PB</p>
+
+        <p className="qty-pb hide-if-mobile">QTY-PB</p>
+        <p className="qty-pb mobile-abbreviation">QPB</p>
         {Array.from(Array(boxAmount)).map((box, i) => (<QtyPerBox id={"qty-pb-"+i} boxIndex={i} key={"qty-pb-"+i} />))}
-        <p className="cost-pb">COST-PB</p>
+        
+        <p className="cost-pb hide-if-mobile">COST-PB</p>
+        <p className="cost-pb mobile-abbreviation">CPB</p>
         {Array.from(Array(boxAmount)).map((box, i) => (<CostPerBox id={"cost-pb-"+i} boxIndex={i} key={"cost-pb-"+i} />))}
         <button
           className="add-box box-btn"
@@ -93,11 +102,13 @@ const Input = () => {
           - Box
         </button>
         {/* Handling Fees */}
-        <p className="row-head" id="handling-head">
-          Handling Fees
-        </p>
 
-        <p className="handling title-type">TYPE</p>
+        <p className="row-head hide-if-mobile" id="handling-head">Handling Fees</p>
+        <p className="row-head mobile-abbreviation" id="handling-head">HFs</p>
+
+        <p className="">TYPE</p>
+        <p className="handling title-type hide-if-mobile">TYPE</p>
+        <p className="handling title-type mobile-abbreviation">type</p>
         {Array.from(Array(handlingAmount)).map((h, i) => {
           return (
             <HandlingType
@@ -108,7 +119,8 @@ const Input = () => {
           );
         })}
 
-        <p className="handling title-fee">FEE</p>
+        <p className="handling title-fee hide-if-mobile">FEE</p>
+        <p className="handling title-fee mobile-abbreviation">fee</p>
         {Array.from(Array(handlingAmount)).map((h, i) => {
           return (
             <HandlingFee

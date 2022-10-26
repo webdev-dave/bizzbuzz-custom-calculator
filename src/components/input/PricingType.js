@@ -11,7 +11,7 @@ const PricingType = () => {
   };
   return (
     <select
-      className="pricing-type selector"
+      className="pricing-type"
       value={pricingType}
       onChange={handleChange}
     >
