@@ -3,13 +3,13 @@ import { selectAdditionalData } from "../../main/mainSlice";
 
 const SetupFeeDiscountSum = ({ id, columnIndex }) => {
   const additionalDataArr = useSelector(selectAdditionalData);
-  const setupFeeDiscountSum =
-    additionalDataArr[columnIndex].setupFeeDiscountSum;
+  const setupFeeDiscountSum = additionalDataArr ?
+    Number(additionalDataArr[columnIndex].setupFeeDiscountSum) : 0;
 
   return (
     <div className="grid-child" id={id}>
       <p>
-        {setupFeeDiscountSum && setupFeeDiscountSum.toFixed(2)}
+        {setupFeeDiscountSum.toFixed(2)}
       </p>
     </div>
   );

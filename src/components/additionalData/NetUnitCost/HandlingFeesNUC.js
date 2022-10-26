@@ -7,11 +7,11 @@ const HandlingFeesNUC = ({ id, columnIndex }) => {
   const handlingFeesPerUnit = additionalDataArr[columnIndex].handlingFeesPerUnit;
   const unitCostPostEqpDiscount = additionalDataArr[columnIndex].discountedUnitCostPostEqp;
   const unitCostPostDiscountedSF = (discountedSetupFeePerUnit >= 0) && (discountedSetupFeePerUnit + unitCostPostEqpDiscount);
-  const unitCostPostHF = (handlingFeesPerUnit >= 0) && (unitCostPostDiscountedSF + handlingFeesPerUnit);
+  const unitCostPostHF = (handlingFeesPerUnit >= 0) ? (unitCostPostDiscountedSF + handlingFeesPerUnit) : 0;
 
   return (
     <div className="grid-child" id={id}>
-        <p>{unitCostPostHF && unitCostPostHF.toFixed(2)}</p>
+        <p>{unitCostPostHF.toFixed(2)}</p>
     </div>
   );
 };

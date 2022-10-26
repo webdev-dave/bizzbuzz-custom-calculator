@@ -3,12 +3,12 @@ import { selectAdditionalData } from "../../main/mainSlice";
 
 const HandlingFeesTotal = ({ id, columnIndex }) => {
   const additionalDataArr = useSelector(selectAdditionalData);
-  const totalHandlingFees = additionalDataArr[columnIndex].totalHandlingFees;
+  const totalHandlingFees = additionalDataArr ? additionalDataArr[columnIndex].totalHandlingFees : 0;
 
   return (
     <div className="grid-child" id={id}>
       <p>
-        {totalHandlingFees && totalHandlingFees.toFixed(2)}
+        {totalHandlingFees}
       </p>
     </div>
   );

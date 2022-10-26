@@ -4,12 +4,12 @@ import { selectAdditionalData } from "../../main/mainSlice";
 const CodeDiscountNUC = ({ id, columnIndex }) => {
   const additionalDataArr = useSelector(selectAdditionalData);
   //unit cost
-  const unitCostPostCodeDiscount =
-    additionalDataArr[columnIndex].unitCostPostCodeDiscount;
+  const unitCostPostCodeDiscount = additionalDataArr ?
+    Number(additionalDataArr[columnIndex].unitCostPostCodeDiscount) : 0;
 
   return (
     <div className="grid-child" id={id}>
-      <p>{unitCostPostCodeDiscount && unitCostPostCodeDiscount.toFixed(2)}</p>
+      <p>{unitCostPostCodeDiscount.toFixed(2)}</p>
     </div>
   );
 };

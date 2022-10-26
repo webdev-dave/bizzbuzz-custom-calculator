@@ -12,12 +12,12 @@ const BoxNUC = ({ id, columnIndex }) => {
   //box
   const totalBoxCost = additionalDataArr[columnIndex].totalBoxCostWithFees;
   const boxCostPerUnit = totalBoxCost && Number(totalBoxCost / orderQty);
-  const unitCostPostBoxCost = (boxCostPerUnit >= 0) && Number(unitCostPostHF + boxCostPerUnit);
+  const unitCostPostBoxCost = (boxCostPerUnit >= 0) ? Number(unitCostPostHF + boxCostPerUnit) : 0;
 
   return (
     <div className="grid-child" id={id}>
                     
-            <p>{unitCostPostBoxCost && unitCostPostBoxCost.toFixed(2)}</p>
+            <p>{unitCostPostBoxCost.toFixed(2)}</p>
     </div>
   );
 };

@@ -4,9 +4,8 @@
 
 ## Todo
 
-- add box fee pu, box cost pu, total pu
 - add media queries that shrink text size on smaller screens
-- add Additional Data section (should be collapsible)
+- Additional Data section should be collapsible
 - get rid of multi unitCode columns (event with non EQP)
 - block user from being able to edit netUnitCost
 - make all results update based on netUnitCost (as opposed to unitCost)

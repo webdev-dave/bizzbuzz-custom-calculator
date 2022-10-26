@@ -5,12 +5,12 @@ const SetupFeeNUC = ({ id, columnIndex }) => {
   const additionalDataArr = useSelector(selectAdditionalData);
   const discountedSetupFeePerUnit = additionalDataArr[columnIndex].discountedSetupFeePerUnit;
   const unitCostPostEqpDiscount = additionalDataArr[columnIndex].discountedUnitCostPostEqp;
-  const unitCostPostDiscountedSF = (discountedSetupFeePerUnit >= 0) && (discountedSetupFeePerUnit + unitCostPostEqpDiscount);
+  const unitCostPostDiscountedSF = (discountedSetupFeePerUnit >= 0) ? (discountedSetupFeePerUnit + unitCostPostEqpDiscount) : 0;
 
   return (
     <div className="grid-child" id={id}>
       <p>
-        {unitCostPostDiscountedSF && unitCostPostDiscountedSF.toFixed(2)}
+        {unitCostPostDiscountedSF.toFixed(2)}
       </p>
     </div>
   );

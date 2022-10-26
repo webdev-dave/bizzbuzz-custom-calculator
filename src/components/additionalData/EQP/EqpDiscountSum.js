@@ -7,7 +7,7 @@ const EqpDiscountSum = ({ id, columnIndex }) => {
 
   return (
     <div className="grid-child" id={id}>
-      <p>{eqpDiscountSum && eqpDiscountSum}</p>
+      <p>{eqpDiscountSum}</p>
     </div>
   );
 };

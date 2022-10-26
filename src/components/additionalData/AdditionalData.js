@@ -1,11 +1,10 @@
 import { useSelector } from "react-redux";
 import { columnsArr } from "../../assets/helpers/helperArrays";
-import { injectColumnQuantities } from "../../assets/helpers/helperFunctions";
+import { injectColumnQuantityHeaders } from "../../assets/helpers/helperFunctions";
 import { selectQuantity } from "../main/mainSlice";
 import BoxLogic from "./Box/BoxLogic";
 import BoxCount from "./Box/BoxCount";
 import BoxFees from "./Box/BoxFees";
-import BoxCostPerUnit from "./Box/BoxCostPerUnit";
 import UnitCodeDiscountRate from "./UnitCode/UnitCodeDiscountRate";
 import UnitCodeDiscountSum from "./UnitCode/UnitCodeDiscountSum";
 import EqpDiscountRate from "./EQP/EqpDiscountRate";
@@ -24,34 +23,23 @@ import SetupFeeNUC from "./NetUnitCost/SetupFeeNUC";
 import HandlingFeesNUC from "./NetUnitCost/HandlingFeesNUC";
 import BoxNUC from "./NetUnitCost/BoxNUC";
 import TotalNUC from "./NetUnitCost/TotalNUC";
-
-
-
-
+import BoxTotalPerUnit from "./Box/BoxTotalPerUnit";
+import BoxCost from "./Box/BoxCost";
 
 
 const AdditionalData = () => {
   const quantitiesArr = useSelector(selectQuantity);
-
-
-
-
-
-
-
-
 
   return (
     <div id="additional-data-container" className="additional-data">
       <h2>Additional Data</h2>
       <div id="additional-data-grid">
 
- 
         {/* -----------------------------------------------------------------------------------  Box */}
         <h5 className="sub-header box">Box</h5>
-        <div className="blank--head-column-div"></div>
-        {injectColumnQuantities(columnsArr, quantitiesArr)}
-        <h6 className="row-head">Box Logic</h6>
+        <div className="blank-head-column-div"></div>
+        {injectColumnQuantityHeaders(columnsArr, quantitiesArr)}
+        <h6 className="row-head">logic</h6>
         {columnsArr.map((column, i) => {
           return (
             <BoxLogic
@@ -61,7 +49,7 @@ const AdditionalData = () => {
             />
           );
         })}
-        <h6 className="row-head">Box Count</h6>
+        <h6 className="row-head">count</h6>
         {columnsArr.map((column, i) => {
           return (
             <BoxCount
@@ -71,7 +59,17 @@ const AdditionalData = () => {
             />
           );
         })}
-        <h6 className="row-head">Box Fees</h6>
+        <h6 className="row-head">cost</h6>
+        {columnsArr.map((column, i) => {
+          return (
+            <BoxCost
+              columnIndex={i}
+              id={"box-fees-col-" + i}
+              key={"box-fees-col-" + i}
+            />
+          );
+        })}
+        <h6 className="row-head">fees</h6>
         {columnsArr.map((column, i) => {
           return (
             <BoxFees
@@ -82,20 +80,20 @@ const AdditionalData = () => {
           );
         })}
         
-        <h6 className="row-head">Box Cost PU</h6>
+        <h6 className="row-head">total pu</h6>
         {columnsArr.map((column, i) => {
           return (
-            <BoxCostPerUnit
+            <BoxTotalPerUnit
               columnIndex={i}
-              id={"box-cost-pu-col-" + i}
-              key={"box-cost-pu-col-" + i}
+              id={"box-total-pu-col-" + i}
+              key={"box-total-pu-col-" + i}
             />
           );
         })}
         {/* ---------------------------------------------------------------------------------  Unit Code */}
         <h5 className="sub-header">Unit Code</h5>
-        <div className="blank--head-column-div"></div>
-        {injectColumnQuantities(columnsArr, quantitiesArr)}
+        <div className="blank-head-column-div"></div>
+        {injectColumnQuantityHeaders(columnsArr, quantitiesArr)}
         <h6 className="row-head">dis rate</h6>
         {columnsArr.map((column, i) => {
           return (
@@ -121,8 +119,8 @@ const AdditionalData = () => {
 
         {/* ---------------------------------------------------------------------------------  EQP */}
         <h5 className="sub-header">EQP</h5>
-        <div className="blank--head-column-div"></div>
-        {injectColumnQuantities(columnsArr, quantitiesArr)}
+        <div className="blank-head-column-div"></div>
+        {injectColumnQuantityHeaders(columnsArr, quantitiesArr)}
 
         <h6 className="row-head">dis rate</h6>
         {columnsArr.map((column, i) => {
@@ -130,7 +128,7 @@ const AdditionalData = () => {
             <EqpDiscountRate
               columnIndex={i}
               id={"eqp-discount-rate-col-" + i}
-              key={"eqp-code-discount-rate-col-" + i}
+              key={"eqp-discount-rate-col-" + i}
             />
           );
         })}
@@ -147,8 +145,8 @@ const AdditionalData = () => {
         })}
         {/* ---------------------------------------------------------------------------------  Setup Fee */}
         <h5 className="sub-header">Setup Fee</h5>
-        <div className="blank--head-column-div"></div>
-        {injectColumnQuantities(columnsArr, quantitiesArr)}
+        <div className="blank-head-column-div"></div>
+        {injectColumnQuantityHeaders(columnsArr, quantitiesArr)}
 
 
         <h6 className="row-head">initial</h6>
@@ -156,8 +154,8 @@ const AdditionalData = () => {
           return (
             <InitialSetupFee
               columnIndex={i}
-              id={"-col-" + i}
-              key={"-col-" + i}
+              id={"initial-setup-fee-col-" + i}
+              key={"initial-setup-fee-col-" + i}
             />
           );
         })}
@@ -166,8 +164,8 @@ const AdditionalData = () => {
           return (
             <SetupFeeDiscountRate
               columnIndex={i}
-              id={"-col-" + i}
-              key={"-col-" + i}
+              id={"setup-fee-discount-rate-col-" + i}
+              key={"setup-fee-discount-rate-col-" + i}
             />
           );
         })}
@@ -176,18 +174,18 @@ const AdditionalData = () => {
           return (
             <SetupFeeDiscountSum
               columnIndex={i}
-              id={"-col-" + i}
-              key={"-col-" + i}
+              id={"setup-fee-discount-sum-col-" + i}
+              key={"setup-fee-discount-sum-col-" + i}
             />
           );
         })}
-        <h6 className="row-head">post dis</h6>
+        <h6 className="row-head">plus dis</h6>
         {columnsArr.map((column, i) => {
           return (
             <SetupFeePostDiscount
               columnIndex={i}
-              id={"-col-" + i}
-              key={"-col-" + i}
+              id={"setup-fee-plus-discount-col-" + i}
+              key={"setup-fee-plus-discount-col-" + i}
             />
           );
         })}
@@ -196,23 +194,23 @@ const AdditionalData = () => {
           return (
             <SetupFeePerUnit
               columnIndex={i}
-              id={"-col-" + i}
-              key={"-col-" + i}
+              id={"setup-fee-pu-col-" + i}
+              key={"setup-fee-pu-col-" + i}
             />
           );
         })}
         {/* ---------------------------------------------------------------------------------  Handling Fees */}
         <h5 className="sub-header">Handling Fees</h5>
-        <div className="blank--head-column-div"></div>
-        {injectColumnQuantities(columnsArr, quantitiesArr)}
+        <div className="blank-head-column-div"></div>
+        {injectColumnQuantityHeaders(columnsArr, quantitiesArr)}
 
         <h6 className="row-head">total</h6>
         {columnsArr.map((column, i) => {
           return (
             <HandlingFeesTotal
               columnIndex={i}
-              id={"-col-" + i}
-              key={"-col-" + i}
+              id={"total-handling-fees-col-" + i}
+              key={"total-handling-fees-col-" + i}
             />
           );
         })}
@@ -223,8 +221,8 @@ const AdditionalData = () => {
           return (
             <HandlingFeesPerUnit
               columnIndex={i}
-              id={"-col-" + i}
-              key={"-col-" + i}
+              id={"handling-fees-pu-col-" + i}
+              key={"handling-fees-pu-col-" + i}
             />
           );
         })}
@@ -234,16 +232,16 @@ const AdditionalData = () => {
 
         {/* ---------------------------------------------------------------------------------  Net Unit Cost */}
         <h5 className="sub-header">Net UC</h5>
-        <div className="blank--head-column-div"></div>
-        {injectColumnQuantities(columnsArr, quantitiesArr)}
+        <div className="blank-head-column-div"></div>
+        {injectColumnQuantityHeaders(columnsArr, quantitiesArr)}
 
         <h6 className="row-head">initial</h6>
         {columnsArr.map((column, i) => {
           return (
             <InitialNUC
               columnIndex={i}
-              id={"-col-" + i}
-              key={"-col-" + i}
+              id={"initial-nuc-col-" + i}
+              key={"initial-nuc-col-" + i}
             />
           );
         })}
@@ -254,8 +252,8 @@ const AdditionalData = () => {
           return (
             <CodeDiscountNUC
               columnIndex={i}
-              id={"-col-" + i}
-              key={"-col-" + i}
+              id={"nuc-plus-code-discount-col-" + i}
+              key={"nuc-plus-code-discount-col-" + i}
             />
           );
         })}
@@ -266,8 +264,8 @@ const AdditionalData = () => {
           return (
             <EqpDiscountNUC
               columnIndex={i}
-              id={"-col-" + i}
-              key={"-col-" + i}
+              id={"nuc-plus-eqp-discount-col-" + i}
+              key={"nuc-plus-eqp-discount-col-" + i}
             />
           );
         })}
@@ -278,8 +276,8 @@ const AdditionalData = () => {
           return (
             <SetupFeeNUC
               columnIndex={i}
-              id={"-col-" + i}
-              key={"-col-" + i}
+              id={"nuc-plus-setup-fee-col-" + i}
+              key={"nuc-plus-setup-fee-col-" + i}
             />
           );
         })}
@@ -290,8 +288,8 @@ const AdditionalData = () => {
           return (
             <HandlingFeesNUC
               columnIndex={i}
-              id={"-col-" + i}
-              key={"-col-" + i}
+              id={"nuc-plus-handling-fees-col-" + i}
+              key={"nuc-plus-handling-fees-col-" + i}
             />
           );
         })}
@@ -302,8 +300,8 @@ const AdditionalData = () => {
           return (
             <BoxNUC
               columnIndex={i}
-              id={"-col-" + i}
-              key={"-col-" + i}
+              id={"nuc-plus-box-col-" + i}
+              key={"nuc-plus-box-col-" + i}
             />
           );
         })}
@@ -314,14 +312,13 @@ const AdditionalData = () => {
           return (
             <TotalNUC
               columnIndex={i}
-              id={"-col-" + i}
-              key={"-col-" + i}
+              id={"nuc-total-col-" + i}
+              key={"nuc-total-col-" + i}
             />
           );
         })}
 
 
-    
 
         {/* additional-data-container closer */}
       </div>

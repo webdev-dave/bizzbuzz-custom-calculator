@@ -1,5 +1,6 @@
 import { useSelector } from "react-redux";
 import { columnsArr } from "../../assets/helpers/helperArrays";
+import { injectColumnQuantityHeaders } from "../../assets/helpers/helperFunctions";
 import { selectQuantity } from "../main/mainSlice";
 import NetUnitCost from "./NetUnitCost";
 import ProfitMargin from "./ProfitMargin";
@@ -9,20 +10,13 @@ import RetailTotal from "./RetailTotal";
 import TotalProfit from "./TotalProfit";
 
 const Results = () => {
-  const qtyInput = useSelector(selectQuantity);
+  const quantitiesArr = useSelector(selectQuantity);
   return (
     <div id="results-container">
       <h2>Results</h2>
       <div id="results-grid">
-        {/* blank div is here in order to assist with the grid placement of "pcs-head" */}
-        <div id="blank-div"></div>
-        {columnsArr.map((column, i) => {
-          return (
-            <h5 className="pcs-head" id={"pcs-head-" + i} key={"pcs-head-" + i}>
-              {qtyInput[i] + " pcs"}
-            </h5>
-          );
-        })}
+        <div className="blank-head-column-div"></div>
+        {injectColumnQuantityHeaders(columnsArr, quantitiesArr)}
 
         <h6 className="row-head">Net Unit Cost</h6>
         {columnsArr.map((column, i) => {
