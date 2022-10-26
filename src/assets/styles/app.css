@@ -22,7 +22,7 @@ h2 {
   font-size: 3.5rem;
   font-weight: 600;
   text-align: center;
-  margin: 9rem 0 6rem 0;
+  padding: 9rem 0 6rem 0;
 }
 
 h3 {
@@ -401,9 +401,6 @@ input[type=number]::-webkit-outer-spin-button {
 
 /* ------------------------------------------------------------------------ mobile grid styles */
 @media only screen and (max-width: 600px) {
-  #input-container {
-    padding: 0 2.5%;
-  }
 
   #input-grid, #results-grid, #additional-data-grid  {
     grid-template-columns: minmax(0px, 1.2fr) repeat(7, minmax(0px, 1fr));
