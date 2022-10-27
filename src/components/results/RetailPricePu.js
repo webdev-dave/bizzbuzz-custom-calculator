@@ -4,15 +4,14 @@ import { selectRetailPricePu, updateRetailPricePu } from "../main/mainSlice";
 const RetailPricePu = ({ id, columnIndex }) => {
   const dispatch = useDispatch();
   const retailPricePuArr = useSelector(selectRetailPricePu);
-  const retailPricePu = parseFloat(retailPricePuArr[columnIndex]);
+  const retailPricePu = Number(retailPricePuArr[columnIndex]);
 
   const handleChange = (e) => {
     dispatch(
       updateRetailPricePu({
         columnIndex: columnIndex,
         value: e.target.value,
-      })
-    );
+    }));
   };
   return (
     <input

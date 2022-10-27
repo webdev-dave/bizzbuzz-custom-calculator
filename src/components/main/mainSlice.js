@@ -1,5 +1,5 @@
 import { createSlice } from "@reduxjs/toolkit";
-import { getProfitMargin, addEqpDiscount, configureBoxes } from "../../assets/helpers/helperFunctions";
+import { getProfitMargin, getRetailPricePu, addEqpDiscount, configureBoxes } from "../../assets/helpers/helperFunctions";
 import { setupCodeDiscountValues, unitCodeDiscountValues } from "../../assets/helpers/helperObjects";
 
 
@@ -173,17 +173,17 @@ const mainSlice = createSlice({
 
 
 
-
       //update all Results components based on the new net cost
       for(let i = 0; i < 7; i++){
-        const netUnitCost = parseFloat(state.netUnitCost[i]);
+        const netUnitCost = Number(state.netUnitCost[i]);
+        const profitMargin = Number(state.profitMargin[i]);
+        const retailPricePu = getRetailPricePu(profitMargin, netUnitCost);
+        const profitPu = Number((retailPricePu - netUnitCost).toFixed(2));
         //retailPricePu
-        const retailPricePu = netUnitCost + Number((netUnitCost * (state.profitMargin[i]/100)).toFixed(2));
-        state.retailPricePu[i] = Number((retailPricePu).toFixed(2));
+        state.retailPricePu[i] = retailPricePu;
         //retailTotal
-        state.retailTotal[i] = Number(retailPricePu * state.quantity[i]).toFixed(2);
+        state.retailTotal[i] = Number((retailPricePu * state.quantity[i]).toFixed(2));
         //profit PU
-        const profitPu = parseFloat((state.retailPricePu[i] - netUnitCost).toFixed(2));
         state.profitPu[i] = profitPu;
         //total profit
         state.totalProfit[i] = Number((profitPu * state.quantity[i]).toFixed(2));
@@ -192,81 +192,94 @@ const mainSlice = createSlice({
     },
     updateRetailPricePu: (state, action) => {
       const columnIndex = action.payload.columnIndex;
+      const retailPricePu = Number(action.payload.value);
+      const netUnitCost = Number(state.netUnitCost[columnIndex]);
+      const profitPu = Number((retailPricePu - netUnitCost).toFixed(2));
       //retail price pu
-      state.retailPricePu[columnIndex] = action.payload.value;
+      state.retailPricePu[columnIndex] = retailPricePu;
       //retail total
-      state.retailTotal[columnIndex] = parseFloat(state.retailPricePu[columnIndex] * state.quantity[columnIndex]);
+      state.retailTotal[columnIndex] = Number((retailPricePu * state.quantity[columnIndex]).toFixed(2));
       //profit margin
-      const profitPu = parseFloat((state.retailPricePu[columnIndex] - state.netUnitCost[columnIndex]).toFixed(2));
-      state.profitMargin[columnIndex] = getProfitMargin(profitPu, state.netUnitCost[columnIndex]);
+      state.profitMargin[columnIndex] = getProfitMargin(profitPu, retailPricePu);
       //profit PU    
       state.profitPu[columnIndex] = profitPu;
       //total profit
-      state.totalProfit[columnIndex] = parseFloat(profitPu * state.quantity[columnIndex]).toFixed(2);
+      state.totalProfit[columnIndex] = Number((profitPu * state.quantity[columnIndex]).toFixed(2));
     },
     updateRetailTotal: (state, action) => {
       const columnIndex = action.payload.columnIndex;
+      const retailTotal = Number(action.payload.value);
+      const qty = Number(state.quantity[columnIndex]);
+      const netUnitCost = Number(state.netUnitCost[columnIndex]);
+      const retailPricePu = Number((retailTotal / qty).toFixed(2));
+      const profitPu = Number((retailPricePu - netUnitCost).toFixed(2));
+      console.log(profitPu);
       //retail total
-      state.retailTotal[columnIndex] = action.payload.value;
+      state.retailTotal[columnIndex] = retailTotal;
       //retail price pu
-      state.retailPricePu[columnIndex] = state.retailTotal[columnIndex] / state.quantity[columnIndex];
+      state.retailPricePu[columnIndex] = retailPricePu;
       //profit margin
-      const profitPu = state.retailPricePu[columnIndex] - state.netUnitCost[columnIndex];
-      state.profitMargin[columnIndex] = getProfitMargin(profitPu, state.netUnitCost[columnIndex]);
+      state.profitMargin[columnIndex] = getProfitMargin(profitPu, retailPricePu);
       //profit PU
       state.profitPu[columnIndex] = profitPu;
+    
       //total profit
-      state.totalProfit[columnIndex] = profitPu * state.quantity[columnIndex];
+      state.totalProfit[columnIndex] = (profitPu * qty);
     },
     updateProfitMargin: (state, action) => {
       const columnIndex = action.payload.columnIndex;
+      const profitMargin = Number(action.payload.value);
+      const qty = Number(state.quantity[columnIndex]);
+      const netUnitCost = Number(state.netUnitCost[columnIndex]);
+      const retailPricePu = getRetailPricePu(profitMargin, netUnitCost);
+      const profitPu = Number((retailPricePu - netUnitCost).toFixed(2));
       //profit margin
-      state.profitMargin[columnIndex] = action.payload.value;
+      state.profitMargin[columnIndex] = profitMargin;
       //retail price pu
-      const profitMargin = parseFloat(state.profitMargin[columnIndex]);
-      const netUnitCost = parseFloat(state.netUnitCost[columnIndex]);
-      state.retailPricePu[columnIndex] = parseFloat(netUnitCost + ((profitMargin * netUnitCost) / 100)).toFixed(2);
-      const retailPricePu = parseFloat(state.retailPricePu[columnIndex]);
-      state.retailTotal[columnIndex] = (retailPricePu * state.quantity[columnIndex]).toFixed(2);
+      state.retailPricePu[columnIndex] = retailPricePu;
+      //retail total
+      state.retailTotal[columnIndex] = Number((retailPricePu * qty).toFixed(2));
       //profit pu
-      const profitPu = (state.retailPricePu[columnIndex] - state.netUnitCost[columnIndex]).toFixed(2);
       state.profitPu[columnIndex] = profitPu;
       //total profit
-      state.totalProfit[columnIndex] = (profitPu * state.quantity[columnIndex]).toFixed(2);
+      state.totalProfit[columnIndex] = (profitPu * qty).toFixed(2);
     },
     updateProfitPu: (state, action) => {
       const columnIndex = action.payload.columnIndex;
+      const profitPu = Number(action.payload.value);
+      const qty = Number(state.quantity[columnIndex]);
+      const netUnitCost = Number(state.netUnitCost[columnIndex]);
+      const retailPricePu = (netUnitCost + profitPu).toFixed(2);
+      console.log(retailPricePu);
       //profit pu
-      state.profitPu[columnIndex] = action.payload.value;
-      const profitPu = state.profitPu[columnIndex];
+      state.profitPu[columnIndex] = profitPu;
       //retail price pu
-      state.retailPricePu[columnIndex] = (state.netUnitCost[columnIndex] + profitPu).toFixed(2);
+      state.retailPricePu[columnIndex] = retailPricePu;
       //retail total
-      state.retailTotal[columnIndex] = (state.retailPricePu[columnIndex] * state.quantity[columnIndex]).toFixed(2);
+      state.retailTotal[columnIndex] = (retailPricePu * qty).toFixed(2);
       //profit margin 
-      state.profitMargin[columnIndex] = getProfitMargin(profitPu, state.netUnitCost[columnIndex]);
+      state.profitMargin[columnIndex] = getProfitMargin(profitPu, retailPricePu);
       //total profit
-      state.totalProfit[columnIndex] = (profitPu * state.quantity[columnIndex]).toFixed(2);
+      state.totalProfit[columnIndex] = Number((profitPu * qty).toFixed(2));
     },
     updateTotalProfit: (state, action) => {
       const columnIndex = action.payload.columnIndex;
+      const totalProfit = Number(action.payload.value);
+      const qty = Number(state.quantity[columnIndex]);
+      const netUnitCost = Number(state.netUnitCost[columnIndex]);
+      const profitPu = Number((totalProfit / qty).toFixed(2));
+      const retailPricePu = Number((netUnitCost + profitPu).toFixed(2))
       //total profit
-      state.totalProfit[columnIndex] = action.payload.value;
-      const totalProfit = state.totalProfit[columnIndex];
+      state.totalProfit[columnIndex] = totalProfit;
       //profit pu
-      state.profitPu[columnIndex] = (totalProfit / state.quantity[columnIndex]).toFixed(2);
-      const profitPu = parseFloat(state.profitPu[columnIndex]);
+      state.profitPu[columnIndex] = profitPu;
       //retail price pu
-      state.retailPricePu[columnIndex] = parseFloat((state.netUnitCost[columnIndex] + profitPu).toFixed(2));
+      state.retailPricePu[columnIndex] = retailPricePu;
       //retail total
-      state.retailTotal[columnIndex] = (state.retailPricePu[columnIndex] * state.quantity[columnIndex]).toFixed(2);
+      state.retailTotal[columnIndex] = Number((retailPricePu * qty).toFixed(2));
       //profit margin 
-      state.profitMargin[columnIndex] = getProfitMargin(profitPu, state.netUnitCost[columnIndex]);
-      
+      state.profitMargin[columnIndex] = getProfitMargin(profitPu, retailPricePu);
     },
-    loadDefaultProfits:  (state, action) => {
-      
-    }, 
 
   },
 });

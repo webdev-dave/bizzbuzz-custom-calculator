@@ -1,6 +1,6 @@
-export const getProfitMargin = (profitPu, unitCost) => {
-    const profitMargin = (profitPu / unitCost ) * 100;
-    return profitMargin.toFixed(2);
+export const getProfitMargin = (profitPu, retailPricePu) => {
+    const profitMargin = (profitPu  / retailPricePu) * 100;
+    return Number(profitMargin.toFixed(0));
   }
 
 // export const shaveExtraZeros = (number) => {
@@ -8,6 +8,16 @@ export const getProfitMargin = (profitPu, unitCost) => {
 //   //console.log(textNum.length)
 //   let shavedText = textNum;
 // }
+
+
+export const getRetailPricePu = (profitMargin, netUnitCost) => {
+    const profitMarginDecimalValue = Number(profitMargin/100);
+    const multiplyBy = Number((netUnitCost/(netUnitCost - (netUnitCost * profitMarginDecimalValue))).toFixed(100));
+    const retailPricePu = Number(netUnitCost * multiplyBy);
+    return retailPricePu;
+  }
+
+
 
 export const injectColumnQuantityHeaders = (columnsArray, quantitiesArray) => {
   return columnsArray.map((column, i) => {
