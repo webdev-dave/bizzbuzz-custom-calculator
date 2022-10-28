@@ -108,12 +108,6 @@ const mainSlice = createSlice({
         const discountedUnitCostPostEqp = addEqpDiscount(state.pricingType, unitCostPostCodeDiscount);
         const quantity = parseFloat(state.quantity[index]);
         const discountedSetupFeePerUnit = parseFloat(discountedSetupFee / quantity);
-        
-
-
-      
-        
-        //fix this once auto calculate box cost works
         const totalBoxCost = state.boxData["orderQty_"+quantity] ? Number(state.boxData["orderQty_"+quantity].totalBoxCost) : 0;
         const totalBoxCount = state.boxData["orderQty_"+quantity] ? Number(state.boxData["orderQty_"+quantity].totalBoxCount) : 0;
         let boxFee = 0;
@@ -126,9 +120,6 @@ const mainSlice = createSlice({
         const totalBoxCostWithFees = Number(totalBoxCost + totalBoxFees);
         const boxCostPerUnit =  Number((totalBoxCost / quantity).toFixed(4));
         const boxCostPerUnitWithFees =  Number((totalBoxCostWithFees / quantity).toFixed(4));
-
-
-
         let totalHandlingFees = 0;
         state.handling.forEach((handlingFee, i) => {
           if(handlingFee.type !== "box"){
@@ -166,11 +157,6 @@ const mainSlice = createSlice({
      
         return Number((discountedUnitCostPostEqp + discountedSetupFeePerUnit + handlingFeesPerUnit + boxCostPerUnitWithFees).toFixed(4));
       })
-      
-
-
-
-
 
 
       //update all Results components based on the new net cost
@@ -222,7 +208,6 @@ const mainSlice = createSlice({
       state.profitMargin[columnIndex] = getProfitMargin(profitPu, retailPricePu);
       //profit PU
       state.profitPu[columnIndex] = profitPu;
-    
       //total profit
       state.totalProfit[columnIndex] = (profitPu * qty);
     },
@@ -250,7 +235,6 @@ const mainSlice = createSlice({
       const qty = Number(state.quantity[columnIndex]);
       const netUnitCost = Number(state.netUnitCost[columnIndex]);
       const retailPricePu = (netUnitCost + profitPu).toFixed(2);
-      console.log(retailPricePu);
       //profit pu
       state.profitPu[columnIndex] = profitPu;
       //retail price pu

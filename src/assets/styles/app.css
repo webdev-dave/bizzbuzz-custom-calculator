@@ -36,6 +36,11 @@ p {
   font-size: 1.6rem;
 }
 
+p.mobile-text {
+  font-size: 0.5rem;
+}
+
+
 button {
   cursor: pointer;
 }
@@ -44,12 +49,8 @@ h6.row-head {
   justify-self: start;
   align-self: center;
   font-size: 1.5rem;
-  font-weight: 5;
 }
 
-p.mobile-text {
-  font-size: 0.5rem;
-}
 
 /* -----------------------------------------------------main grid-------------------------------- */
 
@@ -140,6 +141,14 @@ select.unit-code.max-span, select.pricing-type {
   grid-column: 2/9; 
 }
 
+p.qty-pb ,
+p.cost-pb,
+p.handling.title-fee,
+p.handling.title-type {
+  font-size: 1.4rem;
+  /* font-weight: 600; */
+}
+
 
 /* --------------------------------------------------------------------------------- Pricing Type */
 
@@ -175,6 +184,7 @@ p.cost-pb{
   justify-self: center;
 }
 
+
 .box-btn {
   grid-column: 8/-1;
   max-width: 100%;
@@ -209,11 +219,11 @@ p.cost-pb{
 }
 
 
-
 .handling-btn {
   grid-column: 8/-1;
   max-width: 100%;
   border-radius: 5px;
+  padding: 3px 10px 3px 8px;
 }
 
 .handling-btn.add-fee {
@@ -231,6 +241,9 @@ p.cost-pb{
   height: 45px;
   border-radius: 5px;
 }
+
+
+
 
 /* ------------------------------------------------------------------------------------------- Results -- */
 
@@ -277,20 +290,6 @@ p.cost-pb{
   align-items: center;
 }
 
-/* get rid of default number step btns */
-/* .profit-margin input[type=number]::-webkit-inner-spin-button,
-input[type=number]::-webkit-outer-spin-button { 
-	-webkit-appearance: none;
-} */
-
-
-
-
-/* .profit-margin.selected {
-  border: 2px solid black;
-} */
-
-
 .profit-margin input {
   min-height: 98%;
   width: 85%;
@@ -299,18 +298,11 @@ input[type=number]::-webkit-outer-spin-button {
   
 }
 
-.profit-margin {
-  padding: 0;
-  display: flex;
-  align-items: center;
-}
-
-
-
 .profit-margin .percentage-symbol {
-  font-size: 1.8rem;
+  font-family: Verdana, Geneva, Tahoma, sans-serif;
+  font-size: 1.2rem;
+  font-weight: 600;
   padding: 0 6px;
-
 }
 
 
@@ -393,33 +385,77 @@ input[type=number]::-webkit-outer-spin-button {
   background-color: #fff;
 }
 
-#small-x {
-  font-size: 1.25rem;
-}
 
 
+/* ------------------------------------------------------------------------ universal-mobile */
 
-/* ------------------------------------------------------------------------ mobile grid styles */
-@media only screen and (max-width: 600px) {
-
-  #input-grid, #results-grid, #additional-data-grid  {
-    grid-template-columns: minmax(0px, 1.2fr) repeat(7, minmax(0px, 1fr));
-    grid-gap: 1rem 0.8rem;
-  }
-}
-
-/* ------------------------------------------------------------------------ mobile grid styles */
-
-.mobile-abbreviation {
+.mobile-abbreviation, .mobile-btn {
   display: none;
 }
 
+@media only screen and (max-width: 850px) {
+  .mobile-btn {
+    display: block;
+  }
+}
+
 @media only screen and (max-width: 750px) {
-  .mobile-abbreviation {
+  .mobile-abbreviation, .mobile {
     display: block;
   }
   .hide-if-mobile {
     display: none;
   }
+  p.qty-pb ,
+  p.cost-pb,
+  p.handling.title-fee,
+  p.handling.title-type {
+    font-size: 1.2rem;
+    /* font-weight: 600; */
+  }
 }
+
+/* ------------------------------------------------------------------------ mobile grid styles */
+@media only screen and (max-width: 750px) {
+
+  #input-grid, #results-grid, #additional-data-grid  {
+    grid-template-columns: minmax(0px, 0.8fr) repeat(7, minmax(0px, 1fr));
+    grid-gap: 1rem 0.8rem;
+  }
+}
+
+/* ------------------------------------------------------------------------ input-mobile */
+
+@media only screen and (max-width: 850px) {
+  .box-btn, .handling-btn {
+    min-height: 6rem;
+  }
+}
+
+
+@media only screen and (max-width: 750px) {
+
+
+}
+
+
+/* ------------------------------------------------------------------------ results-mobile */
+
+@media only screen and (max-width: 750px) {
+  .profit-margin p.percentage-symbol {
+    display: none;
+  }
+
+  .profit-margin input {
+      min-height: 98%;
+      width: 100%;
+      padding: 3% 0;
+      padding-left: 5px;
+      
+    }
+}
+
+
+
+
 

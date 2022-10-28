@@ -28,43 +28,43 @@ const Input = () => {
       <h2>Input</h2>
       <div id="input-grid">
         {/* Pricing Type */}
-        <p className="pricing-type row-head hide-if-mobile">Pricing Type</p>
-        <p className="pricing-type row-head mobile-abbreviation">PT</p>
+        <h6 className="pricing-type row-head hide-if-mobile">Pricing Type</h6>
+        <h6 className="pricing-type row-head mobile-abbreviation">PT</h6>
         <PricingType />
 
         {/* QTY */}
-        <p className="qty row-head">Qty</p>
+        <h6 className="qty row-head">Qty</h6>
         {quantities.map((qty, i) => {
           return <Quantity id={"qty-input"+i} columnIndex={i} key={"qty-input"+i} />;
         })}
 
         {/* unit cost */}
-        <p className="unit-cost row-head hide-if-mobile">Unit Cost</p>
-        <p className="unit-cost row-head mobile-abbreviation">UC</p>
+        <h6 className="unit-cost row-head hide-if-mobile">Unit Cost</h6>
+        <h6 className="unit-cost row-head mobile-abbreviation">UC</h6>
         {!isEQP ? columnsArr.map((col, i) => {
           return <UnitCost  id={"unit-cost"+i} columnIndex={i} key={"unit-cost"+i}  />;
         }) : <UnitCost id={"unit-cost"+0} columnIndex={0} key={"unit-cost"+0}  />
       }
 
         {/* Unit Code */}
-        <p className="unit-code row-head hide-if-mobile">Unit Code</p>
-        <p className="unit-code row-head mobile-abbreviation">Code</p>
+        <h6 className="unit-code row-head hide-if-mobile">Unit Code</h6>
+        <h6 className="unit-code row-head mobile-abbreviation">Code</h6>
         {<UnitCode id={"unit-code"+0} columnIndex={0} key={"unit-code"+0}  />
         }
 
         {/* Setup Fee */}
-        <p className="setup-fee row-head hide-if-mobile">Setup Fee</p>
-        <p className="setup-fee row-head mobile-abbreviation">SF</p>
+        <h6 className="setup-fee row-head hide-if-mobile">Setup Fee</h6>
+        <h6 className="setup-fee row-head mobile-abbreviation">SF</h6>
         <SetupFee />
         {/* Setup Code */}
-        <p className="setup-code row-head hide-if-mobile">Setup Code</p>
-        <p className="setup-code row-head mobile-abbreviation">SC</p>
+        <h6 className="setup-code row-head hide-if-mobile">Setup Code</h6>
+        <h6 className="setup-code row-head mobile-abbreviation">SC</h6>
         <SetupCode />
 
         {/* Box Qty/Cost */}
-        <p id="box-head" className="row-head">
+        <h6 id="box-head" className="row-head">
           Box
-        </p>
+        </h6>
 
         <p className="qty-pb hide-if-mobile">QTY-PB</p>
         <p className="qty-pb mobile-abbreviation">QPB</p>
@@ -83,7 +83,7 @@ const Input = () => {
             }
           }}
         >
-          + Box
+          + <br className="mobile-btn" /> Box
         </button>
         <button
           className="remove-box box-btn"
@@ -99,16 +99,13 @@ const Input = () => {
             }
           }}
         >
-          - Box
+          - <br className="mobile-btn" /> Box
         </button>
         {/* Handling Fees */}
 
-        <p className="row-head hide-if-mobile" id="handling-head">Handling Fees</p>
-        <p className="row-head mobile-abbreviation" id="handling-head">HFs</p>
-
-
-        <p className="handling title-type hide-if-mobile">TYPE</p>
-        <p className="handling title-type mobile-abbreviation">type</p>
+        <h6 className="row-head hide-if-mobile" id="handling-head">Handling Fees</h6>
+        <h6 className="row-head mobile-abbreviation" id="handling-head">HFs</h6>
+        <p className="handling title-type">TYPE</p>
         {Array.from(Array(handlingAmount)).map((h, i) => {
           return (
             <HandlingType
@@ -119,8 +116,8 @@ const Input = () => {
           );
         })}
 
-        <p className="handling title-fee hide-if-mobile">FEE</p>
-        <p className="handling title-fee mobile-abbreviation">fee</p>
+        <p className="handling title-fee">FEE</p>
+
         {Array.from(Array(handlingAmount)).map((h, i) => {
           return (
             <HandlingFee
@@ -136,7 +133,7 @@ const Input = () => {
             handlingAmount < 5 && setHandlingAmount(handlingAmount + 1);
           }}
         >
-          + Fee
+          + <br className="mobile-btn" /> Fee
         </button>
         <button
           className="remove-fee handling-btn"
@@ -146,7 +143,7 @@ const Input = () => {
             handlingAmount > 1 && dispatch(updateNetUnitCost({}));
           }}
         >
-          - Fee
+          - <br className="mobile-btn" /> Fee
         </button>
         {/* input-grid closer */}
       </div>
