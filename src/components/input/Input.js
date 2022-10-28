@@ -83,7 +83,7 @@ const Input = () => {
             }
           }}
         >
-          + <br className="mobile-btn" /> Box
+          + <br className="mobile-text-break" /> Box
         </button>
         <button
           className="remove-box box-btn"
@@ -99,7 +99,7 @@ const Input = () => {
             }
           }}
         >
-          - <br className="mobile-btn" /> Box
+          - <br className="mobile-text-break" /> Box
         </button>
         {/* Handling Fees */}
 
@@ -133,7 +133,7 @@ const Input = () => {
             handlingAmount < 5 && setHandlingAmount(handlingAmount + 1);
           }}
         >
-          + <br className="mobile-btn" /> Fee
+          + <br className="mobile-text-break" /> Fee
         </button>
         <button
           className="remove-fee handling-btn"
@@ -143,7 +143,7 @@ const Input = () => {
             handlingAmount > 1 && dispatch(updateNetUnitCost({}));
           }}
         >
-          - <br className="mobile-btn" /> Fee
+          - <br className="mobile-text-break" /> Fee
         </button>
         {/* input-grid closer */}
       </div>

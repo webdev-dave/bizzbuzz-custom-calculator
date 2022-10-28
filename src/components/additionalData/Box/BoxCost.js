@@ -10,7 +10,7 @@ const BoxCost = ({ id, columnIndex }) => {
   return (
     <div className="grid-child box-fees" id={id}>
       <div className="box-fees-text-container">
-        <p>T: <span className="colored-text">&#160;&#160;&#160;{totalBoxCost}</span></p>
+        <p>T: <span className="colored-text">{totalBoxCost}</span></p>
         <p>PU: <span className="colored-text">{boxCostPerUnit.toFixed(2)}</span></p>
       </div>
     </div>

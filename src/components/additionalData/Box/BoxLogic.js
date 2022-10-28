@@ -20,19 +20,19 @@ const BoxLogic = ({ id, columnIndex }) => {
     currentBoxSizesArr &&
     currentBoxSizesArr.map((boxSizeKey, i) => {
       return (
-        <div key={"box-logic" + i} className="additional-data-text-container mobile-text">
+        <div key={"box-logic" + i} className="additional-data-text-container">
           <p>
-            <span>size: </span>
-            <span className="colored-text mobile-text">{boxSizeKey.slice(8)}</span>
+            size: <br className="mobile-text-break" />
+            <span className="colored-text">{boxSizeKey.slice(8)}</span>
           </p>
           <p>
-            <span>cost pb: </span>
+            cost pb: <br className="mobile-text-break" />
             <span className="colored-text">
               {currentBoxDataObj[boxSizeKey].boxPrice}
             </span>
           </p>
           <p>
-            <span>count: </span>
+            count: <br className="mobile-text-break" />
             <span className="colored-text">
              {currentBoxDataObj[boxSizeKey].boxCount}
             </span>

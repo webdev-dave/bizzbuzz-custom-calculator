@@ -1,7 +1,7 @@
 import { useSelector } from "react-redux";
 import { selectAdditionalData } from "../../main/mainSlice";
 
-const BoxCount = ({ id, columnIndex }) => {
+const TotalBoxCount = ({ id, columnIndex }) => {
   const additionalDataArr = useSelector(selectAdditionalData);
   const boxCount = additionalDataArr[columnIndex].totalBoxCount;
 
@@ -12,4 +12,4 @@ const BoxCount = ({ id, columnIndex }) => {
   );
 };
 
-export default BoxCount;
+export default TotalBoxCount;

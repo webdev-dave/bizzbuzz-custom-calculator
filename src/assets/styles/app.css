@@ -36,9 +36,6 @@ p {
   font-size: 1.6rem;
 }
 
-p.mobile-text {
-  font-size: 0.5rem;
-}
 
 
 button {
@@ -369,15 +366,6 @@ p.cost-pb{
   font-size: 1.6rem;
 }
 
-@media only screen and (max-width: 650px) {
-  #additional-data-grid span.colored-text.mobile-text {
-    font-size: 1rem;
-  }
-  .additional-data-text-container {
-    margin: 0.3rem 0.2rem 2.5rem 0.2rem;
-  }
-}
-
 /* ------------------------------------------------------------------ Box Logic  */
 
 #additional-data-grid .box-logic {
@@ -389,12 +377,12 @@ p.cost-pb{
 
 /* ------------------------------------------------------------------------ universal-mobile */
 
-.mobile-abbreviation, .mobile-btn {
+.mobile-abbreviation, .mobile-text-break {
   display: none;
 }
 
 @media only screen and (max-width: 850px) {
-  .mobile-btn {
+  .mobile-text-break {
     display: block;
   }
 }
@@ -414,6 +402,7 @@ p.cost-pb{
     /* font-weight: 600; */
   }
 }
+
 
 /* ------------------------------------------------------------------------ mobile grid styles */
 @media only screen and (max-width: 750px) {
@@ -455,6 +444,44 @@ p.cost-pb{
     }
 }
 
+
+@media only screen and (max-width: 560px) {
+
+  #results-container h6.row-head {
+    font-size: 1.3rem;
+    font-weight: 600;
+  }
+
+  #results-container input {
+    font-size: 1.2rem;
+  }
+
+}
+
+
+
+/* ------------------------------------------------------------------------ additional-data-mobile */
+
+@media only screen and (max-width: 750px) {
+
+  .additional-data p {
+    font-size: 1rem;
+  }
+
+  .additional-data h6.row-head {
+    font-size: 1.3rem;
+  }
+
+  .additional-data-text-container p, .box-fees-text-container p, .box-cost-text-container p {
+    font-size: 1rem;
+  }
+
+  #additional-data-grid span.colored-text {
+    font-size: 1.2rem;
+  }
+
+  
+}
 
 
 

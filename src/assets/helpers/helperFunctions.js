@@ -23,7 +23,9 @@ export const injectColumnQuantityHeaders = (columnsArray, quantitiesArray) => {
   return columnsArray.map((column, i) => {
       return (
         <h5 className="pcs-head" id={"pcs-head-" + i} key={"pcs-head-" + i}>
-          {quantitiesArray[i] + " pcs"}
+          {quantitiesArray[i]}
+          <br className="mobile-text-break" />
+          { " pcs"}
         </h5>
       );
     })

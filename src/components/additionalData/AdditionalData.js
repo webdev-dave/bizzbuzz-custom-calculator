@@ -3,7 +3,6 @@ import { columnsArr } from "../../assets/helpers/helperArrays";
 import { injectColumnQuantityHeaders } from "../../assets/helpers/helperFunctions";
 import { selectQuantity } from "../main/mainSlice";
 import BoxLogic from "./Box/BoxLogic";
-import BoxCount from "./Box/BoxCount";
 import BoxFees from "./Box/BoxFees";
 import UnitCodeDiscountRate from "./UnitCode/UnitCodeDiscountRate";
 import UnitCodeDiscountSum from "./UnitCode/UnitCodeDiscountSum";
@@ -25,6 +24,7 @@ import BoxNUC from "./NetUnitCost/BoxNUC";
 import TotalNUC from "./NetUnitCost/TotalNUC";
 import BoxTotalPerUnit from "./Box/BoxTotalPerUnit";
 import BoxCost from "./Box/BoxCost";
+import TotalBoxCount from "./Box/TotalBoxCount";
 
 
 const AdditionalData = () => {
@@ -49,10 +49,11 @@ const AdditionalData = () => {
             />
           );
         })}
-        <h6 className="row-head">t-count</h6>
+
+        <h6 className="row-head">ttl count</h6>
         {columnsArr.map((column, i) => {
           return (
-            <BoxCount
+            <TotalBoxCount
               columnIndex={i}
               id={"box-count-col" + i}
               key={"box-count-col" + i}
