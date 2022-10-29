@@ -53,7 +53,7 @@ input {
 
 select {
   padding: 5px 4px 3px 4px;
-  border-radius: 8px;
+  border-radius: 6px;
 }
 
 .result-data, .input-data {
@@ -61,7 +61,7 @@ select {
   background-color: white;
   width: 100%;
   border: 1px solid gray;
-  border-radius: 8px;
+  border-radius: 6px;
 }
 
 
@@ -302,9 +302,7 @@ p.cost-pb{
 .profit-margin input {
   min-height: 98%;
   width: 85%;
-  padding-left: 5px;
   border: none;
-  
 }
 
 .profit-margin .percentage-symbol {
