@@ -18,6 +18,7 @@ const ProfitMargin = ({ id, columnIndex }) => {
         type="number"
         value={profitMargin}
         onChange={handleChange}
+        onWheel={(e) => e.target.blur()}
       />
       <p className="percentage-symbol">%</p>
     </div>

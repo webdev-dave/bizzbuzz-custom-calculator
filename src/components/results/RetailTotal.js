@@ -21,6 +21,7 @@ const RetailTotal = ({ id, columnIndex }) => {
       type="number"
       value={retailTotal}
       onChange={handleChange}
+      onWheel={(e) => e.target.blur()}
     />
   );
 };

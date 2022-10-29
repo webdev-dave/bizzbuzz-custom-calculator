@@ -1,3 +1,5 @@
+
+
 export const getProfitMargin = (profitPu, retailPricePu) => {
     const profitMargin = (profitPu  / retailPricePu) * 100;
     return Number(profitMargin.toFixed(0));

@@ -20,6 +20,7 @@ const RetailPricePu = ({ id, columnIndex }) => {
       type="number"
       value={retailPricePu}
       onChange={handleChange}
+      onWheel={(e) => e.target.blur()}
     />
   );
 };

@@ -15,6 +15,7 @@ const SetupFee = () => {
       type="number"
       value={setupFee}
       onChange={handleChange}
+      onWheel={(e) => e.target.blur()}
     />
   );
 };

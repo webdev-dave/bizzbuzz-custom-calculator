@@ -6,12 +6,12 @@ import UnitCost from "./UnitCost";
 import UnitCode from "./UnitCode";
 import SetupFee from "./SetupFee";
 import SetupCode from "./SetupCode";
-import HandlingType from "./HandlingType";
+import HandlingType from "./handlingFees/HandlingType";
 import { useState } from "react";
 import { columnsArr } from "../../assets/helpers/helperArrays";
-import QtyPerBox from "./QtyPerBox";
-import CostPerBox from "./CostPerBox";
-import HandlingFee from "./HandlingFee";
+import QtyPerBox from "./box/QtyPerBox";
+import CostPerBox from "./box/CostPerBox";
+import HandlingFee from "./handlingFees/HandlingFee";
 
 
 const Input = () => {
@@ -35,16 +35,16 @@ const Input = () => {
         {/* QTY */}
         <h6 className="qty row-head">Qty</h6>
         {quantities.map((qty, i) => {
-          return <Quantity id={"qty-input"+i} columnIndex={i} key={"qty-input"+i} />;
+          return  <Quantity id={"qty-input-"+i} columnIndex={i} key={"qty-input-cont-"+i} />;
         })}
 
         {/* unit cost */}
         <h6 className="unit-cost row-head hide-if-mobile">Unit Cost</h6>
         <h6 className="unit-cost row-head mobile-abbreviation">UC</h6>
         {!isEQP ? columnsArr.map((col, i) => {
-          return <UnitCost  id={"unit-cost"+i} columnIndex={i} key={"unit-cost"+i}  />;
-        }) : <UnitCost id={"unit-cost"+0} columnIndex={0} key={"unit-cost"+0}  />
-      }
+          return <UnitCost  id={"unit-cost-"+i} columnIndex={i} key={"unit-cost-"+i}  />;
+        }) : <UnitCost id={"unit-cost-"+0} columnIndex={0} key={"unit-cost-"+0}  />
+        }
 
         {/* Unit Code */}
         <h6 className="unit-code row-head hide-if-mobile">Unit Code</h6>

@@ -31,6 +31,7 @@ const UnitCost = ({ id, columnIndex }) => {
         className="input-data"
         value={unitCost}
         onChange={handleChange}
+        onWheel={(e) => e.target.blur()}
       />
     </div>
   );

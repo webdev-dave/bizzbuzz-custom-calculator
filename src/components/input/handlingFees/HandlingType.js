@@ -1,5 +1,5 @@
 import { useSelector, useDispatch  } from "react-redux";
-import { selectHandling, updateHandlingType } from "../main/mainSlice";
+import { selectHandling, updateHandlingType } from "../../main/mainSlice";
 
 const HandlingType = ({handlingIndex, id}) => {
   const dispatch = useDispatch();
@@ -11,7 +11,7 @@ const HandlingType = ({handlingIndex, id}) => {
   }
   return (
     <select
-      className="handling-fees-selector input-data"
+      className="handling-type input-data"
       id={id}
       value={handlingType}
       onChange={handleChange}

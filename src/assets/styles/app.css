@@ -136,11 +136,11 @@ body {
   grid-row: 8/9;
 }
 
-.handling-fees-selector {
+.handling-type.input-data {
   grid-row: 9/10;
 }
 
-.handling-fees-input {
+.handling-fees.input-data {
   grid-row: 10/11;
 }
 
@@ -228,6 +228,10 @@ p.cost-pb{
   justify-self: center;
 }
 
+.handling-type.input-data {
+  padding-left: 0;
+}
+
 .handling.title-fee {
   grid-row: 10 / span 1;
   justify-self: center;
@@ -286,6 +290,11 @@ p.cost-pb{
 
 }
 
+/* ------------------------------------- Net Unit Cost --------------------- */
+
+.result-data.net-unit-cost {
+  padding-bottom: 5px;
+}
 
 /* ------------------------------------- Profit Margin --------------------- */
 

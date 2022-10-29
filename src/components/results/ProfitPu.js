@@ -19,6 +19,7 @@ const ProfitPu = ({ id, columnIndex }) => {
       type="number"
       value={profitPu}
       onChange={handleChange}
+      onWheel={(e) => e.target.blur()}
     />
   );
 };

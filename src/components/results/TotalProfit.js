@@ -22,6 +22,7 @@ const TotalProfit = ({ id, columnIndex }) => {
       type="number"
       value={totalProfit}
       onChange={handleChange}
+      onWheel={(e) => e.target.blur()}
     />
   );
 };

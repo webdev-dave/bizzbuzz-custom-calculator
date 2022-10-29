@@ -1,5 +1,5 @@
 import { useSelector, useDispatch  } from "react-redux";
-import { selectHandling, updateHandlingFee, updateNetUnitCost } from "../main/mainSlice";
+import { selectHandling, updateHandlingFee, updateNetUnitCost } from "../../main/mainSlice";
 
 const HandlingFee = ({handlingIndex, id}) => {
   const dispatch = useDispatch();
@@ -11,11 +11,12 @@ const HandlingFee = ({handlingIndex, id}) => {
   }
   return (
     <input
-    className="handling-fees-input input-data"
-    type="text"
+    className="handling-fees input-data"
+    type="number"
     id={id}
     value={handlingFee}
     onChange={handleChange}
+    onWheel={(e) => e.target.blur()}
   />
   );
 };

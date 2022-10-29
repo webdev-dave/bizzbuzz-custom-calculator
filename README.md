@@ -4,15 +4,12 @@
 
 ## Todo
 
-- for moblie - fix button sizing bug 
-- for mobile - remove % symbol ?
-- add media queries that shrink text size on smaller screens
-- Additional Data section should be collapsible
+
+- Additional Data section should be collapsible ?
 - get rid of multi unitCode columns (event with non EQP)
 - block user from being able to edit netUnitCost
 - make all results update based on netUnitCost (as opposed to unitCost)
 - make netUnitCost update based on: Unit Code, Setup Fee, Setup Code, Box, Handling Fees (& EQP % calc)
-- fix "0" unit cost behavior (bug)
 - add a clear-all-fields (reset) btn
 - disable mouse scroll from changing input values
 - test for bugs and edge cases
@@ -21,6 +18,7 @@
 
 ### Notes
 
+- there is a bug on all components that render html input elements. the bug is that when using tab to jump from element to element the element loses focus immediately after single number entry. This must be fixed!!!!!
 - in order to clean up the results reducer all i have to do is update whatever component needs updating and leave the rest up to calling updateNetUnitCost
 - as of now, the app is only built to handle one Box size
 

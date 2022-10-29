@@ -1,6 +1,6 @@
 import { useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
-import { selectBoxes, updateBoxData, updateNetUnitCost, updateQtyPerBox } from "../main/mainSlice";
+import { selectBoxes, updateBoxData, updateNetUnitCost, updateQtyPerBox } from "../../main/mainSlice";
 
 const QtyPerBox = ({ id, boxIndex}) => {
   const dispatch = useDispatch();
@@ -25,6 +25,7 @@ const QtyPerBox = ({ id, boxIndex}) => {
       type="number"
       value={qtyPerBox}
       onChange={handleChange}
+      onWheel={(e) => e.target.blur()}
     />
   );
 };
