@@ -12,7 +12,7 @@ const CostPerBox = ({id, boxIndex}) => {
     //update net unit cost based on total box data
     dispatch(updateNetUnitCost({}));
   }
-  return <input className="cost-pb" id={id} type="number" value={costPerBox} onChange={handleChange}  />;
+  return <input className="cost-pb input-data" id={id} type="number" value={costPerBox} onChange={handleChange}  />;
 };
 
 export default CostPerBox;

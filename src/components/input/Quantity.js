@@ -24,7 +24,7 @@ const Quantity = ({ id, columnIndex }) => {
         value={quantity}
         onChange={handleChange}
         id={id}
-        className="qty-input"
+        className="qty-input  input-data"
       />
     </div>
   );

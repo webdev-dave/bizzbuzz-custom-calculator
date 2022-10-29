@@ -31,22 +31,40 @@ h3 {
   margin: 2rem 0;
 }
 
+h6.row-head {
+  justify-self: start;
+  align-self: center;
+  font-size: 1.5rem;
+}
 
 p {
   font-size: 1.6rem;
 }
 
 
-
 button {
   cursor: pointer;
 }
 
-h6.row-head {
-  justify-self: start;
-  align-self: center;
-  font-size: 1.5rem;
+input {
+  border: 1px solid gray;
+  border-radius: 4px;
 }
+
+select {
+  padding: 5px 4px 3px 4px;
+  border-radius: 8px;
+}
+
+.result-data, .input-data {
+  padding: 5px 4px 3px 4px;
+  background-color: white;
+  width: 100%;
+  border: 1px solid gray;
+  border-radius: 8px;
+}
+
+
 
 
 /* -----------------------------------------------------main grid-------------------------------- */
@@ -269,29 +287,23 @@ p.cost-pb{
 }
 
 
-.result-data {
-  background-color: white;
-  width: 100%;
-  padding: 3% 5%;
-  border: 1px solid gray;
-  border-radius: 4px;
-}
-
-
 /* ------------------------------------- Profit Margin --------------------- */
 
 
 .profit-margin {
-  padding: 0;
   display: flex;
   align-items: center;
+  background-color: #fff;
+  border: 1px solid gray;
+  border-radius: 6px;
+  padding: 3.5px 3px 2px 3px;
 }
 
 .profit-margin input {
   min-height: 98%;
   width: 85%;
-  padding: 3% 0;
   padding-left: 5px;
+  border: none;
   
 }
 
@@ -399,9 +411,37 @@ p.cost-pb{
   p.handling.title-fee,
   p.handling.title-type {
     font-size: 1.2rem;
-    /* font-weight: 600; */
   }
 }
+
+
+@media only screen and (max-width: 560px) {
+
+  #input-container h6.row-head,
+  #results-container h6.row-head,
+  #additional-data-container h6.row-head {
+    font-size: 1.3rem;
+    font-weight: 600;
+  }
+
+  #results-container input {
+    font-size: 1.2rem;
+  }
+
+  select {
+    padding: 5px 2.5px 3px 2px;
+  }
+  
+  .result-data, .input-data {
+    padding: 5px 2.5px 3px 2px;
+
+  }
+  
+
+}
+
+
+
 
 
 /* ------------------------------------------------------------------------ mobile grid styles */
@@ -435,25 +475,8 @@ p.cost-pb{
     display: none;
   }
 
-  .profit-margin input {
-      min-height: 98%;
-      width: 100%;
-      padding: 3% 0;
-      padding-left: 5px;
-      
-    }
-}
-
-
-@media only screen and (max-width: 560px) {
-
-  #results-container h6.row-head {
-    font-size: 1.3rem;
-    font-weight: 600;
-  }
-
-  #results-container input {
-    font-size: 1.2rem;
+  .profit-margin {
+    padding: 3.5px 3px 2px 3px;
   }
 
 }

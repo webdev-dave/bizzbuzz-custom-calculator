@@ -20,7 +20,7 @@ const QtyPerBox = ({ id, boxIndex}) => {
 
   return (
     <input
-      className="qty-pb"
+      className="qty-pb input-data"
       id={id}
       type="number"
       value={qtyPerBox}

@@ -12,8 +12,7 @@ const ProfitMargin = ({ id, columnIndex }) => {
     );
   };
   return (
-    <form action="" className={`result-data profit-margin`}>
-      <label htmlFor="profit-margin"></label>
+    <div className="profit-margin">
       <input
         id={id}
         type="number"
@@ -21,7 +20,7 @@ const ProfitMargin = ({ id, columnIndex }) => {
         onChange={handleChange}
       />
       <p className="percentage-symbol">%</p>
-    </form>
+    </div>
   );
 };
 

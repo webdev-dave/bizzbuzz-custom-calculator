@@ -11,7 +11,7 @@ const HandlingFee = ({handlingIndex, id}) => {
   }
   return (
     <input
-    className="handling-fees-input"
+    className="handling-fees-input input-data"
     type="text"
     id={id}
     value={handlingFee}

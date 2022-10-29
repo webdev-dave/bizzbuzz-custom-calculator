@@ -11,7 +11,7 @@ const SetupFee = () => {
  
   return (
     <input
-      className="setup-fee"
+      className="setup-fee input-data"
       type="number"
       value={setupFee}
       onChange={handleChange}

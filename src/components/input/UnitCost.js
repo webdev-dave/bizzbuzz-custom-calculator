@@ -28,6 +28,7 @@ const UnitCost = ({ id, columnIndex }) => {
       <input
         type="number"
         id="unit-cost-1"
+        className="input-data"
         value={unitCost}
         onChange={handleChange}
       />

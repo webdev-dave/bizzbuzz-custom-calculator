@@ -11,7 +11,7 @@ const HandlingType = ({handlingIndex, id}) => {
   }
   return (
     <select
-      className="handling-fees-selector"
+      className="handling-fees-selector input-data"
       id={id}
       value={handlingType}
       onChange={handleChange}

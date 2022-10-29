@@ -11,7 +11,7 @@ const SetupCode = () => {
   }
   return (
     <select
-      className="setup-code"
+      className="setup-code "
       value={setupCode}
       id="unit-code-selector"
       onChange={handleChange}
