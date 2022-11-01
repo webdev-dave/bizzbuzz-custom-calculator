@@ -4,17 +4,10 @@
 
 ## Todo
 
-
 - Additional Data section should be collapsible ?
-- get rid of multi unitCode columns (event with non EQP)
-- block user from being able to edit netUnitCost
-- make all results update based on netUnitCost (as opposed to unitCost)
-- make netUnitCost update based on: Unit Code, Setup Fee, Setup Code, Box, Handling Fees (& EQP % calc)
 - add a clear-all-fields (reset) btn
-- disable mouse scroll from changing input values
-- test for bugs and edge cases
+- test for bugs and edge cases - and make sure all results add up correctly
 - add styles to beautify and ease usability
-- make sure all results add up correctly
 
 ### Notes
 
@@ -24,7 +17,4 @@
 
 ### potential add-on features
 
-- display additional data
 - fix profitMargin "focus" behavior
-- add boxesRequired element in Results
-- 

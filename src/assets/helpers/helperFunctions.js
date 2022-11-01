@@ -1,24 +1,24 @@
+import Big from 'big.js';
+
+
 
 
 export const getProfitMargin = (profitPu, retailPricePu) => {
-    const profitMargin = (profitPu  / retailPricePu) * 100;
-    return Number(profitMargin.toFixed(0));
-  }
-
-// export const shaveExtraZeros = (number) => {
-//   const textNum = number.toString();
-//   //console.log(textNum.length)
-//   let shavedText = textNum;
-// }
+    //original formula
+    //const profitMargin = Number(profitPu  / retailPricePu) * 100;
+    const profitMargin = Number(Big(Number(Big(profitPu).div(retailPricePu).toString())).times(100).toString());
+    return profitMargin;
+}
 
 
 export const getRetailPricePu = (profitMargin, netUnitCost) => {
-    const profitMarginDecimalValue = Number(profitMargin/100);
-    const multiplyBy = Number((netUnitCost/(netUnitCost - (netUnitCost * profitMarginDecimalValue))).toFixed(100));
-    const retailPricePu = Number(netUnitCost * multiplyBy);
+    const profitMarginDecimalValue = Number(Big(profitMargin).div(100).toString());
+    /* original formula:
+    const multiplyBy = Number((netUnitCost/(netUnitCost - (netUnitCost * profitMarginDecimalValue))).toFixed(100)); */
+    const multiplyBy = Number(Big(netUnitCost).div(Number(Big(netUnitCost).minus(Number(Big(netUnitCost).times(profitMarginDecimalValue).toString())).toString())).toString());
+    const retailPricePu = Number(Big(netUnitCost).times(multiplyBy).toString());
     return retailPricePu;
   }
-
 
 
 export const injectColumnQuantityHeaders = (columnsArray, quantitiesArray) => {
@@ -38,28 +38,22 @@ export const addEqpDiscount = (pricingType, price) => {
   let discountedPrice;
   switch (pricingType) {
     case "EQP-1%":
-        discountedPrice = Number(price * 0.99);
+        discountedPrice = Number(Big(price).times(0.99).toString());
       break;
     case "EQP-2%":
-        discountedPrice = Number(price * 0.98);
+        discountedPrice = Number(Big(price).times(0.98).toString());
       break;
     case "EQP-3%":
-        discountedPrice = Number(price * 0.97);
+        discountedPrice = Number(Big(price).times(0.97).toString());
       break;
     case "EQP-5%":
-        discountedPrice = Number(price * 0.95);
+        discountedPrice = Number(Big(price).times(0.95).toString());
       break;
     default:
       discountedPrice = Number(price);
   }
-  return Number(discountedPrice.toFixed(4));
+  return discountedPrice;
 };
-
-
-
-
-
-
 
 
 
@@ -93,7 +87,7 @@ export const configureBoxes = (boxesArr, quantitiesArr) => {
       const currentBoxPrice = boxSizesObj[currentBoxSize].boxPrice;
       if(orderQtyState > 0){
         if(Math.floor(orderQtyState / currentBoxSize) > 0 || currentBoxSize === smallestBoxSize){
-          const boxCount = currentBoxSize === smallestBoxSize ? Math.ceil(orderQtyState / currentBoxSize) : Math.floor(orderQtyState / currentBoxSize);
+          const boxCount = (currentBoxSize === smallestBoxSize) ? Math.ceil(orderQtyState / currentBoxSize) : Math.floor(orderQtyState / currentBoxSize);
           const fulfilledQty = Number(boxCount * currentBoxSize);
           orderQtyState -= fulfilledQty;
           //box count
@@ -101,10 +95,10 @@ export const configureBoxes = (boxesArr, quantitiesArr) => {
           //box price
           boxConfigurationsObj["orderQty_"+currentOrderQty]["boxSize_"+currentBoxSize].boxPrice = currentBoxPrice;
           //box total
-          const totalPrice = Number(boxConfigurationsObj["orderQty_"+currentOrderQty]["boxSize_"+currentBoxSize].boxPrice * boxCount);
+          const totalPrice = Number(Big(boxCount).times(boxConfigurationsObj["orderQty_"+currentOrderQty]["boxSize_"+currentBoxSize].boxPrice).toString());
           boxConfigurationsObj["orderQty_"+currentOrderQty]["boxSize_"+currentBoxSize].totalPrice = totalPrice;
           //update totalBoxesCost
-          boxConfigurationsObj["orderQty_"+currentOrderQty].totalBoxCost += totalPrice;
+          boxConfigurationsObj["orderQty_"+currentOrderQty].totalBoxCost = Number(Big(boxConfigurationsObj["orderQty_"+currentOrderQty].totalBoxCost).plus(totalPrice).toString());
           boxConfigurationsObj["orderQty_"+currentOrderQty].totalBoxCount += boxCount;
           } 
         }

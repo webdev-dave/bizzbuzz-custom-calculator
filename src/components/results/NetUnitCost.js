@@ -3,7 +3,8 @@ import { selectNetUnitCost } from "../main/mainSlice";
 
 const NetUnitCost = ({ id, columnIndex }) => {
   const netUnitCostArr = useSelector(selectNetUnitCost);
-  const netUnitCost = parseFloat(netUnitCostArr[columnIndex]);
+  const netUnitCost = Number(netUnitCostArr[columnIndex]);
+
 
   return (
     <div id={id} className="result-data net-unit-cost">

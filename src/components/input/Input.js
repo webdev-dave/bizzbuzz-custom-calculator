@@ -21,7 +21,6 @@ const Input = () => {
   const [boxAmount, setBoxAmount] = useState(3);
   const [handlingAmount, setHandlingAmount] = useState(1);
   const isEQP = useSelector(selectIsEQP);
- 
 
   return (
     <div id="input-container">
