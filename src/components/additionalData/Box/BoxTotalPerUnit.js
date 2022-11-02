@@ -1,14 +1,15 @@
 import { useSelector } from "react-redux";
+import { formatToFourthDecimalPlace } from "../../../assets/helpers/helperFunctions";
 import { selectAdditionalData } from "../../main/mainSlice";
 
 const BoxTotalPerUnit = ({id, columnIndex}) => {
     const additionalDataArr = useSelector(selectAdditionalData);
-    const boxCostPerUnitWithFees = additionalDataArr ? Number(additionalDataArr[columnIndex].boxCostPerUnitWithFees) : 0;
+    const boxCostPerUnitWithFees = additionalDataArr[columnIndex].boxCostPerUnitWithFees ? additionalDataArr[columnIndex].boxCostPerUnitWithFees : 0;
 
    
     
     return (
-        <p className="grid-child" id={id}>{boxCostPerUnitWithFees.toFixed(2)}</p>
+        <p className="grid-child" id={id}>{formatToFourthDecimalPlace(boxCostPerUnitWithFees)}</p>
     )
 }
 

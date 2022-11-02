@@ -1,6 +1,16 @@
 import Big from 'big.js';
 
-
+export const injectColumnQuantityHeaders = (columnsArray, quantitiesArray) => {
+  return columnsArray.map((column, i) => {
+      return (
+        <h5 className="pcs-head" id={"pcs-head-" + i} key={"pcs-head-" + i}>
+          {quantitiesArray[i]}
+          <br className="mobile-text-break" />
+          { " pcs"}
+        </h5>
+      );
+    })
+}
 
 
 export const getProfitMargin = (profitPu, retailPricePu) => {
@@ -14,23 +24,24 @@ export const getProfitMargin = (profitPu, retailPricePu) => {
 export const getRetailPricePu = (profitMargin, netUnitCost) => {
     const profitMarginDecimalValue = Number(Big(profitMargin).div(100).toString());
     /* original formula:
-    const multiplyBy = Number((netUnitCost/(netUnitCost - (netUnitCost * profitMarginDecimalValue))).toFixed(100)); */
+    const multiplyBy = Number((netUnitCost/(netUnitCost - (netUnitCost * profitMarginDecimalValue)))); */
     const multiplyBy = Number(Big(netUnitCost).div(Number(Big(netUnitCost).minus(Number(Big(netUnitCost).times(profitMarginDecimalValue).toString())).toString())).toString());
     const retailPricePu = Number(Big(netUnitCost).times(multiplyBy).toString());
     return retailPricePu;
   }
 
 
-export const injectColumnQuantityHeaders = (columnsArray, quantitiesArray) => {
-  return columnsArray.map((column, i) => {
-      return (
-        <h5 className="pcs-head" id={"pcs-head-" + i} key={"pcs-head-" + i}>
-          {quantitiesArray[i]}
-          <br className="mobile-text-break" />
-          { " pcs"}
-        </h5>
-      );
-    })
+export const formatToFourthDecimalPlace = (number) => {
+  const stringNumArr = number.toString().split(".");
+  const wholeNumValues = stringNumArr[0];
+  if(stringNumArr.length > 1){
+    const decimalValuesArr = stringNumArr[1];
+    const firstFourDecimalValues = (decimalValuesArr.length > 4) ? decimalValuesArr.slice(0,4).toString() : decimalValuesArr.toString();
+    const result = Number(wholeNumValues +"."+firstFourDecimalValues);
+    return result;
+  } else {
+    return wholeNumValues;
+  }
 }
 
 

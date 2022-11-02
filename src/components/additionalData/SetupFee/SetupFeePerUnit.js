@@ -1,4 +1,5 @@
 import { useSelector } from "react-redux";
+import { formatToFourthDecimalPlace } from "../../../assets/helpers/helperFunctions";
 import { selectAdditionalData } from "../../main/mainSlice";
 
 const SetupFeePerUnit = ({ id, columnIndex }) => {
@@ -9,7 +10,7 @@ const SetupFeePerUnit = ({ id, columnIndex }) => {
   return (
     <div className="grid-child" id={id}>
       <p>
-        {discountedSetupFeePerUnit.toFixed(2)}
+        {formatToFourthDecimalPlace(discountedSetupFeePerUnit)}
       </p>
     </div>
   );

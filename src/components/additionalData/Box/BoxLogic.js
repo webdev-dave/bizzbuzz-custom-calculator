@@ -1,4 +1,5 @@
 import { useSelector } from "react-redux";
+import { formatToFourthDecimalPlace } from "../../../assets/helpers/helperFunctions";
 import { selectBoxConfiguration } from "../../main/mainSlice";
 import { selectQuantity } from "../../main/mainSlice";
 
@@ -14,6 +15,8 @@ const BoxLogic = ({ id, columnIndex }) => {
     Object.keys(currentBoxDataObj).filter(
       (key) => key !== "totalBoxCost" && key !== "totalBoxCount"
     );
+  
+    
 
 
   const currentBoxData =
@@ -34,7 +37,7 @@ const BoxLogic = ({ id, columnIndex }) => {
           <p>
             count: <br className="mobile-text-break" />
             <span className="colored-text">
-             {currentBoxDataObj[boxSizeKey].boxCount}
+             {formatToFourthDecimalPlace(currentBoxDataObj[boxSizeKey].boxCount)}
             </span>
           </p>
         </div>

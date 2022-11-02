@@ -1,14 +1,15 @@
 import { useSelector } from "react-redux";
+import { formatToFourthDecimalPlace } from "../../../assets/helpers/helperFunctions";
 import { selectAdditionalData } from "../../main/mainSlice";
 
 const HandlingFeesPerUnit = ({ id, columnIndex }) => {
   const additionalDataArr = useSelector(selectAdditionalData);
-  const handlingFeesPerUnit = additionalDataArr ? Number(additionalDataArr[columnIndex].handlingFeesPerUnit).toFixed(4) : 0;
+  const handlingFeesPerUnit = additionalDataArr[columnIndex].handlingFeesPerUnit ? Number(additionalDataArr[columnIndex].handlingFeesPerUnit) : 0;
 
   return (
     <div className="grid-child" id={id}>
       <p>
-        {handlingFeesPerUnit}
+        {formatToFourthDecimalPlace(handlingFeesPerUnit)}
       </p>
     </div>
   );

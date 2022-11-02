@@ -1,4 +1,5 @@
 import { useSelector } from "react-redux";
+import { formatToFourthDecimalPlace } from "../../../assets/helpers/helperFunctions";
 import { selectAdditionalData } from "../../main/mainSlice";
 
 const EqpDiscountNUC = ({ id, columnIndex }) => {
@@ -9,7 +10,7 @@ const EqpDiscountNUC = ({ id, columnIndex }) => {
   return (
     <div className="grid-child" id={id}>
       <p>
-        {unitCostPostEqpDiscount.toFixed(2)}
+        {formatToFourthDecimalPlace(unitCostPostEqpDiscount)}
       </p>
     </div>
   );

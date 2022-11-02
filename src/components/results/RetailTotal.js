@@ -1,4 +1,5 @@
 import { useSelector, useDispatch } from "react-redux";
+import { formatToFourthDecimalPlace } from "../../assets/helpers/helperFunctions";
 import { selectRetailTotal, updateRetailTotal } from "../main/mainSlice";
 
 const RetailTotal = ({ id, columnIndex }) => {
@@ -19,7 +20,7 @@ const RetailTotal = ({ id, columnIndex }) => {
       className="result-data retail-total"
       id={id}
       type="number"
-      value={retailTotal}
+      value={formatToFourthDecimalPlace(retailTotal)}
       onChange={handleChange}
       onWheel={(e) => e.target.blur()}
     />

@@ -9,7 +9,7 @@ const SetupFeeDiscountRate = ({ id, columnIndex }) => {
 
   return (
     <div className="grid-child" id={id}>
-      <p>{setupCodeDiscountRate}%</p>
+      <p>{setupCodeDiscountRate} %</p>
     </div>
   );
 };

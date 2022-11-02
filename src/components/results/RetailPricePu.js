@@ -1,4 +1,5 @@
 import { useSelector, useDispatch } from "react-redux";
+import { formatToFourthDecimalPlace } from "../../assets/helpers/helperFunctions";
 import { selectRetailPricePu, updateRetailPricePu } from "../main/mainSlice";
 
 const RetailPricePu = ({ id, columnIndex }) => {
@@ -18,7 +19,7 @@ const RetailPricePu = ({ id, columnIndex }) => {
       className="result-data retail-price-pu"
       id={id}
       type="number"
-      value={retailPricePu}
+      value={formatToFourthDecimalPlace(retailPricePu)}
       onChange={handleChange}
       onWheel={(e) => e.target.blur()}
     />
