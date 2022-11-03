@@ -445,7 +445,9 @@ p.cost-pb{
     font-weight: 600;
   }
 
-  #results-container input {
+  #results-container input,
+  .result-data p,
+  .input-data p {
     font-size: 1.2rem;
   }
 
@@ -455,8 +457,9 @@ p.cost-pb{
   
   .result-data, .input-data {
     padding: 5px 2.5px 3px 2px;
-
   }
+
+
   
 
 }
@@ -495,9 +498,6 @@ p.cost-pb{
     display: none;
   }
 
-  .profit-margin {
-    padding: 3.5px 3px 2px 3px;
-  }
 
 }
 
@@ -506,7 +506,6 @@ p.cost-pb{
 /* ------------------------------------------------------------------------ additional-data-mobile */
 
 @media only screen and (max-width: 750px) {
-
   .additional-data p {
     font-size: 1rem;
   }
