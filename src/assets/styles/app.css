@@ -484,8 +484,7 @@ p.cost-pb{
 
 
 @media only screen and (max-width: 750px) {
-
-
+  .reset-btn:hover {background-color: lightcoral;}
 }
 
 
