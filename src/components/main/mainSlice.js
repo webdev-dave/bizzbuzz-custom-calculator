@@ -14,7 +14,7 @@ x1.minus(0.1);
 
 
 
-const initialState = {
+export const initialState = {
   pricingType: "EQP",
   quantity: [100, 250, 500, 1000, 2500, 5000, 50],
   unitCost: [1, 1, 1, 1, 1, 1, 1],
@@ -38,6 +38,9 @@ const mainSlice = createSlice({
   name: "main",
   initialState: initialState,
   reducers: {
+    resetAllValues: (state, action) => {
+      
+    },
     updatePricingType: (state, action) => {
       state.pricingType = action.payload.value;
       //when transitioning from "NON-EQP to "EQP", make sure to copy col-0 values into all the (hidden unitPrice elements)
@@ -291,7 +294,7 @@ export const selectProfitMargin = (state) => state.main.profitMargin;
 export const selectProfitPu = (state) => state.main.profitPu;
 export const selectTotalProfit = (state) => state.main.totalProfit;
 export const selectAdditionalData = (state) => state.main.additionalData;
-export const {updateQuantity, updatePricingType, updateUnitCost, updateUnitCode, updateSetupFee, updateSetupCode, updateQtyPerBox, updateCostPerBox,updateBoxData, updateHandlingType, updateHandlingFee, clearHandlingFee, updateNetUnitCost ,updateRetailPricePu, updateRetailTotal, updateProfitMargin, updateProfitPu, updateTotalProfit, updateProfits} =
+export const {resetAllValues, updateQuantity, updatePricingType, updateUnitCost, updateUnitCode, updateSetupFee, updateSetupCode, updateQtyPerBox, updateCostPerBox,updateBoxData, updateHandlingType, updateHandlingFee, clearHandlingFee, updateNetUnitCost ,updateRetailPricePu, updateRetailTotal, updateProfitMargin, updateProfitPu, updateTotalProfit, updateProfits} =
   mainSlice.actions;
   
 

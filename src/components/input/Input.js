@@ -12,6 +12,7 @@ import { columnsArr } from "../../assets/helpers/helperArrays";
 import QtyPerBox from "./box/QtyPerBox";
 import CostPerBox from "./box/CostPerBox";
 import HandlingFee from "./handlingFees/HandlingFee";
+import ResetButton from "./ResetButton";
 
 
 const Input = () => {
@@ -24,6 +25,7 @@ const Input = () => {
 
   return (
     <div id="input-container">
+      <ResetButton/>
       <h2>Input</h2>
       <div id="input-grid">
         {/* Pricing Type */}
