@@ -5,7 +5,6 @@
 ## Todo
 
 - Additional Data section should be collapsible ?
-- add a clear-all-fields (reset) btn
 - test for bugs and edge cases - and make sure all results add up correctly
 - add styles to beautify and ease usability
 

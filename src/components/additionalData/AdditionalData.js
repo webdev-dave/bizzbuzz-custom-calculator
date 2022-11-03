@@ -1,3 +1,4 @@
+import "../../assets/styles/collapse.css"
 import { useSelector } from "react-redux";
 import { columnsArr } from "../../assets/helpers/helperArrays";
 import { injectColumnQuantityHeaders } from "../../assets/helpers/helperFunctions";
@@ -25,15 +26,23 @@ import TotalNUC from "./NetUnitCost/TotalNUC";
 import BoxTotalPerUnit from "./Box/BoxTotalPerUnit";
 import BoxCost from "./Box/BoxCost";
 import TotalBoxCount from "./Box/TotalBoxCount";
+import CollapseButton from "./collapseButton/CollapseButton";
+import { selectAdditionalDataCollapsedState } from "./collapseButton/collapsedSlice";
+
+
 
 
 const AdditionalData = () => {
   const quantitiesArr = useSelector(selectQuantity);
+  const additionalDataIsCollapsed = useSelector(selectAdditionalDataCollapsedState);
 
   return (
     <div id="additional-data-container" className="additional-data">
       <h2>Additional Data</h2>
-      <div id="additional-data-grid">
+      <CollapseButton/>
+      
+      
+      <div id="additional-data-grid" className={additionalDataIsCollapsed ? "collapsed" : ""}>
 
         {/* -----------------------------------------------------------------------------------  Box */}
         <h5 className="sub-header box">Box</h5>

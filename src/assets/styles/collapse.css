@@ -1,0 +1,27 @@
+.btn-container {
+    display: flex;
+    justify-content: center;
+    margin-bottom: 5rem;
+    margin-top: -1rem;
+
+}
+
+#additional-data-container .btn-container button {
+    background-color: aquamarine;
+    border: none;
+}
+  
+.collapsed-btn.large,
+.expanded-btn.large {
+    font-size: 5rem;
+   
+}
+
+#additional-data-container .hidden,
+#additional-data-grid.collapsed {
+    display: none;
+}
+
+/* #additional-data-grid {
+    display: none;
+} */

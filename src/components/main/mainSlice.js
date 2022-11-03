@@ -4,14 +4,6 @@ import { setupCodeDiscountValues, unitCodeDiscountValues } from "../../assets/he
 import Big from 'big.js';
 
 
-const x1 = new Big(0.3);
-x1.minus(0.1);
-
-
-
-//console.log(x1.div(0.05).valueOf());
-
-
 
 
 export const initialState = {
