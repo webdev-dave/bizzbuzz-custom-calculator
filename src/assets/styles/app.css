@@ -497,7 +497,9 @@ p.cost-pb{
   .profit-margin p.percentage-symbol {
     display: none;
   }
-
+  .profit-margin input {
+    width: 100%;
+  } 
 
 }
 
