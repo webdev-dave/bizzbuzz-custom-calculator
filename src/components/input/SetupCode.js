@@ -1,5 +1,5 @@
 import { useSelector, useDispatch } from "react-redux";
-import { setupCodes } from "../../assets/helpers/helperArrays";
+import { setupCodes } from "../../utils/helpers/helperArrays";
 import { selectSetupCode, updateNetUnitCost, updateSetupCode } from "../main/mainSlice";
 
 const SetupCode = () => {

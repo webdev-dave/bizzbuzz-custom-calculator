@@ -1,7 +1,7 @@
 import "../../assets/styles/collapse.css"
 import { useSelector } from "react-redux";
-import { columnsArr } from "../../assets/helpers/helperArrays";
-import { injectColumnQuantityHeaders } from "../../assets/helpers/helperFunctions";
+import { columnsArr } from "../../utils/helpers/helperArrays";
+import { injectColumnQuantityHeaders } from "../../utils/helpers/helperFunctions";
 import { selectQuantity } from "../main/mainSlice";
 import BoxLogic from "./Box/BoxLogic";
 import BoxFees from "./Box/BoxFees";

@@ -1,6 +1,6 @@
 import { useEffect } from "react";
 import { useSelector, useDispatch} from "react-redux";
-import { unitCodes } from "../../assets/helpers/helperArrays";
+import { unitCodes } from "../../utils/helpers/helperArrays";
 import { selectUnitCode, updateNetUnitCost, updateUnitCode } from "../main/mainSlice";
 
 

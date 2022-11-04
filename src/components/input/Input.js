@@ -8,7 +8,7 @@ import SetupFee from "./SetupFee";
 import SetupCode from "./SetupCode";
 import HandlingType from "./handlingFees/HandlingType";
 import { useState } from "react";
-import { columnsArr } from "../../assets/helpers/helperArrays";
+import { columnsArr } from "../../utils/helpers/helperArrays";
 import QtyPerBox from "./box/QtyPerBox";
 import CostPerBox from "./box/CostPerBox";
 import HandlingFee from "./handlingFees/HandlingFee";

@@ -1,6 +1,6 @@
 import { useSelector } from "react-redux";
-import { columnsArr } from "../../assets/helpers/helperArrays";
-import { injectColumnQuantityHeaders } from "../../assets/helpers/helperFunctions";
+import { columnsArr } from "../../utils/helpers/helperArrays";
+import { injectColumnQuantityHeaders } from "../../utils/helpers/helperFunctions";
 import { selectQuantity } from "../main/mainSlice";
 import NetUnitCost from "./NetUnitCost";
 import ProfitMargin from "./ProfitMargin";

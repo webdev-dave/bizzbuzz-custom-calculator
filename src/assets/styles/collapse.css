@@ -1,27 +1,30 @@
 .btn-container {
     display: flex;
     justify-content: center;
-    margin-bottom: 5rem;
-    margin-top: -1rem;
-
+    margin-top: -1.5rem;
 }
 
 #additional-data-container .btn-container button {
     background-color: aquamarine;
     border: none;
 }
+
+.collapsed-btn.large {
+    margin-bottom: 0;
+}
+
+.expanded-btn.large {
+    margin-bottom: 7.5rem;
+}
   
 .collapsed-btn.large,
 .expanded-btn.large {
-    font-size: 5rem;
-   
+    font-size: 6rem;
+    /* box-shadow: 5px 10px #888888; */
 }
+
 
 #additional-data-container .hidden,
 #additional-data-grid.collapsed {
     display: none;
 }
-
-/* #additional-data-grid {
-    display: none;
-} */

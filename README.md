@@ -1,12 +1,13 @@
-# BizzBuzz Calculator WebApp
+# BizBuzz Calculator WebApp
 
 [view live version here](https://bizzbuzz-calculator.netlify.app)
 
 ## Todo
 
-- Additional Data section should be collapsible ?
-- test for bugs and edge cases - and make sure all results add up correctly
-- add styles to beautify and ease usability
+- write tests
+- fix reset button box count and fee count error (not resetting currently)
+- test for bugs and edge cases and make sure all results add up correctly
+- review and clean up code
 
 ### Notes
 
@@ -15,5 +16,4 @@
 - as of now, the app is only built to handle one Box size
 
 ### potential add-on features
-
 - fix profitMargin "focus" behavior

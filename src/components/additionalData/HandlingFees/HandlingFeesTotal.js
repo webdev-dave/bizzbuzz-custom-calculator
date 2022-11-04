@@ -1,5 +1,5 @@
 import { useSelector } from "react-redux";
-import { formatToFourthDecimalPlace } from "../../../assets/helpers/helperFunctions";
+import { formatToFourthDecimalPlace } from "../../../utils/helpers/helperFunctions";
 import { selectAdditionalData } from "../../main/mainSlice";
 
 const HandlingFeesTotal = ({ id, columnIndex }) => {

@@ -1,5 +1,5 @@
 import { useSelector, useDispatch } from "react-redux";
-import { formatToFourthDecimalPlace } from "../../assets/helpers/helperFunctions";
+import { formatToFourthDecimalPlace } from "../../utils/helpers/helperFunctions";
 import { selectProfitMargin, updateProfitMargin } from "../main/mainSlice";
 
 const ProfitMargin = ({ id, columnIndex }) => {

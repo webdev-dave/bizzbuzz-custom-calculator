@@ -1,5 +1,5 @@
 import { useSelector, useDispatch } from "react-redux";
-import { formatToFourthDecimalPlace } from "../../assets/helpers/helperFunctions";
+import { formatToFourthDecimalPlace } from "../../utils/helpers/helperFunctions";
 import { selectRetailPricePu, updateRetailPricePu } from "../main/mainSlice";
 
 const RetailPricePu = ({ id, columnIndex }) => {

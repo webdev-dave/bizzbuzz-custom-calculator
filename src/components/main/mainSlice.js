@@ -1,6 +1,6 @@
 import { createSlice } from "@reduxjs/toolkit";
-import { getProfitMargin, getRetailPricePu, addEqpDiscount, configureBoxes } from "../../assets/helpers/helperFunctions";
-import { setupCodeDiscountValues, unitCodeDiscountValues } from "../../assets/helpers/helperObjects";
+import { getProfitMargin, getRetailPricePu, addEqpDiscount, configureBoxes } from "../../utils/helpers/helperFunctions";
+import { setupCodeDiscountValues, unitCodeDiscountValues } from "../../utils/helpers/helperObjects";
 import Big from 'big.js';
 
 
