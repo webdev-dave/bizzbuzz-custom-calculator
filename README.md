@@ -16,4 +16,5 @@
 - as of now, the app is only built to handle one Box size
 
 ### potential add-on features
+
 - fix profitMargin "focus" behavior

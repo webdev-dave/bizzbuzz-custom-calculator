@@ -40,8 +40,6 @@ const AdditionalData = () => {
     <div id="additional-data-container" className="additional-data">
       <h2>Additional Data</h2>
       <CollapseButton/>
-      
-      
       <div id="additional-data-grid" className={additionalDataIsCollapsed ? "collapsed" : ""}>
 
         {/* -----------------------------------------------------------------------------------  Box */}

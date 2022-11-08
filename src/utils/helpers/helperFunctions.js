@@ -72,15 +72,24 @@ export const addEqpDiscount = (pricingType, price) => {
 export const configureBoxes = (boxesArr, quantitiesArr) => {
   const boxSizes = boxesArr.map(box => box.qtyPB);
   const boxPrices = boxesArr.map(box => box.costPB);
+
+
+  //git rid of size duplicates
   const boxSizesObj = {};
-  for (let i = 0; i < boxSizes.length; i++){
-    const boxSize = boxSizes[i];
-    const boxPrice = boxPrices[i];
-    //get rid of sizeZero boxes and get rid of size duplicates
+  boxSizes.forEach((boxSize, i) => {
     if(boxSize > 0){
-      boxSizesObj[boxSize] = {boxSize: boxSize, boxPrice: boxPrice};
-    }
-  }
+      boxSizesObj[boxSize] = {boxSize: boxSize, boxPrice: boxPrices[i]};
+    } 
+  });
+
+  // for (let i = 0; i < boxSizes.length; i++){
+  //   const boxSize = boxSizes[i];
+  //   const boxPrice = boxPrices[i];
+  //   //get rid of sizeZero boxes and get rid of size duplicates
+  //   if(boxSize > 0){
+  //     boxSizesObj[boxSize] = {boxSize: boxSize, boxPrice: boxPrice};
+  //   }
+  // }
   
   //sort from highest to lowest box size
   const sortedBoxSizesArr = Object.keys(boxSizesObj).sort((a,b) => b-a);
@@ -94,6 +103,7 @@ export const configureBoxes = (boxesArr, quantitiesArr) => {
     boxConfigurationsObj["orderQty_"+currentOrderQty] = {};
     boxConfigurationsObj["orderQty_"+currentOrderQty].totalBoxCost = 0;
     boxConfigurationsObj["orderQty_"+currentOrderQty].totalBoxCount = 0;
+    
     for (const currentBoxSize of sortedBoxSizesArr){
       const currentBoxPrice = boxSizesObj[currentBoxSize].boxPrice;
       if(orderQtyState > 0){

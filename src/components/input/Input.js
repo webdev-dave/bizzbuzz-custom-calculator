@@ -1,7 +1,7 @@
 import { useDispatch, useSelector } from "react-redux";
 import { selectIsEQP, selectQuantity, clearHandlingFee, updateNetUnitCost, updateQtyPerBox, updateCostPerBox, updateBoxData } from "../main/mainSlice";
 import PricingType from "./PricingType";
-import Quantity from "./Quantity";
+import Quantity from "./quantity/Quantity";
 import UnitCost from "./UnitCost";
 import UnitCode from "./UnitCode";
 import SetupFee from "./SetupFee";
