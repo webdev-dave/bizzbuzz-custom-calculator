@@ -1,6 +1,6 @@
 # BizBuzz Calculator WebApp
 
-[view live version here](https://bizzbuzz-calculator.netlify.app)
+[view live version here](https://bizbuzz-calculator.netlify.app)
 
 ## Todo
 
