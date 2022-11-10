@@ -1,5 +1,5 @@
 import { useDispatch, useSelector } from "react-redux";
-import { selectIsEQP, selectQuantity, clearHandlingFee, updateNetUnitCost, updateQtyPerBox, updateCostPerBox, updateBoxData } from "../main/mainSlice";
+import { selectIsEQP, selectQuantities, clearHandlingFee, updateNetUnitCost, updateQtyPerBox, updateCostPerBox, updateBoxData, selectAmountOfBoxSizes, updateAmountOfBoxSizes, selectAmountOfHandlingFees, updateAmountOfHandlingFees } from "../main/mainSlice";
 import PricingType from "./PricingType";
 import Quantity from "./quantity/Quantity";
 import UnitCost from "./UnitCost";
@@ -7,7 +7,6 @@ import UnitCode from "./UnitCode";
 import SetupFee from "./SetupFee";
 import SetupCode from "./SetupCode";
 import HandlingType from "./handlingFees/HandlingType";
-import { useState } from "react";
 import { columnsArr } from "../../utils/helpers/helperArrays";
 import QtyPerBox from "./box/QtyPerBox";
 import CostPerBox from "./box/CostPerBox";
@@ -17,10 +16,9 @@ import ResetButton from "./ResetButton";
 
 const Input = () => {
   const dispatch = useDispatch();
-  const quantities = useSelector(selectQuantity);
-  
-  const [boxAmount, setBoxAmount] = useState(3);
-  const [handlingAmount, setHandlingAmount] = useState(1);
+  const quantities = useSelector(selectQuantities);
+  const amountOfBoxSizes = useSelector(selectAmountOfBoxSizes);
+  const amountOfHandlingFees = useSelector(selectAmountOfHandlingFees);
   const isEQP = useSelector(selectIsEQP);
 
   return (
@@ -69,16 +67,16 @@ const Input = () => {
 
         <p className="qty-pb hide-if-mobile">QTY-PB</p>
         <p className="qty-pb mobile-abbreviation">QPB</p>
-        {Array.from(Array(boxAmount)).map((box, i) => (<QtyPerBox id={"qty-pb-"+i} boxIndex={i} key={"qty-pb-"+i} />))}
+        {Array.from(Array(amountOfBoxSizes)).map((box, i) => (<QtyPerBox id={"qty-pb-"+i} boxIndex={i} key={"qty-pb-"+i} />))}
         
         <p className="cost-pb hide-if-mobile">COST-PB</p>
         <p className="cost-pb mobile-abbreviation">CPB</p>
-        {Array.from(Array(boxAmount)).map((box, i) => (<CostPerBox id={"cost-pb-"+i} boxIndex={i} key={"cost-pb-"+i} />))}
+        {Array.from(Array(amountOfBoxSizes)).map((box, i) => (<CostPerBox id={"cost-pb-"+i} boxIndex={i} key={"cost-pb-"+i} />))}
         <button
           className="add-box box-btn"
           onClick={() => {
-            if(boxAmount < 5){
-              setBoxAmount(boxAmount + 1);
+            if(amountOfBoxSizes < 5){
+              dispatch(updateAmountOfBoxSizes({value: amountOfBoxSizes + 1}))
               dispatch(updateBoxData({}));
               dispatch(updateNetUnitCost({}));
             }
@@ -89,11 +87,11 @@ const Input = () => {
         <button
           className="remove-box box-btn"
           onClick={() => {
-            if(boxAmount > 1){
-              boxAmount > 1 && setBoxAmount(boxAmount - 1);
+            if(amountOfBoxSizes > 1){
+              dispatch(updateAmountOfBoxSizes({value: amountOfBoxSizes - 1}))
               //clear box values upon box removal
-              dispatch(updateQtyPerBox({boxIndex: (boxAmount -1), value: 0}));
-              dispatch(updateCostPerBox({boxIndex: (boxAmount -1), value: 0}));
+              dispatch(updateQtyPerBox({boxIndex: (amountOfBoxSizes -1), value: 0}));
+              dispatch(updateCostPerBox({boxIndex: (amountOfBoxSizes -1), value: 0}));
               //update box data accordingly
               dispatch(updateBoxData({}));
               dispatch(updateNetUnitCost({}));
@@ -107,7 +105,7 @@ const Input = () => {
         <h6 className="row-head hide-if-mobile" id="handling-head">Handling Fees</h6>
         <h6 className="row-head mobile-abbreviation" id="handling-head">HFs</h6>
         <p className="handling title-type">TYPE</p>
-        {Array.from(Array(handlingAmount)).map((h, i) => {
+        {Array.from(Array(amountOfHandlingFees)).map((h, i) => {
           return (
             <HandlingType
               handlingIndex={i}
@@ -119,7 +117,7 @@ const Input = () => {
 
         <p className="handling title-fee">FEE</p>
 
-        {Array.from(Array(handlingAmount)).map((h, i) => {
+        {Array.from(Array(amountOfHandlingFees)).map((h, i) => {
           return (
             <HandlingFee
               handlingIndex={i}
@@ -131,7 +129,7 @@ const Input = () => {
         <button
           className="add-fee handling-btn"
           onClick={() => {
-            handlingAmount < 5 && setHandlingAmount(handlingAmount + 1);
+            amountOfHandlingFees < 5 && dispatch(updateAmountOfHandlingFees({value: amountOfHandlingFees + 1}));
           }}
         >
           + <br className="mobile-text-break" /> Fee
@@ -139,9 +137,11 @@ const Input = () => {
         <button
           className="remove-fee handling-btn"
           onClick={() => {
-            handlingAmount > 1 && setHandlingAmount(handlingAmount - 1);
-            handlingAmount > 1 && dispatch(clearHandlingFee({handlingIndex: (handlingAmount - 1)}));
-            handlingAmount > 1 && dispatch(updateNetUnitCost({}));
+            if(amountOfHandlingFees > 1){
+              selectAmountOfHandlingFees(amountOfHandlingFees - 1);
+              dispatch(clearHandlingFee({handlingIndex: (amountOfHandlingFees - 1)}));
+              dispatch(updateNetUnitCost({}));
+            }
           }}
         >
           - <br className="mobile-text-break" /> Fee

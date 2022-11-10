@@ -1,7 +1,7 @@
 import { useSelector } from "react-redux";
 import { columnsArr } from "../../utils/helpers/helperArrays";
 import { injectColumnQuantityHeaders } from "../../utils/helpers/helperFunctions";
-import { selectQuantity } from "../main/mainSlice";
+import { selectQuantities } from "../main/mainSlice";
 import NetUnitCost from "./NetUnitCost";
 import ProfitMargin from "./ProfitMargin";
 import ProfitPu from "./ProfitPu";
@@ -10,7 +10,7 @@ import RetailTotal from "./RetailTotal";
 import TotalProfit from "./TotalProfit";
 
 const Results = () => {
-  const quantitiesArr = useSelector(selectQuantity);
+  const quantitiesArr = useSelector(selectQuantities);
   return (
     <div id="results-container">
       <h2>Results</h2>

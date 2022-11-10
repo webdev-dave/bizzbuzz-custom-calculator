@@ -14,8 +14,7 @@ export const injectColumnQuantityHeaders = (columnsArray, quantitiesArray) => {
 
 
 export const getProfitMargin = (profitPu, retailPricePu) => {
-    //original formula
-    //const profitMargin = Number(profitPu  / retailPricePu) * 100;
+    //raw formula: Number(profitPu  / retailPricePu) * 100; 
     const profitMargin = Number(Big(Number(Big(profitPu).div(retailPricePu).toString())).times(100).toString());
     return profitMargin;
 }
@@ -23,26 +22,25 @@ export const getProfitMargin = (profitPu, retailPricePu) => {
 
 export const getRetailPricePu = (profitMargin, netUnitCost) => {
     const profitMarginDecimalValue = Number(Big(profitMargin).div(100).toString());
-    /* original formula:
-    const multiplyBy = Number((netUnitCost/(netUnitCost - (netUnitCost * profitMarginDecimalValue)))); */
+    // raw formula: Number((netUnitCost/(netUnitCost - (netUnitCost * profitMarginDecimalValue))));
     const multiplyBy = Number(Big(netUnitCost).div(Number(Big(netUnitCost).minus(Number(Big(netUnitCost).times(profitMarginDecimalValue).toString())).toString())).toString());
     const retailPricePu = Number(Big(netUnitCost).times(multiplyBy).toString());
     return retailPricePu;
   }
 
 
-export const formatToFourthDecimalPlace = (number) => {
-  const stringNumArr = number.toString().split(".");
-  const wholeNumValues = stringNumArr[0];
-  if(stringNumArr.length > 1){
-    const decimalValuesArr = stringNumArr[1];
-    const firstFourDecimalValues = (decimalValuesArr.length > 4) ? decimalValuesArr.slice(0,4).toString() : decimalValuesArr.toString();
-    const result = Number(wholeNumValues +"."+firstFourDecimalValues);
-    return result;
-  } else {
-    return wholeNumValues;
+  export const formatToFourthDecimalPlace = (number) => {
+    const stringNumArr = number.toString().split(".");
+    const wholeNumValues = stringNumArr[0];
+    if(stringNumArr.length > 1){
+      const decimalValuesArr = stringNumArr[1];
+      const firstFourDecimalValues = (decimalValuesArr.length > 4) ? decimalValuesArr.slice(0,4).toString() : decimalValuesArr.toString();
+      const result = Number(wholeNumValues +"."+firstFourDecimalValues);
+      return result;
+    } else {
+      return wholeNumValues;
+    }
   }
-}
 
 
 export const addEqpDiscount = (pricingType, price) => {

@@ -1,17 +1,18 @@
 import { useSelector } from "react-redux";
 import { formatToFourthDecimalPlace } from "../../../utils/helpers/helperFunctions";
 import { selectBoxConfiguration } from "../../main/mainSlice";
-import { selectQuantity } from "../../main/mainSlice";
+import { selectQuantities } from "../../main/mainSlice";
 
 const BoxLogic = ({ id, columnIndex }) => {
-  const quantitiesArr = useSelector(selectQuantity);
+  const quantitiesArr = useSelector(selectQuantities);
   const boxDataObj = useSelector(selectBoxConfiguration);
   const currentQty = quantitiesArr[columnIndex];
   const currentBoxDataObj =
     boxDataObj["orderQty_" + currentQty] &&
     boxDataObj["orderQty_" + currentQty];
+
   const currentBoxSizesArr =
-    currentBoxDataObj &&
+  currentBoxDataObj &&
     Object.keys(currentBoxDataObj).filter(
       (key) => key !== "totalBoxCost" && key !== "totalBoxCount"
     );

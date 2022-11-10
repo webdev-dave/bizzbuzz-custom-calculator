@@ -1,10 +1,10 @@
 import { useSelector } from "react-redux";
 import { formatToFourthDecimalPlace } from "../../../utils/helpers/helperFunctions";
-import { selectAdditionalData, selectQuantity } from "../../main/mainSlice";
+import { selectAdditionalData, selectQuantities } from "../../main/mainSlice";
 
 const BoxFees = ({ id, columnIndex }) => {
   const additionalDataArr = useSelector(selectAdditionalData);
-  const quantitiesArr = useSelector(selectQuantity);
+  const quantitiesArr = useSelector(selectQuantities);
   const qty = quantitiesArr[columnIndex];
   const totalBoxFees = additionalDataArr[columnIndex].totalBoxFees ? additionalDataArr[columnIndex].totalBoxFees : 0;
   const boxFeesPerUnit = (totalBoxFees / qty);

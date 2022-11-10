@@ -1,13 +1,13 @@
 import { useSelector, useDispatch } from "react-redux";
 import {
-  selectQuantity,
+  selectQuantities,
   updateBoxData,
   updateNetUnitCost,
   updateQuantity
 } from "../../main/mainSlice";
 
 const Quantity = ({ id, columnIndex }) => {
-  const quantityArr = useSelector(selectQuantity);
+  const quantityArr = useSelector(selectQuantities);
   const quantity = quantityArr[columnIndex];
 
   const dispatch = useDispatch();

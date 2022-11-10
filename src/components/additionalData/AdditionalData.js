@@ -2,7 +2,7 @@ import "../../assets/styles/collapse.css"
 import { useSelector } from "react-redux";
 import { columnsArr } from "../../utils/helpers/helperArrays";
 import { injectColumnQuantityHeaders } from "../../utils/helpers/helperFunctions";
-import { selectQuantity } from "../main/mainSlice";
+import { selectQuantities } from "../main/mainSlice";
 import BoxLogic from "./Box/BoxLogic";
 import BoxFees from "./Box/BoxFees";
 import UnitCodeDiscountRate from "./UnitCode/UnitCodeDiscountRate";
@@ -33,7 +33,7 @@ import { selectAdditionalDataCollapsedState } from "./collapseButton/collapsedSl
 
 
 const AdditionalData = () => {
-  const quantitiesArr = useSelector(selectQuantity);
+  const quantitiesArr = useSelector(selectQuantities);
   const additionalDataIsCollapsed = useSelector(selectAdditionalDataCollapsedState);
 
   return (

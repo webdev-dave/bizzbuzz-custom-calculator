@@ -13,8 +13,10 @@ export const initialState = {
   unitCode: "C",
   setupFee: 0,
   setupCode: "V",
+  amountOfBoxSizes: 3,
   box: [{ qtyPB: 100, costPB: 0 }, { qtyPB: 500, costPB: 0 }, { qtyPB: 1000, costPB: 0 }, { qtyPB: 0, costPB: 0 }, { qtyPB: 0, costPB: 0 }],
   boxData: {},
+  amountOfHandlingFees: 1,
   handling: [{ fee: 0, type: "order" },{ fee: 0, type: "box" },{ fee: 0, type: "rush" },{ fee: 0, type: "misc" },{ fee: 0, type: "order" }],
   netUnitCost: [0, 0, 0, 0, 0, 0, 0],
   retailPricePu: [0, 0, 0, 0, 0, 0, 0],
@@ -67,6 +69,9 @@ const mainSlice = createSlice({
     updateSetupCode: (state, action) => {
       state.setupCode = action.payload.value;
     },
+    updateAmountOfBoxSizes: (state, action) => {
+      state.amountOfBoxSizes = action.payload.value;
+    },
     updateQtyPerBox: (state, action) => {
       const boxIndex = action.payload.boxIndex;
       state.box[boxIndex].qtyPB = Number(action.payload.value);
@@ -78,6 +83,9 @@ const mainSlice = createSlice({
     updateBoxData: (state, action) => {
       const configuredBoxes = configureBoxes(state.box, state.quantity);
       state.boxData = configuredBoxes;
+    },
+    updateAmountOfHandlingFees: (state, action) => {
+      state.amountOfHandlingFees = action.payload.value;
     },
     updateHandlingType: (state, action) => {
       const handlingIndex = action.payload.handlingIndex;
@@ -270,13 +278,15 @@ const mainSlice = createSlice({
 
 
 export const selectPricingType = (state) => state.main.pricingType;
-export const selectQuantity = (state) => state.main.quantity;
+export const selectQuantities = (state) => state.main.quantity;
 export const selectUnitCost = (state) => state.main.unitCost;
 export const selectUnitCode = (state) => state.main.unitCode;
 export const selectSetupFee = (state) => state.main.setupFee;
 export const selectSetupCode = (state) => state.main.setupCode;
+export const selectAmountOfBoxSizes = (state) => state.main.amountOfBoxSizes;
 export const selectBoxes = (state) => state.main.box;
 export const selectBoxConfiguration = (state) => state.main.boxData;
+export const selectAmountOfHandlingFees = (state) => state.main.amountOfHandlingFees;
 export const selectHandling = (state) => state.main.handling;
 export const selectIsEQP = (state) => state.main.pricingType !== "Non-EQP";
 export const selectNetUnitCost = (state) => state.main.netUnitCost;
@@ -286,7 +296,7 @@ export const selectProfitMargin = (state) => state.main.profitMargin;
 export const selectProfitPu = (state) => state.main.profitPu;
 export const selectTotalProfit = (state) => state.main.totalProfit;
 export const selectAdditionalData = (state) => state.main.additionalData;
-export const {resetAllValues, updateQuantity, updatePricingType, updateUnitCost, updateUnitCode, updateSetupFee, updateSetupCode, updateQtyPerBox, updateCostPerBox,updateBoxData, updateHandlingType, updateHandlingFee, clearHandlingFee, updateNetUnitCost ,updateRetailPricePu, updateRetailTotal, updateProfitMargin, updateProfitPu, updateTotalProfit, updateProfits} =
+export const {resetAllValues, updateQuantity, updatePricingType, updateUnitCost, updateUnitCode, updateSetupFee, updateSetupCode, updateAmountOfBoxSizes, updateQtyPerBox, updateCostPerBox, updateBoxData, updateAmountOfHandlingFees, updateHandlingType, updateHandlingFee, clearHandlingFee, updateNetUnitCost ,updateRetailPricePu, updateRetailTotal, updateProfitMargin, updateProfitPu, updateTotalProfit, updateProfits} =
   mainSlice.actions;
   
 

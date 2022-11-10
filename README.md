@@ -4,10 +4,9 @@
 
 ## Todo
 
-- write tests
-- fix reset button box count and fee count error (not resetting currently)
-- test for bugs and edge cases and make sure all results add up correctly
 - review and clean up code
+- write tests
+- test for bugs and edge cases and make sure all results add up correctly
 
 ### Notes
 
