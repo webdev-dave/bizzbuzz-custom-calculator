@@ -1,7 +1,7 @@
 import { useDispatch, useSelector } from "react-redux";
 import { selectIsEQP, selectQuantities, clearHandlingFee, updateNetUnitCost, updateQtyPerBox, updateCostPerBox, updateBoxData, selectAmountOfBoxSizes, updateAmountOfBoxSizes, selectAmountOfHandlingFees, updateAmountOfHandlingFees } from "../main/mainSlice";
 import PricingType from "./PricingType";
-import Quantity from "./quantity/Quantity";
+import Quantity from "./Quantity";
 import UnitCost from "./UnitCost";
 import UnitCode from "./UnitCode";
 import SetupFee from "./SetupFee";
@@ -105,7 +105,7 @@ const Input = () => {
         <h6 className="row-head hide-if-mobile" id="handling-head">Handling Fees</h6>
         <h6 className="row-head mobile-abbreviation" id="handling-head">HFs</h6>
         <p className="handling title-type">TYPE</p>
-        {Array.from(Array(amountOfHandlingFees)).map((h, i) => {
+        {Array.from(Array(amountOfHandlingFees)).map((hfs, i) => {
           return (
             <HandlingType
               handlingIndex={i}
@@ -117,7 +117,7 @@ const Input = () => {
 
         <p className="handling title-fee">FEE</p>
 
-        {Array.from(Array(amountOfHandlingFees)).map((h, i) => {
+        {Array.from(Array(amountOfHandlingFees)).map((hfs, i) => {
           return (
             <HandlingFee
               handlingIndex={i}

@@ -17,7 +17,7 @@ export const initialState = {
   box: [{ qtyPB: 100, costPB: 0 }, { qtyPB: 500, costPB: 0 }, { qtyPB: 1000, costPB: 0 }, { qtyPB: 0, costPB: 0 }, { qtyPB: 0, costPB: 0 }],
   boxData: {},
   amountOfHandlingFees: 1,
-  handling: [{ fee: 0, type: "order" },{ fee: 0, type: "box" },{ fee: 0, type: "rush" },{ fee: 0, type: "misc" },{ fee: 0, type: "order" }],
+  handlingFees: [{ fee: 0, type: "order" },{ fee: 0, type: "box" },{ fee: 0, type: "rush" },{ fee: 0, type: "misc" },{ fee: 0, type: "order" }],
   netUnitCost: [0, 0, 0, 0, 0, 0, 0],
   retailPricePu: [0, 0, 0, 0, 0, 0, 0],
   retailTotal: [0, 0, 0, 0, 0, 0, 0],
@@ -33,7 +33,7 @@ const mainSlice = createSlice({
   initialState: initialState,
   reducers: {
     resetAllValues: (state, action) => {
-      
+      //to understand how this works, open store.js
     },
     updatePricingType: (state, action) => {
       state.pricingType = action.payload.value;
@@ -115,7 +115,7 @@ const mainSlice = createSlice({
         const totalBoxCost = state.boxData["orderQty_"+quantity] ? Number(state.boxData["orderQty_"+quantity].totalBoxCost) : 0;
         const totalBoxCount = state.boxData["orderQty_"+quantity] ? Number(state.boxData["orderQty_"+quantity].totalBoxCount) : 0;
         let boxFee = 0;
-        state.handling.forEach((handlingFee, i) => {
+        state.handlingFees.forEach((handlingFee, i) => {
           if(handlingFee.type === "box"){
             boxFee = Number(Big(boxFee).plus(handlingFee.fee).toString());
           }
@@ -126,7 +126,7 @@ const mainSlice = createSlice({
         const boxCostPerUnitWithFees =  Number(Big(totalBoxCostWithFees).div(quantity).toString());
         
         let totalHandlingFees = 0;
-        state.handling.forEach((handlingFee, i) => {
+        state.handlingFees.forEach((handlingFee, i) => {
           if(handlingFee.type !== "box"){
             totalHandlingFees = Number(Big(totalHandlingFees).plus(handlingFee.fee).toString());
           };
@@ -287,7 +287,7 @@ export const selectAmountOfBoxSizes = (state) => state.main.amountOfBoxSizes;
 export const selectBoxes = (state) => state.main.box;
 export const selectBoxConfiguration = (state) => state.main.boxData;
 export const selectAmountOfHandlingFees = (state) => state.main.amountOfHandlingFees;
-export const selectHandling = (state) => state.main.handling;
+export const selectHandlingFees = (state) => state.main.handlingFees;
 export const selectIsEQP = (state) => state.main.pricingType !== "Non-EQP";
 export const selectNetUnitCost = (state) => state.main.netUnitCost;
 export const selectRetailPricePu = (state) => state.main.retailPricePu;

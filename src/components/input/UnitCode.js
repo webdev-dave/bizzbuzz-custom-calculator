@@ -1,4 +1,4 @@
-import { useEffect } from "react";
+
 import { useSelector, useDispatch} from "react-redux";
 import { unitCodes } from "../../utils/helpers/helperArrays";
 import { selectUnitCode, updateNetUnitCost, updateUnitCode } from "../main/mainSlice";
@@ -9,13 +9,6 @@ const UnitCode = ({id, columnIndex}) => {
   const dispatch = useDispatch();
   const unitCode = useSelector(selectUnitCode);
  
-  useEffect(()=>{
-    dispatch(updateUnitCode({columnIndex: columnIndex, value: unitCode}));
-    dispatch(updateNetUnitCost({}));
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  },[])
-
-
   const handleChange = (e) => {
     e.preventDefault()
     dispatch(updateUnitCode({columnIndex: columnIndex, value: e.target.value}));

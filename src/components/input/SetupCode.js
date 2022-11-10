@@ -1,14 +1,18 @@
 import { useSelector, useDispatch } from "react-redux";
 import { setupCodes } from "../../utils/helpers/helperArrays";
-import { selectSetupCode, updateNetUnitCost, updateSetupCode } from "../main/mainSlice";
+import {
+  selectSetupCode,
+  updateNetUnitCost,
+  updateSetupCode,
+} from "../main/mainSlice";
 
 const SetupCode = () => {
   const dispatch = useDispatch();
   const setupCode = useSelector(selectSetupCode);
   const handleChange = (e) => {
-    dispatch(updateSetupCode({value: e.target.value}));
+    dispatch(updateSetupCode({ value: e.target.value }));
     dispatch(updateNetUnitCost({}));
-  }
+  };
   return (
     <select
       className="setup-code "
@@ -17,7 +21,9 @@ const SetupCode = () => {
       onChange={handleChange}
     >
       {setupCodes.map((code) => (
-        <option key={"setup-code-" + code} value={code}>{code}</option>
+        <option key={"setup-code-" + code} value={code}>
+          {code}
+        </option>
       ))}
     </select>
   );

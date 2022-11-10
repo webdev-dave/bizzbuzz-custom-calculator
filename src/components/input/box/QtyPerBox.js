@@ -6,9 +6,10 @@ const QtyPerBox = ({ id, boxIndex}) => {
   const dispatch = useDispatch();
   const boxesArr = useSelector(selectBoxes);
   const qtyPerBox = boxesArr[boxIndex].qtyPB;
-
+  //this effect forces boxData to already load with app initial default state
   useEffect(()=>{
     dispatch(updateBoxData({boxIndex: boxIndex}));
+    dispatch(updateNetUnitCost({}));
     // eslint-disable-next-line react-hooks/exhaustive-deps
   },[])
   
