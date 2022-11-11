@@ -62,8 +62,8 @@ const AdditionalData = () => {
           return (
             <TotalBoxCount
               columnIndex={i}
-              id={"box-count-col" + i}
-              key={"box-count-col" + i}
+              id={"total-box-count-col" + i}
+              key={"total-box-count-col" + i}
             />
           );
         })}
@@ -192,8 +192,8 @@ const AdditionalData = () => {
           return (
             <SetupFeePostDiscount
               columnIndex={i}
-              id={"setup-fee-plus-discount-col-" + i}
-              key={"setup-fee-plus-discount-col-" + i}
+              id={"setup-fee-post-discount-col-" + i}
+              key={"setup-fee-post-discount-col-" + i}
             />
           );
         })}
@@ -217,8 +217,8 @@ const AdditionalData = () => {
           return (
             <HandlingFeesTotal
               columnIndex={i}
-              id={"total-handling-fees-col-" + i}
-              key={"total-handling-fees-col-" + i}
+              id={"handling-fees-total-col-" + i}
+              key={"handling-fees-total-col-" + i}
             />
           );
         })}

@@ -1,5 +1,5 @@
 import { useSelector, useDispatch  } from "react-redux";
-import { selectHandlingFees, updateHandlingType } from "../../main/mainSlice";
+import { selectHandlingFees, updateHandlingType, updateNetUnitCost } from "../../main/mainSlice";
 
 const HandlingType = ({handlingIndex, id}) => {
   const dispatch = useDispatch();
@@ -8,6 +8,7 @@ const HandlingType = ({handlingIndex, id}) => {
   const handlingType = handlingFeesArr[handlingIndex].type;
   const handleChange = (e) => {
     dispatch(updateHandlingType({handlingIndex: handlingIndex, value: e.target.value}));
+    dispatch(updateNetUnitCost({}));
   }
   return (
     <select

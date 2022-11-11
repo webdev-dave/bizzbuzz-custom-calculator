@@ -1,3 +1,4 @@
+import Big from "big.js";
 import { useSelector } from "react-redux";
 import { formatToFourthDecimalPlace } from "../../../utils/helpers/helperFunctions";
 import { selectAdditionalData, selectQuantities } from "../../main/mainSlice";
@@ -7,7 +8,7 @@ const BoxFees = ({ id, columnIndex }) => {
   const quantitiesArr = useSelector(selectQuantities);
   const qty = quantitiesArr[columnIndex];
   const totalBoxFees = additionalDataArr[columnIndex].totalBoxFees ? additionalDataArr[columnIndex].totalBoxFees : 0;
-  const boxFeesPerUnit = (totalBoxFees / qty);
+  const boxFeesPerUnit = Number(Big(totalBoxFees).div(qty).toString());
 
   return (
     <div className="grid-child box-fees" id={id}>

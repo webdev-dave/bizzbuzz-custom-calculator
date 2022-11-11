@@ -4,8 +4,6 @@ import { setupCodeDiscountValues, unitCodeDiscountValues } from "../../utils/hel
 import Big from 'big.js';
 
 
-
-
 export const initialState = {
   pricingType: "EQP",
   quantity: [100, 250, 500, 1000, 2500, 5000, 50],
@@ -89,11 +87,16 @@ const mainSlice = createSlice({
     },
     updateHandlingType: (state, action) => {
       const handlingIndex = action.payload.handlingIndex;
-      state.handling[handlingIndex].type = action.payload.value;
+      state.handlingFees[handlingIndex].type = action.payload.value;
     },
     updateHandlingFee: (state, action) => {
       const handlingIndex = action.payload.handlingIndex;
-      state.handling[handlingIndex].fee = Number(action.payload.value); 
+      state.handlingFees[handlingIndex].fee = Number(action.payload.value); 
+    },
+    clearHandlingFee: (state, action) => {
+      const handlingIndex = action.payload.handlingIndex;
+      console.log(handlingIndex);
+      state.handlingFees[handlingIndex].fee = 0;
     },
     updateNetUnitCost: (state, action) => {
       const setupFee = Number(state.setupFee);

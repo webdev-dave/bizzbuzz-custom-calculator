@@ -19,6 +19,7 @@ const Input = () => {
   const quantities = useSelector(selectQuantities);
   const amountOfBoxSizes = useSelector(selectAmountOfBoxSizes);
   const amountOfHandlingFees = useSelector(selectAmountOfHandlingFees);
+  console.log(amountOfHandlingFees);
   const isEQP = useSelector(selectIsEQP);
 
   return (
@@ -138,8 +139,8 @@ const Input = () => {
           className="remove-fee handling-btn"
           onClick={() => {
             if(amountOfHandlingFees > 1){
-              selectAmountOfHandlingFees(amountOfHandlingFees - 1);
-              dispatch(clearHandlingFee({handlingIndex: (amountOfHandlingFees - 1)}));
+              dispatch(updateAmountOfHandlingFees({value: amountOfHandlingFees - 1}));
+              dispatch(clearHandlingFee({handlingIndex: amountOfHandlingFees - 1}));
               dispatch(updateNetUnitCost({}));
             }
           }}

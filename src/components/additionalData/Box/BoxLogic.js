@@ -5,24 +5,22 @@ import { selectQuantities } from "../../main/mainSlice";
 
 const BoxLogic = ({ id, columnIndex }) => {
   const quantitiesArr = useSelector(selectQuantities);
-  const boxDataObj = useSelector(selectBoxConfiguration);
-  const currentQty = quantitiesArr[columnIndex];
+  const qty = quantitiesArr[columnIndex];
+  const boxConfigurations = useSelector(selectBoxConfiguration);
   const currentBoxDataObj =
-    boxDataObj["orderQty_" + currentQty] &&
-    boxDataObj["orderQty_" + currentQty];
+    boxConfigurations["orderQty_" + qty] &&
+    boxConfigurations["orderQty_" + qty];
 
-  const currentBoxSizesArr =
-  currentBoxDataObj &&
+  const boxSizesInUseArr =
+    currentBoxDataObj &&
     Object.keys(currentBoxDataObj).filter(
       (key) => key !== "totalBoxCost" && key !== "totalBoxCount"
     );
-  
-    
 
 
-  const currentBoxData =
-    currentBoxSizesArr &&
-    currentBoxSizesArr.map((boxSizeKey, i) => {
+  const BoxDataInJsxFormat =
+  boxSizesInUseArr &&
+  boxSizesInUseArr.map((boxSizeKey, i) => {
       return (
         <div key={"box-logic" + i} className="additional-data-text-container">
           <p>
@@ -38,15 +36,18 @@ const BoxLogic = ({ id, columnIndex }) => {
           <p>
             count: <br className="mobile-text-break" />
             <span className="colored-text">
-             {formatToFourthDecimalPlace(currentBoxDataObj[boxSizeKey].boxCount)}
+              {formatToFourthDecimalPlace(
+                currentBoxDataObj[boxSizeKey].boxCount
+              )}
             </span>
           </p>
         </div>
       );
     });
+
   return (
     <div className="grid-child box-logic" id={id}>
-      {currentBoxData}   
+      {BoxDataInJsxFormat}
     </div>
   );
 };
