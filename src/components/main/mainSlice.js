@@ -93,17 +93,11 @@ const mainSlice = createSlice({
       const handlingIndex = action.payload.handlingIndex;
       state.handlingFees[handlingIndex].fee = Number(action.payload.value); 
     },
-    clearHandlingFee: (state, action) => {
-      const handlingIndex = action.payload.handlingIndex;
-      console.log(handlingIndex);
-      state.handlingFees[handlingIndex].fee = 0;
-    },
     updateNetUnitCost: (state, action) => {
       const setupFee = Number(state.setupFee);
       const setupCodeDiscountRate = Number(setupCodeDiscountValues[state.setupCode])
       const setupFeeDiscountSum = Number(Big(setupFee).times(setupCodeDiscountRate).toString())
       const discountedSetupFee = Number(Big(setupFee).minus(setupFeeDiscountSum).toString());
-      
 
       //update net unit cost
       state.netUnitCost = state.netUnitCost.map((nuc, index) => {
@@ -299,7 +293,7 @@ export const selectProfitMargin = (state) => state.main.profitMargin;
 export const selectProfitPu = (state) => state.main.profitPu;
 export const selectTotalProfit = (state) => state.main.totalProfit;
 export const selectAdditionalData = (state) => state.main.additionalData;
-export const {resetAllValues, updateQuantity, updatePricingType, updateUnitCost, updateUnitCode, updateSetupFee, updateSetupCode, updateAmountOfBoxSizes, updateQtyPerBox, updateCostPerBox, updateBoxData, updateAmountOfHandlingFees, updateHandlingType, updateHandlingFee, clearHandlingFee, updateNetUnitCost ,updateRetailPricePu, updateRetailTotal, updateProfitMargin, updateProfitPu, updateTotalProfit, updateProfits} =
+export const {resetAllValues, updateQuantity, updatePricingType, updateUnitCost, updateUnitCode, updateSetupFee, updateSetupCode, updateAmountOfBoxSizes, updateQtyPerBox, updateCostPerBox, updateBoxData, updateAmountOfHandlingFees, updateHandlingType, updateHandlingFee, updateNetUnitCost ,updateRetailPricePu, updateRetailTotal, updateProfitMargin, updateProfitPu, updateTotalProfit, updateProfits} =
   mainSlice.actions;
   
 

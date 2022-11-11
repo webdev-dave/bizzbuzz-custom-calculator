@@ -1,5 +1,5 @@
 import { configureStore, combineReducers } from "@reduxjs/toolkit";
-import collapseButtonReducer from "../components/additionalData/collapseButton/collapsedSlice";
+import collapseButtonReducer from "../components/additionalData/collapseButton/collapseSlice";
 import mainReducer from "../components/main/mainSlice";
 
 const combinedReducer = combineReducers({

@@ -1,5 +1,5 @@
 import { useDispatch, useSelector } from "react-redux";
-import { selectIsEQP, selectQuantities, clearHandlingFee, updateNetUnitCost, updateQtyPerBox, updateCostPerBox, updateBoxData, selectAmountOfBoxSizes, updateAmountOfBoxSizes, selectAmountOfHandlingFees, updateAmountOfHandlingFees } from "../main/mainSlice";
+import { selectIsEQP, selectQuantities, updateNetUnitCost, updateQtyPerBox, updateCostPerBox, updateBoxData, selectAmountOfBoxSizes, updateAmountOfBoxSizes, selectAmountOfHandlingFees, updateAmountOfHandlingFees, updateHandlingFee } from "../main/mainSlice";
 import PricingType from "./PricingType";
 import Quantity from "./Quantity";
 import UnitCost from "./UnitCost";
@@ -19,7 +19,6 @@ const Input = () => {
   const quantities = useSelector(selectQuantities);
   const amountOfBoxSizes = useSelector(selectAmountOfBoxSizes);
   const amountOfHandlingFees = useSelector(selectAmountOfHandlingFees);
-  console.log(amountOfHandlingFees);
   const isEQP = useSelector(selectIsEQP);
 
   return (
@@ -140,7 +139,7 @@ const Input = () => {
           onClick={() => {
             if(amountOfHandlingFees > 1){
               dispatch(updateAmountOfHandlingFees({value: amountOfHandlingFees - 1}));
-              dispatch(clearHandlingFee({handlingIndex: amountOfHandlingFees - 1}));
+              dispatch(updateHandlingFee({handlingIndex: amountOfHandlingFees - 1, value: 0}));
               dispatch(updateNetUnitCost({}));
             }
           }}
