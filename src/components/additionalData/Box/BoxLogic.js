@@ -14,7 +14,7 @@ const BoxLogic = ({ id, columnIndex }) => {
   const boxSizesInUseArr =
     currentBoxDataObj &&
     Object.keys(currentBoxDataObj).filter(
-      (key) => key !== "totalBoxCost" && key !== "totalBoxCount"
+      (key) => key !== "totalBoxesCost" && key !== "totalBoxesCount"
     );
 
 

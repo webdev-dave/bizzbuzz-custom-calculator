@@ -109,18 +109,18 @@ const mainSlice = createSlice({
         const discountedUnitCostPostEqp = addEqpDiscount(state.pricingType, unitCostPostCodeDiscount);
         const quantity = Number(state.quantity[index]);
         const discountedSetupFeePerUnit = Number(Big(discountedSetupFee).div(quantity).toString());
-        const totalBoxCost = state.boxData["orderQty_"+quantity] ? Number(state.boxData["orderQty_"+quantity].totalBoxCost) : 0;
-        const totalBoxCount = state.boxData["orderQty_"+quantity] ? Number(state.boxData["orderQty_"+quantity].totalBoxCount) : 0;
+        const totalBoxesCost = state.boxData["orderQty_"+quantity] ? Number(state.boxData["orderQty_"+quantity].totalBoxesCost) : 0;
+        const totalBoxesCount = state.boxData["orderQty_"+quantity] ? Number(state.boxData["orderQty_"+quantity].totalBoxesCount) : 0;
         let boxFee = 0;
         state.handlingFees.forEach((handlingFee, i) => {
           if(handlingFee.type === "box"){
             boxFee = Number(Big(boxFee).plus(handlingFee.fee).toString());
           }
         });
-        const totalBoxFees = Number(Big(totalBoxCount).times(boxFee).toString());
-        const totalBoxCostWithFees = Number(Big(totalBoxCost).plus(totalBoxFees).toString());
-        const boxCostPerUnit =  Number(Big(totalBoxCost).div(quantity).toString());
-        const boxCostPerUnitWithFees =  Number(Big(totalBoxCostWithFees).div(quantity).toString());
+        const totalBoxFees = Number(Big(totalBoxesCount).times(boxFee).toString());
+        const totalBoxesCostWithFees = Number(Big(totalBoxesCost).plus(totalBoxFees).toString());
+        const boxCostPerUnit =  Number(Big(totalBoxesCost).div(quantity).toString());
+        const boxCostPerUnitWithFees =  Number(Big(totalBoxesCostWithFees).div(quantity).toString());
         
         let totalHandlingFees = 0;
         state.handlingFees.forEach((handlingFee, i) => {
@@ -146,11 +146,11 @@ const mainSlice = createSlice({
           setupFeeDiscountSum: setupFeeDiscountSum,
           discountedSetupFee: discountedSetupFee,
           discountedSetupFeePerUnit: discountedSetupFeePerUnit,
-          totalBoxCost: totalBoxCost,
+          totalBoxesCost: totalBoxesCost,
           boxCostPerUnit: boxCostPerUnit,
           totalBoxFees: totalBoxFees,
-          totalBoxCount: totalBoxCount,
-          totalBoxCostWithFees: totalBoxCostWithFees,
+          totalBoxesCount: totalBoxesCount,
+          totalBoxesCostWithFees: totalBoxesCostWithFees,
           boxCostPerUnitWithFees: boxCostPerUnitWithFees,
           totalHandlingFees: totalHandlingFees,
           handlingFeesPerUnit: handlingFeesPerUnit, 

@@ -13,7 +13,7 @@ const ProfitMargin = ({ id, columnIndex }) => {
     );
   };
   return (
-    <div className="profit-margin">
+    <div className="profit-margin result-data">
       <input
         id={id}
         type="number"
