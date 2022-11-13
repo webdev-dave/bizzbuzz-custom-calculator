@@ -93,7 +93,6 @@ export const configureBoxes = (boxesArr, quantitiesArr) => {
     sortedBoxSizesArr.forEach((boxSize) => {
       const boxPrice = Number(boxesObj[boxSize].boxPrice);
       const currentBoxSize = Number(boxSize);
-      console.log(orderQty)
       if(isUnsolved){
         if((currentBoxSize >= orderQty) && (orderQty > 0)){
           isUnsolved = false;

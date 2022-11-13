@@ -46,7 +46,6 @@ const mainSlice = createSlice({
     },
     updateQuantity: (state, action) => {
       const columnIndex = action.payload.columnIndex;
-      const oldQtyValue = state.quantity[columnIndex];
       const value = Number(action.payload.value);
       state.quantity[columnIndex] = value;
       if(value === 0){
