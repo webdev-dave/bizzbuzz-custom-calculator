@@ -8,7 +8,7 @@ const BoxFees = ({ id, columnIndex }) => {
   const quantitiesArr = useSelector(selectQuantities);
   const qty = quantitiesArr[columnIndex];
   const totalBoxFees = additionalDataArr[columnIndex].totalBoxFees ? additionalDataArr[columnIndex].totalBoxFees : 0;
-  const boxFeesPerUnit = Number(Big(totalBoxFees).div(qty).toString());
+  const boxFeesPerUnit = (qty > 0 || qty < 0) ? Number(Big(totalBoxFees).div(qty).toString()) : 0;
 
   return (
     <div className="grid-child box-fees" id={id}>

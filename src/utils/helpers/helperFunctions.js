@@ -14,11 +14,15 @@ export const injectColumnQuantityHeaders = (columnsArray, quantitiesArray) => {
 
 export const getProfitMargin = (profitPu, retailPricePu) => {
     //raw formula: Number(profitPu  / retailPricePu) * 100; 
-    const profitMargin = Number(Big(Number(Big(profitPu).div(retailPricePu).toString())).times(100).toString());
+    let profitMargin = "no value";
+    if(retailPricePu > 0 || retailPricePu < 0){
+      profitMargin = Number(Big(Number(Big(profitPu).div(retailPricePu).toString())).times(100).toString());
+    }
     return profitMargin;
 }
 
 export const getRetailPricePu = (profitMargin, netUnitCost) => {
+
     const profitMarginDecimalValue = Number(Big(profitMargin).div(100).toString());
     // raw formula: Number((netUnitCost/(netUnitCost - (netUnitCost * profitMarginDecimalValue))));
     const multiplyBy = Number(Big(netUnitCost).div(Number(Big(netUnitCost).minus(Number(Big(netUnitCost).times(profitMarginDecimalValue).toString())).toString())).toString());
@@ -89,8 +93,9 @@ export const configureBoxes = (boxesArr, quantitiesArr) => {
     sortedBoxSizesArr.forEach((boxSize) => {
       const boxPrice = Number(boxesObj[boxSize].boxPrice);
       const currentBoxSize = Number(boxSize);
+      console.log(orderQty)
       if(isUnsolved){
-        if(currentBoxSize >= orderQty){
+        if((currentBoxSize >= orderQty) && (orderQty > 0)){
           isUnsolved = false;
           const boxCount = 1;
           boxConfigurationsObj["orderQty_"+orderQty]["boxSize_"+currentBoxSize] = {boxCount : boxCount}
@@ -110,6 +115,9 @@ export const configureBoxes = (boxesArr, quantitiesArr) => {
           //console.log(totalPrice);
           boxConfigurationsObj["orderQty_"+orderQty].totalBoxesCost = totalPrice;
           boxConfigurationsObj["orderQty_"+orderQty].totalBoxesCount = boxCount;
+        } else if (orderQty === 0) {
+          isUnsolved = false;
+          boxConfigurationsObj["orderQty_"+orderQty]["boxSize_NA"] = {boxCount : "", boxPrice: ""};
         }
 
       }

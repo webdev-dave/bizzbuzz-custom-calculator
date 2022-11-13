@@ -13,7 +13,7 @@ const BoxNUC = ({ id, columnIndex }) => {
   const unitCostPostHF = (handlingFeesPerUnit >= 0) && Number(Big(unitCostPostDiscountedSF).plus(handlingFeesPerUnit).toString());
   //box
   const totalBoxesCost = additionalDataArr[columnIndex].totalBoxesCostWithFees;
-  const boxCostPerUnit = totalBoxesCost && Number(Big(totalBoxesCost).div(orderQty).toString());
+  const boxCostPerUnit = (totalBoxesCost && (orderQty > 0 || orderQty < 0))  ? Number(Big(totalBoxesCost).div(orderQty).toString()) : 0;
   const unitCostPostBoxCost = (boxCostPerUnit >= 0) && Number(Big(unitCostPostHF).plus(boxCostPerUnit).toFixed());
 
   return (

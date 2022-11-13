@@ -3,6 +3,7 @@ import { createSlice } from "@reduxjs/toolkit";
 
 export const initialState = {
   additionalData: {
+    //should be true
     isCollapsed: true,
   },
 };

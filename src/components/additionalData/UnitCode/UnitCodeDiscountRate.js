@@ -3,6 +3,7 @@ import { selectAdditionalData } from "../../main/mainSlice";
 import Big from "big.js";
 
 const UnitCodeDiscountRate = ({ id, columnIndex }) => {
+  
   const additionalDataArr = useSelector(selectAdditionalData);
   const unitCodeDiscountRate = Number(
     Big(additionalDataArr[columnIndex].unitCodeDiscountRate).times(100).toString()
