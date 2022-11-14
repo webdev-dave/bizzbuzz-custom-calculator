@@ -47,8 +47,6 @@ export const removeUnnecessaryZeros = (number) => {
 
 
 
-
-
 export const addEqpDiscount = (pricingType, price) => {
   let discountedPrice;
   switch (pricingType) {
