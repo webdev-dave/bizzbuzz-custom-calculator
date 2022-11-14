@@ -1,4 +1,5 @@
 import { useSelector, useDispatch } from "react-redux";
+import { removeUnnecessaryZeros } from "../../utils/helpers/helperFunctions";
 import {selectSetupFee, updateNetUnitCost, updateSetupFee, } from "../main/mainSlice"
 
 const SetupFee = () => {
@@ -13,7 +14,7 @@ const SetupFee = () => {
     <input
       className="setup-fee input-data"
       type="number"
-      value={setupFee}
+      value={removeUnnecessaryZeros(setupFee)}
       onChange={handleChange}
       onWheel={(e) => e.target.blur()}
     />

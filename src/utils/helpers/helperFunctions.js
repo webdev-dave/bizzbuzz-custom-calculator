@@ -22,26 +22,32 @@ export const getProfitMargin = (profitPu, retailPricePu) => {
 }
 
 export const getRetailPricePu = (profitMargin, netUnitCost) => {
-
     const profitMarginDecimalValue = Number(Big(profitMargin).div(100).toString());
     // raw formula: Number((netUnitCost/(netUnitCost - (netUnitCost * profitMarginDecimalValue))));
-    const multiplyBy = Number(Big(netUnitCost).div(Number(Big(netUnitCost).minus(Number(Big(netUnitCost).times(profitMarginDecimalValue).toString())).toString())).toString());
+    const multiplyBy = (netUnitCost > 0 || netUnitCost < 0) ? Number(Big(netUnitCost).div(Number(Big(netUnitCost).minus(Number(Big(netUnitCost).times(profitMarginDecimalValue).toString())).toString())).toString()) : 0;
     const retailPricePu = Number(Big(netUnitCost).times(multiplyBy).toString());
     return retailPricePu;
   }
 
-  export const formatToFourthDecimalPlace = (number) => {
+export const formatToFourthDecimalPlace = (number) => {
     const stringNumArr = number.toString().split(".");
     const wholeNumValues = stringNumArr[0];
     if(stringNumArr.length > 1){
       const decimalValuesArr = stringNumArr[1];
       const firstFourDecimalValues = (decimalValuesArr.length > 4) ? decimalValuesArr.slice(0,4).toString() : decimalValuesArr.toString();
-      const result = Number(wholeNumValues +"."+firstFourDecimalValues);
-      return result;
+      return wholeNumValues +"."+firstFourDecimalValues
     } else {
       return wholeNumValues;
     }
-  }
+}
+
+export const removeUnnecessaryZeros = (number) => {
+  return number.toString();
+}
+
+
+
+
 
 export const addEqpDiscount = (pricingType, price) => {
   let discountedPrice;

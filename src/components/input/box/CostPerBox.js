@@ -1,4 +1,5 @@
 import { useSelector, useDispatch } from "react-redux";
+import { removeUnnecessaryZeros } from "../../../utils/helpers/helperFunctions";
 import {
   selectBoxes,
   updateCostPerBox,
@@ -21,7 +22,7 @@ const CostPerBox = ({ id, boxIndex }) => {
       className="cost-pb input-data"
       id={id}
       type="number"
-      value={costPerBox}
+      value={removeUnnecessaryZeros(costPerBox)}
       onChange={handleChange}
       onWheel={(e) => e.target.blur()}
     />

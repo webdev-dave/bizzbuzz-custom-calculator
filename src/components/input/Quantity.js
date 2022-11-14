@@ -1,4 +1,5 @@
 import { useSelector, useDispatch } from "react-redux";
+import { removeUnnecessaryZeros } from "../../utils/helpers/helperFunctions";
 import {
   selectQuantities,
   updateBoxData,
@@ -9,6 +10,7 @@ import {
 const Quantity = ({ id, columnIndex }) => {
   const quantitiesArr = useSelector(selectQuantities);
   const quantity = quantitiesArr[columnIndex];
+  
 
   const dispatch = useDispatch();
   const handleChange = (e) => {
@@ -21,7 +23,7 @@ const Quantity = ({ id, columnIndex }) => {
   return (
     <input
       type="number"
-      value={quantity}
+      value={removeUnnecessaryZeros(quantity)}
       id={id}
       className="qty-input input-data"
       onChange={handleChange}

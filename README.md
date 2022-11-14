@@ -4,6 +4,7 @@
 
 ## Todo
 
+- test all inputs with zero values (there may be some errors burried multiple steps into calculations)
 - write tests
 - test for bugs and edge cases and make sure all results add up correctly
 

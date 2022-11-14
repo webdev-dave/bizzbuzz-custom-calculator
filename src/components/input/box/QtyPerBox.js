@@ -1,5 +1,6 @@
 import { useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
+import { removeUnnecessaryZeros } from "../../../utils/helpers/helperFunctions";
 import { selectBoxes, updateBoxData, updateNetUnitCost, updateQtyPerBox } from "../../main/mainSlice";
 
 const QtyPerBox = ({ id, boxIndex}) => {
@@ -24,7 +25,7 @@ const QtyPerBox = ({ id, boxIndex}) => {
       className="qty-pb input-data"
       id={id}
       type="number"
-      value={qtyPerBox}
+      value={removeUnnecessaryZeros(qtyPerBox)}
       onChange={handleChange}
       onWheel={(e) => e.target.blur()}
     />

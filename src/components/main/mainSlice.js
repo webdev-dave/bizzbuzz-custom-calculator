@@ -46,6 +46,7 @@ const mainSlice = createSlice({
     },
     updateQuantity: (state, action) => {
       const columnIndex = action.payload.columnIndex;
+      console.log(action.payload.value);
       const value = Number(action.payload.value);
       state.quantity[columnIndex] = value;
       if(value === 0){
@@ -56,7 +57,7 @@ const mainSlice = createSlice({
     updateUnitCost: (state, action) => {
       const columnIndex = action.payload.columnIndex;
       const value = Number(action.payload.value)
-      state.unitCost[columnIndex] = (value > 0 || value < 0) ? value : 0.01;
+      state.unitCost[columnIndex] = (value > 0 || value < 0) ? value : 0;
       if(action.payload.isEQP){
         for(let i = 0; i < 7; i++){
           //if is EQP then all (hidden unitPrice elements) are equal to col-0
