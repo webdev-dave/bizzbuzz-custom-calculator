@@ -25,6 +25,7 @@ const UnitCost = ({ id, columnIndex }) => {
         value={removeUnnecessaryZeros(unitCost)}
         onChange={handleChange}
         onWheel={(e) => e.target.blur()}
+        tabIndex="9"
       />
     </div>
   );

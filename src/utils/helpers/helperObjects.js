@@ -1,11 +1,4 @@
-export const unitCodeDiscountValues = {
-  A: 0.5,
-  P: 0.5,
-  C: 0.4,
-  R: 0.4,
-  G: 0.2,
-  V: 0.2,
-};
+
 
 export const setupCodeDiscountValues = {
   A: 0.5,
@@ -26,5 +19,18 @@ export const setupCodeDiscountValues = {
   W: 0.15,
   Z: 0,
 };
+
+export const unitCodeDiscountValues = setupCodeDiscountValues;
+
+// export const unitCodeDiscountValues = {
+//   A: 0.5,
+//   P: 0.5,
+//   C: 0.4,
+//   R: 0.4,
+//   G: 0.2,
+//   V: 0.2,
+// };
+
+
 
 export const initialBox = { qtyPB: 100, costPB: 0 };

@@ -17,6 +17,7 @@ const SetupFee = () => {
       value={removeUnnecessaryZeros(setupFee)}
       onChange={handleChange}
       onWheel={(e) => e.target.blur()}
+      tabIndex="11"
     />
   );
 };

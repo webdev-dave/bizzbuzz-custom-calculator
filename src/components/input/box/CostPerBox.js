@@ -25,6 +25,7 @@ const CostPerBox = ({ id, boxIndex }) => {
       value={removeUnnecessaryZeros(costPerBox)}
       onChange={handleChange}
       onWheel={(e) => e.target.blur()}
+      tabIndex={13+boxIndex}
     />
   );
 };

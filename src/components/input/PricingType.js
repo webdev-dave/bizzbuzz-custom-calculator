@@ -14,6 +14,7 @@ const PricingType = () => {
       className="pricing-type"
       value={pricingType}
       onChange={handleChange}
+      tabIndex="1"
     >
       <option value={"EQP"}>EQP</option>
       <option value={"EQP-1%"}>EQP-1%</option>

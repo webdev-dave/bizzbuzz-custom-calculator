@@ -1,4 +1,4 @@
-export const unitCodes = ["A", "P", "C", "R", "G", "V"];
+
 
 export const setupCodes = [
   "A",
@@ -19,5 +19,8 @@ export const setupCodes = [
   "W",
   "Z",
 ];
+
+//export const unitCodes = ["A", "P", "C", "R", "G", "V"];
+export const unitCodes = setupCodes;
 
 export const columnsArr = Array.from(Array(7));

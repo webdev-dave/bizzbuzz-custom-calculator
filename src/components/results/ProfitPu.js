@@ -21,6 +21,7 @@ const ProfitPu = ({ id, columnIndex }) => {
       value={formatToFourthDecimalPlace(profitPu)}
       onChange={handleChange}
       onWheel={(e) => e.target.blur()}
+      tabIndex={80+columnIndex}
     />
   );
 };

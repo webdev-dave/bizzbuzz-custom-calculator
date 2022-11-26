@@ -20,6 +20,7 @@ const ProfitMargin = ({ id, columnIndex }) => {
         value={formatToFourthDecimalPlace(profitMargin)}
         onChange={handleChange}
         onWheel={(e) => e.target.blur()}
+        tabIndex={70+columnIndex}
       />
       <p className="percentage-symbol">%</p>
     </div>

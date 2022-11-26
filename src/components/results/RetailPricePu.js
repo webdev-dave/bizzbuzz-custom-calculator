@@ -22,6 +22,7 @@ const RetailPricePu = ({ id, columnIndex }) => {
       value={formatToFourthDecimalPlace(retailPricePu)}
       onChange={handleChange}
       onWheel={(e) => e.target.blur()}
+      tabIndex={50+columnIndex}
     />
   );
 };

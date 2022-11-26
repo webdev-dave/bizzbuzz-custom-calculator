@@ -18,6 +18,7 @@ const HandlingFee = ({handlingIndex, id}) => {
     value={removeUnnecessaryZeros(handlingFee)}
     onChange={handleChange}
     onWheel={(e) => e.target.blur()}
+    tabIndex={20+handlingIndex}
   />
   );
 };

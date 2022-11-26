@@ -21,6 +21,7 @@ const UnitCode = ({id, columnIndex}) => {
       value={unitCode}
       id={id}
       onChange={handleChange}
+      tabIndex="10"
     >
         {
             unitCodes.map(code => (<option value={code} key={"unit-code-"+code}>{code}</option>))

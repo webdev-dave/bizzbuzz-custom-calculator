@@ -28,6 +28,7 @@ const QtyPerBox = ({ id, boxIndex}) => {
       value={removeUnnecessaryZeros(qtyPerBox)}
       onChange={handleChange}
       onWheel={(e) => e.target.blur()}
+      tabIndex={13+boxIndex}
     />
   );
 };

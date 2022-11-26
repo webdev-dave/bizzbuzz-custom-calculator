@@ -28,6 +28,7 @@ const Quantity = ({ id, columnIndex }) => {
       className="qty-input input-data"
       onChange={handleChange}
       onWheel={(e) => e.target.blur()}
+      tabIndex={`${2 + columnIndex}`}
     />
   );
 };

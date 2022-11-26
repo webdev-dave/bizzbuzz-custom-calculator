@@ -16,6 +16,7 @@ const HandlingType = ({handlingIndex, id}) => {
       id={id}
       value={handlingType}
       onChange={handleChange}
+      tabIndex={20+handlingIndex}
     >
       {feeTypes.map((type) => {
         return (

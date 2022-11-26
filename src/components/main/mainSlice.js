@@ -6,12 +6,12 @@ import Big from 'big.js';
 
 export const initialState = {
   pricingType: "EQP",
-  quantity: [100, 250, 500, 1000, 2500, 5000, 50],
+  quantity: [100, 250, 500, 1000, 2500, 5000, 10000],
   unitCost: [1, 1, 1, 1, 1, 1, 1],
   unitCode: "C",
   setupFee: 0,
   setupCode: "V",
-  amountOfBoxSizes: 3,
+  amountOfBoxSizes: 1,
   box: [{ qtyPB: 100, costPB: 0 }, { qtyPB: 500, costPB: 0 }, { qtyPB: 1000, costPB: 0 }, { qtyPB: 0, costPB: 0 }, { qtyPB: 0, costPB: 0 }],
   boxData: {},
   amountOfHandlingFees: 1,

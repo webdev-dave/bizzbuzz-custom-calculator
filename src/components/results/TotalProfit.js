@@ -24,6 +24,7 @@ const TotalProfit = ({ id, columnIndex }) => {
       value={formatToFourthDecimalPlace(totalProfit)}
       onChange={handleChange}
       onWheel={(e) => e.target.blur()}
+      tabIndex={90+columnIndex}
     />
   );
 };

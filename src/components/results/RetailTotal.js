@@ -23,6 +23,7 @@ const RetailTotal = ({ id, columnIndex }) => {
       value={formatToFourthDecimalPlace(retailTotal)}
       onChange={handleChange}
       onWheel={(e) => e.target.blur()}
+      tabIndex={60+columnIndex}
     />
   );
 };

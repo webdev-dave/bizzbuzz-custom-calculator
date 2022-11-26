@@ -19,6 +19,7 @@ const SetupCode = () => {
       value={setupCode}
       id="unit-code-selector"
       onChange={handleChange}
+      tabIndex="12"
     >
       {setupCodes.map((code) => (
         <option key={"setup-code-" + code} value={code}>
