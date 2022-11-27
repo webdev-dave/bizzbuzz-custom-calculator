@@ -1,5 +1,5 @@
 import { useSelector, useDispatch } from "react-redux";
-import { formatToFourthDecimalPlace } from "../../utils/helpers/helperFunctions";
+import { formatToFourthDecimalPlace, handleFocus } from "../../utils/helpers/helperFunctions";
 import { selectProfitPu, updateProfitPu } from "../main/mainSlice";
 
 const ProfitPu = ({ id, columnIndex }) => {
@@ -20,6 +20,7 @@ const ProfitPu = ({ id, columnIndex }) => {
       type="number"
       value={formatToFourthDecimalPlace(profitPu)}
       onChange={handleChange}
+      onFocus={handleFocus}
       onWheel={(e) => e.target.blur()}
       tabIndex={80+columnIndex}
     />

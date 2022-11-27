@@ -1,5 +1,5 @@
 import { useSelector, useDispatch } from "react-redux";
-import { removeUnnecessaryZeros } from "../../../utils/helpers/helperFunctions";
+import { handleFocus, removeUnnecessaryZeros } from "../../../utils/helpers/helperFunctions";
 import {
   selectBoxes,
   updateCostPerBox,
@@ -24,6 +24,7 @@ const CostPerBox = ({ id, boxIndex }) => {
       type="number"
       value={removeUnnecessaryZeros(costPerBox)}
       onChange={handleChange}
+      onFocus={handleFocus}
       onWheel={(e) => e.target.blur()}
       tabIndex={13+boxIndex}
     />

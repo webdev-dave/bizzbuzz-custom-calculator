@@ -1,5 +1,5 @@
 import { useSelector, useDispatch } from "react-redux";
-import { removeUnnecessaryZeros } from "../../utils/helpers/helperFunctions";
+import { handleFocus, removeUnnecessaryZeros } from "../../utils/helpers/helperFunctions";
 import {
   selectQuantities,
   updateBoxData,
@@ -27,6 +27,7 @@ const Quantity = ({ id, columnIndex }) => {
       id={id}
       className="qty-input input-data"
       onChange={handleChange}
+      onFocus={handleFocus}
       onWheel={(e) => e.target.blur()}
       tabIndex={`${2 + columnIndex}`}
     />

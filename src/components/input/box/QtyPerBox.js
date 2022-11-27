@@ -1,6 +1,6 @@
 import { useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
-import { removeUnnecessaryZeros } from "../../../utils/helpers/helperFunctions";
+import { handleFocus, removeUnnecessaryZeros } from "../../../utils/helpers/helperFunctions";
 import { selectBoxes, updateBoxData, updateNetUnitCost, updateQtyPerBox } from "../../main/mainSlice";
 
 const QtyPerBox = ({ id, boxIndex}) => {
@@ -27,6 +27,7 @@ const QtyPerBox = ({ id, boxIndex}) => {
       type="number"
       value={removeUnnecessaryZeros(qtyPerBox)}
       onChange={handleChange}
+      onFocus={handleFocus}
       onWheel={(e) => e.target.blur()}
       tabIndex={13+boxIndex}
     />

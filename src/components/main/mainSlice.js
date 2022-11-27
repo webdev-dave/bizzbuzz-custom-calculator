@@ -12,7 +12,7 @@ export const initialState = {
   setupFee: 0,
   setupCode: "V",
   amountOfBoxSizes: 1,
-  box: [{ qtyPB: 100, costPB: 0 }, { qtyPB: 500, costPB: 0 }, { qtyPB: 1000, costPB: 0 }, { qtyPB: 0, costPB: 0 }, { qtyPB: 0, costPB: 0 }],
+  box: [{ qtyPB: 100, costPB: 0 }, { qtyPB: 0, costPB: 0 }, { qtyPB: 0, costPB: 0 }, { qtyPB: 0, costPB: 0 }, { qtyPB: 0, costPB: 0 }],
   boxData: {},
   amountOfHandlingFees: 1,
   handlingFees: [{ fee: 0, type: "order" },{ fee: 0, type: "box" },{ fee: 0, type: "rush" },{ fee: 0, type: "misc" },{ fee: 0, type: "order" }],
@@ -103,6 +103,7 @@ const mainSlice = createSlice({
     },
     updateNetUnitCost: (state, action) => {
       const setupFee = Number(state.setupFee);
+      console.log(setupFee)
       const setupCodeDiscountRate = Number(setupCodeDiscountValues[state.setupCode])
       const setupFeeDiscountSum = Number(Big(setupFee).times(setupCodeDiscountRate).toString())
       const discountedSetupFee = Number(Big(setupFee).minus(setupFeeDiscountSum).toString());

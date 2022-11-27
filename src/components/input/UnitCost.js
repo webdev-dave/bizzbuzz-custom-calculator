@@ -1,5 +1,5 @@
 import { useSelector, useDispatch } from "react-redux";
-import { removeUnnecessaryZeros } from "../../utils/helpers/helperFunctions";
+import { handleFocus, removeUnnecessaryZeros } from "../../utils/helpers/helperFunctions";
 import { selectIsEQP, selectUnitCost, updateNetUnitCost, updateUnitCost } from "../main/mainSlice";
 
 const UnitCost = ({ id, columnIndex }) => {
@@ -24,6 +24,7 @@ const UnitCost = ({ id, columnIndex }) => {
         className="input-data"
         value={removeUnnecessaryZeros(unitCost)}
         onChange={handleChange}
+        onFocus={handleFocus}
         onWheel={(e) => e.target.blur()}
         tabIndex="9"
       />

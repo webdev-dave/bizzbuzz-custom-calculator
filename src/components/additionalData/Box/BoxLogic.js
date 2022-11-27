@@ -34,7 +34,8 @@ const BoxLogic = ({ id, columnIndex }) => {
             </span>
           </p>
           <p>
-            count: <br className="mobile-text-break" />
+            <span className="desktop">count:</span><span className="mobile">x:</span>&nbsp;
+            <br className="box-count mobile-text-break" />
             <span className="colored-text">
               {formatToFourthDecimalPlace(
                 currentBoxDataObj[boxSizeKey].boxCount

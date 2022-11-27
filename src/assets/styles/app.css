@@ -325,6 +325,7 @@ p.cost-pb{
 
 /* ------------------------------------------------------------------- Additional Data ----- */
 
+
 #additional-data-container {
   background-color: aquamarine;
   grid-column: 1/2;
@@ -369,15 +370,18 @@ p.cost-pb{
   padding: 3px 4px 4px;
   border-radius: 5px;
   border: 2px solid #9BCBBB;
+  font-weight: 400;
 }
 
 .additional-data-text-container {
   margin: 0.3rem 0.4rem 1rem 0.4rem;
 }
 
-.additional-data-text-container p {
+.additional-data-text-container p,
+#additional-data-grid .grid-child.box-fees p {
   line-height: 24px;
   font-size: 1.4rem;
+  font-weight: 400;
 }
 
 #additional-data-grid span.colored-text,
@@ -387,7 +391,9 @@ p.cost-pb{
   font-size: 1.6rem;
 }
 
+
 /* ----- Box Logic --- */
+
 
 #additional-data-grid .box-logic {
   align-self: stretch;
@@ -402,7 +408,7 @@ p.cost-pb{
   display: none;
 }
 
-@media only screen and (max-width: 850px) {
+@media only screen and (max-width: 1000px) {
   .mobile-text-break {
     display: block;
   }
@@ -432,8 +438,13 @@ p.cost-pb{
     font-weight: 600;
   }
 
+  .result-data, .input-data {
+    padding: 5px 2.5px 3px 2px;
+  }
+
   #results-container input,
   .result-data p,
+  .result-data.net-unit-cost p,
   .input-data p {
     font-size: 1.2rem;
   }
@@ -442,9 +453,8 @@ p.cost-pb{
     padding: 5px 2.5px 3px 2px;
   }
   
-  .result-data, .input-data {
-    padding: 5px 2.5px 3px 2px;
-  }
+
+
 }
 
 
@@ -494,7 +504,20 @@ p.cost-pb{
 
 /* ------------------------------------------------------------------------ additional-data-mobile */
 
+span.mobile {
+  display: none;
+}
+
 @media only screen and (max-width: 750px) {
+  span.desktop {
+    display: none;
+  }
+  span.mobile {
+    display: inline-block;
+  }
+  .box-count.mobile-text-break {
+    display: none;
+  }
   .additional-data p {
     font-size: 1rem;
   }
@@ -503,15 +526,20 @@ p.cost-pb{
     font-size: 1.3rem;
   }
 
-  .additional-data-text-container p,
-   .box-fees-text-container p,
-   .box-cost-text-container p {
-    font-size: 1rem;
-  }
-
-  #additional-data-grid span.colored-text {
+  .additional-data-text-container p {
     font-size: 1.2rem;
   }
+
+  #additional-data-grid .grid-child.box-fees p {
+    font-size: 1rem;
+  }
+  
+  #additional-data-grid span.colored-text,
+  #additional-data-grid p.colored-text {
+    font-weight: 600;
+    font-size: 1.1rem;
+  }
+
 
   #additional-data-grid .grid-child {
     padding: 3px;

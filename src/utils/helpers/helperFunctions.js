@@ -29,21 +29,47 @@ export const getRetailPricePu = (profitMargin, netUnitCost) => {
     return retailPricePu;
   }
 
+
+export const removeUnnecessaryZeros = (number) => {
+    //the if statement handles decimal values
+    
+    if(number < 1 && number >= 0){
+      //this handles decimal values the begin with more zero's after the decimal. For example: 0.009
+      if(number === 0){
+        return number;
+      } 
+      return number.toString().substring(1);
+    }
+    return number.toString();
+}
+
 export const formatToFourthDecimalPlace = (number) => {
     const stringNumArr = number.toString().split(".");
     const wholeNumValues = stringNumArr[0];
     if(stringNumArr.length > 1){
       const decimalValuesArr = stringNumArr[1];
       const firstFourDecimalValues = (decimalValuesArr.length > 4) ? decimalValuesArr.slice(0,4).toString() : decimalValuesArr.toString();
-      return wholeNumValues +"."+firstFourDecimalValues
+      const completeNum = wholeNumValues +"."+firstFourDecimalValues;
+      const formattedNum = removeUnnecessaryZeros(completeNum);
+      return formattedNum;
     } else {
-      return wholeNumValues;
+      const formattedNum = removeUnnecessaryZeros(wholeNumValues);
+      return formattedNum;
     }
 }
 
-export const removeUnnecessaryZeros = (number) => {
-  return number.toString();
-}
+export const handleFocus = (e) => {
+  /*     if value is not zero then selects all. If value is,
+  it doesn't select by default because if the following value
+  were to be a decimal, the decimal symbol would not register without a zero before it.
+  (This bug currently still exists on tabFocus.
+  To see it in action use tab key to focus on zero value,
+  then try typing a decimal point and it will not register upon first entry) */
+    if(e.target.value > 0 || e.target.value < 0){
+      e.target.select()
+    }
+  }
+
 
 
 

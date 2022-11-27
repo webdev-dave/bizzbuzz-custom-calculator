@@ -1,5 +1,5 @@
 import { useSelector, useDispatch } from "react-redux";
-import { removeUnnecessaryZeros } from "../../utils/helpers/helperFunctions";
+import { handleFocus, removeUnnecessaryZeros } from "../../utils/helpers/helperFunctions";
 import {selectSetupFee, updateNetUnitCost, updateSetupFee, } from "../main/mainSlice"
 
 const SetupFee = () => {
@@ -9,6 +9,8 @@ const SetupFee = () => {
     dispatch(updateSetupFee({value: e.target.value}));
     dispatch(updateNetUnitCost({}));
   }
+
+
  
   return (
     <input
@@ -16,6 +18,7 @@ const SetupFee = () => {
       type="number"
       value={removeUnnecessaryZeros(setupFee)}
       onChange={handleChange}
+      onFocus={handleFocus}
       onWheel={(e) => e.target.blur()}
       tabIndex="11"
     />
