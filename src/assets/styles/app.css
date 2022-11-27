@@ -144,13 +144,15 @@ select,
   grid-row: 8/9;
 }
 
-.handling-type.input-data {
+.handling-fees.input-data {
   grid-row: 9/10;
 }
 
-.handling-fees.input-data {
+.handling-type.input-data {
   grid-row: 10/11;
 }
+
+
 
 /* ----- grid group settings --- */
 
@@ -219,16 +221,18 @@ p.cost-pb{
   grid-row: 9/11;
 }
 
-.handling.title-type {
-  grid-row: 9 / span 1;
-  justify-self: center;
-}
-
 .handling-type.input-data {
   padding-left: 0;
 }
 
 .handling.title-fee {
+  grid-column: 2/3;
+  grid-row: 9 / span 1;
+  justify-self: center;
+}
+
+.handling.title-type {
+  grid-column: 2/3;
   grid-row: 10 / span 1;
   justify-self: center;
 }
