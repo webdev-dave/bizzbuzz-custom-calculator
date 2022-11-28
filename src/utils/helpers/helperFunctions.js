@@ -117,30 +117,24 @@ export const configureBoxes = (boxesArr, quantitiesArr) => {
   //iterate over each orderQty
   quantitiesArr.forEach((orderQty) => {
     boxConfigurationsObj["orderQty_"+orderQty] = {totalBoxesCost: 0, totalBoxesCount: 0};
-    
+
     let remainingQty = orderQty;
 
-    
-    //if there is a box size that can include full order do this:
+    //if there is a box size that can include total orderQty do this:
     lowestToHighestBoxSizes.forEach((boxSize) => {
       if(remainingQty > 0){
       const boxPrice = Number(boxesObj[boxSize].boxPrice);
       const currentBoxSize = Number(boxSize);
       
         if(currentBoxSize >= orderQty){
-          //const boxCount = Math.floor(orderQty/currentBoxSize);
-          //const remainingQty = (orderQty - (currentBoxSize * boxCount));
-          //isUnsolved = (remainingQty === 0) && false;
           const boxCount = 1;
-          remainingQty = (orderQty - (boxCount * boxSize));
+          remainingQty =  0;
           boxConfigurationsObj["orderQty_"+orderQty]["boxSize_"+currentBoxSize] = {boxCount : boxCount}
           boxConfigurationsObj["orderQty_"+orderQty]["boxSize_"+currentBoxSize].boxPrice = boxPrice;
           const totalPrice = boxPrice;
           boxConfigurationsObj["orderQty_"+orderQty]["boxSize_"+currentBoxSize].totalPrice = totalPrice;
-          //totals - might not be necessary
-          boxConfigurationsObj["orderQty_"+orderQty].totalBoxesCost = totalPrice;
-          boxConfigurationsObj["orderQty_"+orderQty].totalBoxesCount = boxCount;
-          
+          boxConfigurationsObj["orderQty_"+orderQty].totalBoxesCost += totalPrice;
+          boxConfigurationsObj["orderQty_"+orderQty].totalBoxesCount += boxCount
          }
         }
       })
@@ -152,17 +146,20 @@ export const configureBoxes = (boxesArr, quantitiesArr) => {
           const boxPrice = Number(boxesObj[boxSize].boxPrice);
           const currentBoxSize = Number(boxSize);
           const smallestBoxSize = Number(lowestToHighestBoxSizes[0]);
-          const boxCount = (Number(boxSize) === smallestBoxSize) ? Math.ceil(remainingQty / boxSize) : Math.floor(remainingQty / boxSize);
-          //console.log("boxSize: " + boxSize +" "+ boxCount)
-          remainingQty = (orderQty - (boxCount * boxSize));
-          
-          boxConfigurationsObj["orderQty_"+orderQty]["boxSize_"+currentBoxSize] = {boxCount : boxCount}
-          boxConfigurationsObj["orderQty_"+orderQty]["boxSize_"+currentBoxSize].boxPrice = boxPrice;
-          const totalPrice = boxPrice;
-          boxConfigurationsObj["orderQty_"+orderQty]["boxSize_"+currentBoxSize].totalPrice = totalPrice;
-          //totals - might not be necessary
-          boxConfigurationsObj["orderQty_"+orderQty].totalBoxesCost = totalPrice;
-          boxConfigurationsObj["orderQty_"+orderQty].totalBoxesCount = boxCount;
+          //simple/raw formula: (remainingQty/boxSize). if box is smallest box size: Math.ceil, Else: Math.floor
+          const boxCount = (Number(boxSize) === smallestBoxSize) ? Math.ceil(Big(remainingQty).div(boxSize).toNumber()) : Math.floor(Big(remainingQty).div(boxSize).toNumber());
+  
+          remainingQty -= Big(boxCount).times(boxSize).toNumber();
+
+          //makes sure not to push empty info into unused boxSizes
+          if(boxCount > 0){
+            boxConfigurationsObj["orderQty_"+orderQty]["boxSize_"+currentBoxSize] = {boxCount : boxCount}
+            boxConfigurationsObj["orderQty_"+orderQty]["boxSize_"+currentBoxSize].boxPrice = boxPrice;
+            const totalPrice = boxPrice;
+            boxConfigurationsObj["orderQty_"+orderQty]["boxSize_"+currentBoxSize].totalPrice = totalPrice;
+            boxConfigurationsObj["orderQty_"+orderQty].totalBoxesCost += Big(totalPrice).times(boxCount).toNumber();
+            boxConfigurationsObj["orderQty_"+orderQty].totalBoxesCount += boxCount;
+          }
         }
       })
 
