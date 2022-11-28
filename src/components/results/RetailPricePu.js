@@ -14,6 +14,7 @@ const RetailPricePu = ({ id, columnIndex }) => {
         value: e.target.value,
     }));
   };
+
   return (
     <input
       className="result-data retail-price-pu"

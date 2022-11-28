@@ -31,8 +31,7 @@ export const getRetailPricePu = (profitMargin, netUnitCost) => {
 
 
 export const removeUnnecessaryZeros = (number) => {
-    //the if statement handles decimal values
-    
+    //this if statement handles decimal values
     if(number < 1 && number >= 0){
       //this handles decimal values the begin with more zero's after the decimal. For example: 0.009
       if(number === 0){
@@ -44,6 +43,9 @@ export const removeUnnecessaryZeros = (number) => {
 }
 
 export const formatToFourthDecimalPlace = (number) => {
+    if(number === 0){
+      return 0;
+    }
     const stringNumArr = number.toString().split(".");
     const wholeNumValues = stringNumArr[0];
     if(stringNumArr.length > 1){
