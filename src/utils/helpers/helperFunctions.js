@@ -31,9 +31,7 @@ export const getRetailPricePu = (profitMargin, netUnitCost) => {
 
 
 export const formatToFourthDecimalPlace = (number) => {
-    // if(number === 0){
-    //   return 0;
-    // }
+
 
     // if input value is a string that means it was a local edit as opposed to an edit by a different result component
     // if it was a local edit there is no need to format since user is choosing the precise number they are interested in.
@@ -61,27 +59,8 @@ export const formatToFourthDecimalPlace = (number) => {
 
 export const handleFocus = (e) => {
   e.target.select()
-  /*     if value is not zero then selects all. If value is,
-  it doesn't select by default because if the following value
-  were to be a decimal, the decimal symbol would not register without a zero before it.
-  (This bug currently still exists on tabFocus.
-  To see it in action use tab key to focus on zero value,
-  then try typing a decimal point and it will not register upon first entry) */
-    // if(e.target.value > 0 || e.target.value < 0){
-    //   e.target.select()
-    // }
-  }
+}
 
-
-// export const handleDecimalZeros = (stringNum) => {
-//   const number = Number(stringNum);
-//   console.log('number : ' +number+"stringNum : "+stringNum)
-//   console.log('number l: ' +number.toString().length+"stringNum l: "+stringNum.length)
-//   if(number.toString().length < stringNum.length){
-//     return stringNum;
-//   }
-//   return number
-// }
 
 
 
