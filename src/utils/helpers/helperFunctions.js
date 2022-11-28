@@ -61,15 +61,16 @@ export const formatToFourthDecimalPlace = (number) => {
 }
 
 export const handleFocus = (e) => {
+  e.target.select()
   /*     if value is not zero then selects all. If value is,
   it doesn't select by default because if the following value
   were to be a decimal, the decimal symbol would not register without a zero before it.
   (This bug currently still exists on tabFocus.
   To see it in action use tab key to focus on zero value,
   then try typing a decimal point and it will not register upon first entry) */
-    if(e.target.value > 0 || e.target.value < 0){
-      e.target.select()
-    }
+    // if(e.target.value > 0 || e.target.value < 0){
+    //   e.target.select()
+    // }
   }
 
 
