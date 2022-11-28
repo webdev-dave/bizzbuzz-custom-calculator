@@ -4,7 +4,6 @@
 
 ## Todo
 
-- first sort from lowest to highest BS and check: if any box size is larger then total order, just use that box size. THEN. if no box size larger than total order. sort from highest to lowest BS and subtract for each box size accordingly until there is no unshipped units left
 - add calculator icon
 - test all inputs with zero values (there may be some errors burried multiple steps into calculations)
 - write tests
