@@ -5,12 +5,12 @@ import { selectProfitPu, updateProfitPu } from "../main/mainSlice";
 const ProfitPu = ({ id, columnIndex }) => {
   const dispatch = useDispatch();
   const profitPuArr = useSelector(selectProfitPu);
-  const profitPu = parseFloat(profitPuArr[columnIndex]);
+  const profitPu = profitPuArr[columnIndex];
 
   const handleChange = (e) => {
 
     dispatch(
-      updateProfitPu({ columnIndex: columnIndex, value: parseFloat(e.target.value) })
+      updateProfitPu({ columnIndex: columnIndex, value: e.target.value })
     );
   };
   return (

@@ -1,5 +1,5 @@
 import { useSelector, useDispatch } from "react-redux";
-import { handleFocus, removeUnnecessaryZeros } from "../../utils/helpers/helperFunctions";
+import { handleFocus } from "../../utils/helpers/helperFunctions";
 import {
   selectQuantities,
   updateBoxData,
@@ -23,7 +23,7 @@ const Quantity = ({ id, columnIndex }) => {
   return (
     <input
       type="number"
-      value={removeUnnecessaryZeros(quantity)}
+      value={quantity}
       id={id}
       className="qty-input input-data"
       onChange={handleChange}

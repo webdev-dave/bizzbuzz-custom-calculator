@@ -46,21 +46,22 @@ const mainSlice = createSlice({
     },
     updateQuantity: (state, action) => {
       const columnIndex = action.payload.columnIndex;
-      const value = Number(action.payload.value);
-      state.quantity[columnIndex] = value;
-      if(value === 0){
+      const valueStringNum = action.payload.value;
+      const valueNum = Number(valueStringNum);
+      state.quantity[columnIndex] = valueStringNum;
+      if(valueNum === 0){
         state.retailTotal[columnIndex] = 0;
         state.totalProfit[columnIndex] = 0;
       }
     },
     updateUnitCost: (state, action) => {
       const columnIndex = action.payload.columnIndex;
-      const value = Number(action.payload.value)
-      state.unitCost[columnIndex] = (value > 0 || value < 0) ? value : 0;
+      const valueStringNum = action.payload.value;
+      state.unitCost[columnIndex] = valueStringNum;
       if(action.payload.isEQP){
         for(let i = 0; i < 7; i++){
           //if is EQP then all (hidden unitPrice elements) are equal to col-0
-          state.unitCost[i] = Number(state.unitCost[0]);
+          state.unitCost[i] = state.unitCost[0];
         }
       }
       
@@ -69,21 +70,21 @@ const mainSlice = createSlice({
       state.unitCode = action.payload.value;
     },
     updateSetupFee: (state, action) => {
-      state.setupFee = Number(action.payload.value);
+      const valueStringNum = action.payload.value;
+      state.setupFee = valueStringNum;
     },
     updateSetupCode: (state, action) => {
       state.setupCode = action.payload.value;
     },
-    updateAmountOfBoxSizes: (state, action) => {
-      state.amountOfBoxSizes = action.payload.value;
-    },
     updateQtyPerBox: (state, action) => {
       const boxIndex = action.payload.boxIndex;
-      state.box[boxIndex].qtyPB = Number(action.payload.value);
+      const valueStringNum = action.payload.value;
+      state.box[boxIndex].qtyPB = valueStringNum;
     },
     updateCostPerBox: (state, action) => {
       const boxIndex = action.payload.boxIndex;
-      state.box[boxIndex].costPB =  Number(action.payload.value);
+      const valueStringNum = action.payload.value;
+      state.box[boxIndex].costPB =  valueStringNum;
     },
     updateBoxData: (state, action) => {
       const configuredBoxes = configureBoxes(state.box, state.quantity);
@@ -98,7 +99,8 @@ const mainSlice = createSlice({
     },
     updateHandlingFee: (state, action) => {
       const handlingIndex = action.payload.handlingIndex;
-      state.handlingFees[handlingIndex].fee = Number(action.payload.value); 
+      const valueStringNum = action.payload.value;
+      state.handlingFees[handlingIndex].fee = valueStringNum; 
     },
     updateNetUnitCost: (state, action) => {
       const setupFee = Number(state.setupFee);
@@ -114,6 +116,7 @@ const mainSlice = createSlice({
         const unitCostPostCodeDiscount =  Number(Big(unitCost).minus(unitCodeDiscountSum).toString());
         const eqpDiscountRate = state.pricingType && state.pricingType.slice(-1) !== "P" ? state.pricingType.slice(-2) : "0%";
         const discountedUnitCostPostEqp = addEqpDiscount(state.pricingType, unitCostPostCodeDiscount);
+        const eqpDiscountSum = Number(Big(unitCostPostCodeDiscount).minus(discountedUnitCostPostEqp).toString());
         const quantity = Number(state.quantity[index]);
         const discountedSetupFeePerUnit = (quantity > 0 || quantity < 0) ? Number(Big(discountedSetupFee).div(quantity).toString()) : 0;
         const totalBoxesCost = state.boxData["orderQty_"+quantity] ? Number(state.boxData["orderQty_"+quantity].totalBoxesCost) : 0;
@@ -132,7 +135,8 @@ const mainSlice = createSlice({
         let totalHandlingFees = 0;
         state.handlingFees.forEach((handlingFee, i) => {
           if(handlingFee.type !== "box"){
-            totalHandlingFees = Number(Big(totalHandlingFees).plus(handlingFee.fee).toString());
+            const smartHandlingFee = (handlingFee.fee > 0 || handlingFee.fee < 0) ? handlingFee.fee : 0;
+            totalHandlingFees = Number(Big(totalHandlingFees).plus(smartHandlingFee).toString());
           };
         });
         const handlingFeesPerUnit = (quantity > 0 || quantity < 0) ? Number(Big(totalHandlingFees).div(quantity).toString()) : 0;
@@ -146,7 +150,7 @@ const mainSlice = createSlice({
           unitCostPostCodeDiscount: unitCostPostCodeDiscount,
           pricingType: state.pricingType,
           eqpDiscountRate: eqpDiscountRate, 
-          eqpDiscountSum: Number(Big(unitCostPostCodeDiscount).minus(discountedUnitCostPostEqp).toString()),
+          eqpDiscountSum: eqpDiscountSum,
           discountedUnitCostPostEqp: discountedUnitCostPostEqp,
           setupFee: setupFee,
           setupCodeDiscountRate: setupCodeDiscountRate,
@@ -189,13 +193,14 @@ const mainSlice = createSlice({
     },
     updateRetailPricePu: (state, action) => {
       const columnIndex = action.payload.columnIndex;
-      const value = Number(action.payload.value);
-      const retailPricePu = (value > 0 || value < 0) ? value : 0;
+      const valueStringNum = action.payload.value;
+      const valueNum = Number(action.payload.value);
+      const retailPricePu =  (valueNum > 0 || valueNum < 0) ? valueNum : 0;
       const qty = Number(state.quantity[columnIndex]);
       const netUnitCost = Number(state.netUnitCost[columnIndex]);
       const profitPu = Number(Big(retailPricePu).minus(netUnitCost).toString()); 
       //retail price pu
-      state.retailPricePu[columnIndex] = retailPricePu;
+      state.retailPricePu[columnIndex] = valueStringNum;
       //retail total
       state.retailTotal[columnIndex] = Number(Big(retailPricePu).times(qty).toString());
       //profit margin
@@ -207,15 +212,16 @@ const mainSlice = createSlice({
     },
     updateRetailTotal: (state, action) => {
       const columnIndex = action.payload.columnIndex;
-      const value = Number(action.payload.value);
-      const retailTotal = (value > 0 || value < 0) ? value : 0;
+      const valueStringNum = action.payload.value;
+      const valueNum = Number(action.payload.value);
+      const retailTotal = (valueNum > 0 || valueNum < 0) ? valueNum : 0;
       const qty = Number(state.quantity[columnIndex]);
       const netUnitCost = Number(state.netUnitCost[columnIndex]);
       const retailPricePu = Number(Big(retailTotal).div(qty).toString());
       const profitPu = Number(Big(retailPricePu).minus(netUnitCost).toString());
       
       //retail total
-      state.retailTotal[columnIndex] = retailTotal;
+      state.retailTotal[columnIndex] = valueStringNum;
       //retail price pu
       state.retailPricePu[columnIndex] = retailPricePu;
       //profit margin
@@ -227,14 +233,15 @@ const mainSlice = createSlice({
     },
     updateProfitMargin: (state, action) => {
       const columnIndex = action.payload.columnIndex;
-      const value = Number(action.payload.value);
-      const profitMargin = (value > 0 || value < 0) ? value : 0;
+      const valueStringNum = action.payload.value;
+      const valueNum = Number(action.payload.value) 
+      const profitMargin = (valueNum > 0 || valueNum < 0) ? valueNum : 0;
       const qty = Number(state.quantity[columnIndex]);
       const netUnitCost = Number(state.netUnitCost[columnIndex]);
       const retailPricePu = getRetailPricePu(profitMargin, netUnitCost);
       const profitPu = Number(Big(retailPricePu).minus(netUnitCost).toString());
       //profit margin
-      state.profitMargin[columnIndex] = profitMargin;
+      state.profitMargin[columnIndex] = valueStringNum;
       //retail price pu
       state.retailPricePu[columnIndex] = retailPricePu;
       //retail total
@@ -246,13 +253,14 @@ const mainSlice = createSlice({
     },
     updateProfitPu: (state, action) => {
       const columnIndex = action.payload.columnIndex;
-      const value = Number(action.payload.value);
-      const profitPu = (value > 0 || value < 0) ? value : 0;
+      const valueStringNum = action.payload.value;
+      const valueNum = Number(action.payload.value)
+      const profitPu = (valueNum > 0 || valueNum < 0) ? valueNum : 0;
       const qty = Number(state.quantity[columnIndex]);
       const netUnitCost = Number(state.netUnitCost[columnIndex]);
       const retailPricePu = Number(Big(netUnitCost).plus(profitPu).toString());
       //profit pu
-      state.profitPu[columnIndex] = profitPu;
+      state.profitPu[columnIndex] = valueStringNum;
       //retail price pu
       state.retailPricePu[columnIndex] = retailPricePu;
       //retail total
@@ -264,14 +272,15 @@ const mainSlice = createSlice({
     },
     updateTotalProfit: (state, action) => {
       const columnIndex = action.payload.columnIndex;
-      const value = Number(action.payload.value);
-      const totalProfit = (value > 0 || value < 0) ? value : 0;
+      const valueStringNum = action.payload.value;
+      const valueNum = Number(action.payload.value);
+      const totalProfit = (valueNum > 0 || valueNum < 0) ? valueNum : 0;
       const qty = Number(state.quantity[columnIndex]);
       const netUnitCost = Number(state.netUnitCost[columnIndex]);
       const profitPu = Number(Big(totalProfit).div(qty).toString());
       const retailPricePu = Number(Big(netUnitCost).plus(profitPu).toString())
       //total profit
-      state.totalProfit[columnIndex] = totalProfit;
+      state.totalProfit[columnIndex] = valueStringNum;
       //profit pu
       state.profitPu[columnIndex] = profitPu;
       //retail price pu

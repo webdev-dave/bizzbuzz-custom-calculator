@@ -5,13 +5,13 @@ import { selectTotalProfit, updateTotalProfit } from "../main/mainSlice";
 const TotalProfit = ({ id, columnIndex }) => {
   const dispatch = useDispatch();
   const totalProfitArr = useSelector(selectTotalProfit);
-  const totalProfit = parseFloat(totalProfitArr[columnIndex]);
+  const totalProfit = totalProfitArr[columnIndex];
 
   const handleChange = (e) => {
     dispatch(
       updateTotalProfit({
         columnIndex: columnIndex,
-        value: parseFloat(e.target.value),
+        value: e.target.value,
       })
     );
   };

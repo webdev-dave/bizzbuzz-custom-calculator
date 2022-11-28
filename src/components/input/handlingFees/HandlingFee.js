@@ -1,5 +1,5 @@
 import { useSelector, useDispatch  } from "react-redux";
-import { handleFocus, removeUnnecessaryZeros } from "../../../utils/helpers/helperFunctions";
+import { handleFocus } from "../../../utils/helpers/helperFunctions";
 import { selectHandlingFees, updateHandlingFee, updateNetUnitCost } from "../../main/mainSlice";
 
 const HandlingFee = ({handlingIndex, id}) => {
@@ -15,7 +15,7 @@ const HandlingFee = ({handlingIndex, id}) => {
     className="handling-fees input-data"
     type="number"
     id={id}
-    value={removeUnnecessaryZeros(handlingFee)}
+    value={handlingFee}
     onChange={handleChange}
     onFocus={handleFocus}
     onWheel={(e) => e.target.blur()}

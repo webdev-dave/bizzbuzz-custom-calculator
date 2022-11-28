@@ -5,7 +5,7 @@ import { selectRetailPricePu, updateRetailPricePu } from "../main/mainSlice";
 const RetailPricePu = ({ id, columnIndex }) => {
   const dispatch = useDispatch();
   const retailPricePuArr = useSelector(selectRetailPricePu);
-  const retailPricePu = Number(retailPricePuArr[columnIndex]);
+  const retailPricePu = retailPricePuArr[columnIndex];
 
   const handleChange = (e) => {
     dispatch(

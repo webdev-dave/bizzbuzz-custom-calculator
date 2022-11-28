@@ -30,35 +30,34 @@ export const getRetailPricePu = (profitMargin, netUnitCost) => {
   }
 
 
-export const removeUnnecessaryZeros = (number) => {
-    //this if statement handles decimal values
-    if(number < 1 && number >= 0){
-      //this handles decimal values the begin with more zero's after the decimal. For example: 0.009
-      if(number === 0){
-        return number;
-      } 
-      return number.toString().substring(1);
-    }
-    return number.toString();
-}
-
 export const formatToFourthDecimalPlace = (number) => {
-    if(number === 0){
-      return 0;
+    // if(number === 0){
+    //   return 0;
+    // }
+
+    // if input value is a string that means it was a local edit as opposed to an edit by a different result component
+    // if it was a local edit there is no need to format since user is choosing the precise number they are interested in.
+    // In fact, without the if statement excluding local edits, there would be a huge problem
+    //when the user would type 0.00 1.00 it would be prevented since once those values are converted from a string to a number -
+    //it is formatted as just a 0 or 1 (without the two zero decimal values)
+    //this makes impossible to achieve entries such as  .001 or 1.001 
+    if(typeof number === "string"){
+      return number
     }
+
+    
     const stringNumArr = number.toString().split(".");
     const wholeNumValues = stringNumArr[0];
     if(stringNumArr.length > 1){
       const decimalValuesArr = stringNumArr[1];
       const firstFourDecimalValues = (decimalValuesArr.length > 4) ? decimalValuesArr.slice(0,4).toString() : decimalValuesArr.toString();
       const completeNum = wholeNumValues +"."+firstFourDecimalValues;
-      const formattedNum = removeUnnecessaryZeros(completeNum);
-      return formattedNum;
+      return completeNum;
     } else {
-      const formattedNum = removeUnnecessaryZeros(wholeNumValues);
-      return formattedNum;
+      return wholeNumValues;
     }
 }
+
 
 export const handleFocus = (e) => {
   e.target.select()
@@ -72,6 +71,17 @@ export const handleFocus = (e) => {
     //   e.target.select()
     // }
   }
+
+
+// export const handleDecimalZeros = (stringNum) => {
+//   const number = Number(stringNum);
+//   console.log('number : ' +number+"stringNum : "+stringNum)
+//   console.log('number l: ' +number.toString().length+"stringNum l: "+stringNum.length)
+//   if(number.toString().length < stringNum.length){
+//     return stringNum;
+//   }
+//   return number
+// }
 
 
 
