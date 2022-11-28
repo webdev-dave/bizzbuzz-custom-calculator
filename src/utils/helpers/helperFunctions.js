@@ -109,24 +109,30 @@ export const configureBoxes = (boxesArr, quantitiesArr) => {
     } 
   });
 
-  //sort from lowest box size to highest
-  const sortedBoxSizesArr = Object.keys(boxesObj).sort((a,b) => a-b);
-  const largestBoxSize = Number(sortedBoxSizesArr[sortedBoxSizesArr.length -1]);
+  //sort from highest to lowest
+  const lowestToHighestBoxSizes = Object.keys(boxesObj).sort((a,b) => b+a);
+  const highestToLowestBoxSizes = Object.keys(boxesObj).sort((a,b) => b-a);
   const boxConfigurationsObj = {};
 
   //iterate over each orderQty
   quantitiesArr.forEach((orderQty) => {
-    let isUnsolved = true;
     boxConfigurationsObj["orderQty_"+orderQty] = {totalBoxesCost: 0, totalBoxesCount: 0};
+    
+    let remainingQty = orderQty;
 
-    //for each orderQty, iterate over each box size and configure boxes appropriately
-    sortedBoxSizesArr.forEach((boxSize) => {
+    
+    //if there is a box size that can include full order do this:
+    lowestToHighestBoxSizes.forEach((boxSize) => {
+      if(remainingQty > 0){
       const boxPrice = Number(boxesObj[boxSize].boxPrice);
       const currentBoxSize = Number(boxSize);
-      if(isUnsolved){
-        if((currentBoxSize >= orderQty) && (orderQty > 0)){
-          isUnsolved = false;
+      
+        if(currentBoxSize >= orderQty){
+          //const boxCount = Math.floor(orderQty/currentBoxSize);
+          //const remainingQty = (orderQty - (currentBoxSize * boxCount));
+          //isUnsolved = (remainingQty === 0) && false;
           const boxCount = 1;
+          remainingQty = (orderQty - (boxCount * boxSize));
           boxConfigurationsObj["orderQty_"+orderQty]["boxSize_"+currentBoxSize] = {boxCount : boxCount}
           boxConfigurationsObj["orderQty_"+orderQty]["boxSize_"+currentBoxSize].boxPrice = boxPrice;
           const totalPrice = boxPrice;
@@ -135,22 +141,40 @@ export const configureBoxes = (boxesArr, quantitiesArr) => {
           boxConfigurationsObj["orderQty_"+orderQty].totalBoxesCost = totalPrice;
           boxConfigurationsObj["orderQty_"+orderQty].totalBoxesCount = boxCount;
           
-        } else if (currentBoxSize < orderQty && currentBoxSize === largestBoxSize){
-          isUnsolved = false;
-          const boxCount = Math.ceil(Number(Big(orderQty).div(largestBoxSize).toString()));
-          boxConfigurationsObj["orderQty_"+orderQty]["boxSize_"+currentBoxSize] = {boxCount : boxCount};
+         }
+        }
+      })
+    
+      //if total order does not fit into box size do this:
+      highestToLowestBoxSizes.forEach((boxSize) => {
+        // all orders that still have remainingQty > 0 are still unsolved
+        if(remainingQty > 0){
+          const boxPrice = Number(boxesObj[boxSize].boxPrice);
+          const currentBoxSize = Number(boxSize);
+          const smallestBoxSize = Number(lowestToHighestBoxSizes[0]);
+          const boxCount = (Number(boxSize) === smallestBoxSize) ? Math.ceil(remainingQty / boxSize) : Math.floor(remainingQty / boxSize);
+          //console.log("boxSize: " + boxSize +" "+ boxCount)
+          remainingQty = (orderQty - (boxCount * boxSize));
+          
+          boxConfigurationsObj["orderQty_"+orderQty]["boxSize_"+currentBoxSize] = {boxCount : boxCount}
           boxConfigurationsObj["orderQty_"+orderQty]["boxSize_"+currentBoxSize].boxPrice = boxPrice;
-          const totalPrice = Number(Big(boxPrice).times(boxCount).toString());
-          //console.log(totalPrice);
+          const totalPrice = boxPrice;
+          boxConfigurationsObj["orderQty_"+orderQty]["boxSize_"+currentBoxSize].totalPrice = totalPrice;
+          //totals - might not be necessary
           boxConfigurationsObj["orderQty_"+orderQty].totalBoxesCost = totalPrice;
           boxConfigurationsObj["orderQty_"+orderQty].totalBoxesCount = boxCount;
-        } else if (orderQty === 0) {
-          isUnsolved = false;
-          boxConfigurationsObj["orderQty_"+orderQty]["boxSize_NA"] = {boxCount : "", boxPrice: ""};
         }
+      })
 
-      }
-    });
+      
+      
+        
+      
+      
+
+
+
+      
   })
 
   return boxConfigurationsObj;

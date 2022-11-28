@@ -34,3 +34,9 @@ export const unitCodeDiscountValues = setupCodeDiscountValues;
 
 
 export const initialBox = { qtyPB: 100, costPB: 0 };
+
+
+export const keyCodes = {
+  q: 81,
+}
+
