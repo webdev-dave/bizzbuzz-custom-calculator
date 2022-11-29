@@ -63,8 +63,6 @@ export const handleFocus = (e) => {
 
 
 
-
-
 export const addEqpDiscount = (pricingType, price) => {
   let discountedPrice;
   switch (pricingType) {

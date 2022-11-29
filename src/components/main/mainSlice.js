@@ -73,6 +73,10 @@ const mainSlice = createSlice({
       const valueStringNum = action.payload.value;
       state.setupFee = valueStringNum;
     },
+    updateAmountOfBoxSizes: (state, action) => {
+      //this keeps track of how many box input fields are displayed
+      state.amountOfBoxSizes = action.payload.value;
+    },
     updateSetupCode: (state, action) => {
       state.setupCode = action.payload.value;
     },
