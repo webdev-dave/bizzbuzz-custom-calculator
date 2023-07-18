@@ -46,9 +46,8 @@ const mainSlice = createSlice({
     },
     updateQuantity: (state, action) => {
       const columnIndex = action.payload.columnIndex;
-      const valueStringNum = action.payload.value;
-      const valueNum = Number(valueStringNum);
-      state.quantity[columnIndex] = valueStringNum;
+      const valueNum = Number(action.payload.value);
+      state.quantity[columnIndex] = valueNum;
       if(valueNum === 0){
         state.retailTotal[columnIndex] = 0;
         state.totalProfit[columnIndex] = 0;

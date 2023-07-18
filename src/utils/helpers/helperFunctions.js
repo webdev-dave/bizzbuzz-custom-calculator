@@ -91,6 +91,9 @@ export const configureBoxes = (boxesArr, quantitiesArr) => {
   const boxSizes = boxesArr.map(box => box.qtyPB);
   const boxPrices = boxesArr.map(box => box.costPB);
 
+  // console.log(boxSizes)
+  // console.log(boxPrices)
+
   //git rid of size duplicates
   const boxesObj = {};
   boxSizes.forEach((boxSize, i) => {
@@ -99,10 +102,17 @@ export const configureBoxes = (boxesArr, quantitiesArr) => {
     } 
   });
 
-  //sort from highest to lowest
+  //sort from highest to lowest and lowest to highest
   const lowestToHighestBoxSizes = Object.keys(boxesObj).sort((a,b) => b+a);
   const highestToLowestBoxSizes = Object.keys(boxesObj).sort((a,b) => b-a);
   const boxConfigurationsObj = {};
+
+  //console.log(highestToLowestBoxSizes, lowestToHighestBoxSizes)
+  //console.log(...quantitiesArr);
+  
+
+
+
 
   //iterate over each orderQty
   quantitiesArr.forEach((orderQty) => {
@@ -110,121 +120,108 @@ export const configureBoxes = (boxesArr, quantitiesArr) => {
 
     let remainingQty = orderQty;
 
-    //if there is a box size that can include total orderQty do this:
-    lowestToHighestBoxSizes.forEach((boxSize) => {
-      if(remainingQty > 0){
-      const boxPrice = Number(boxesObj[boxSize].boxPrice);
-      const currentBoxSize = Number(boxSize);
+
+    // //if there is a box size that can include total orderQty do this:
+    // lowestToHighestBoxSizes.forEach((boxSize) => {
       
-        if(currentBoxSize >= orderQty){
-          const boxCount = 1;
-          remainingQty =  0;
+    //   const boxPrice = Number(boxesObj[boxSize].boxPrice);
+    //   const currentBoxSize = Number(boxSize);
+    //   //console.log("boxPrice: ", boxPrice, "boxSize: ", currentBoxSize)
+      
+    //     if(currentBoxSize >= orderQty && remainingQty > 0){
+    //       //console.log("one box fits entire order for orderQty of: ", orderQty);
+    //       const boxCount = 1;
+    //       remainingQty =  0;
+    //       boxConfigurationsObj["orderQty_"+orderQty]["boxSize_"+currentBoxSize] = {boxCount : boxCount}
+    //       boxConfigurationsObj["orderQty_"+orderQty]["boxSize_"+currentBoxSize].boxPrice = boxPrice;
+    //       const totalPrice = boxPrice;
+    //       boxConfigurationsObj["orderQty_"+orderQty]["boxSize_"+currentBoxSize].totalPrice = totalPrice;
+    //       boxConfigurationsObj["orderQty_"+orderQty].totalBoxesCost = totalPrice;
+    //       boxConfigurationsObj["orderQty_"+orderQty].totalBoxesCount = boxCount;          
+    //     }
+      
+    // });
+
+ 
+    
+    //if total order does not fit into box size do this:
+    highestToLowestBoxSizes.forEach((boxSize, index) => {
+      const smallestBoxSize = Number(lowestToHighestBoxSizes[0]);
+      
+      if(remainingQty <= 0){
+        return;//because shipment already taken care of because it all fit into a single box
+      } else {
+
+        const boxPrice = Number(boxesObj[boxSize].boxPrice);
+        const currentBoxSize = Number(boxSize);
+        
+        //simple/raw formula: (remainingQty/boxSize). if box is smallest box size: Math.ceil, else: Math.floor
+
+        if(orderQty === 250){
+          console.log("boxSize: " ,boxSize, "remainingQty: ", remainingQty)
+        }
+
+        let boxCount = 0;
+        
+        //if we can fill the box while still avoiding half or more of the box from remaining empty or if current boxSize is the smallest box size then round up, else: round down 
+        if(Number(boxSize) === smallestBoxSize){
+          boxCount = Math.ceil(Big(remainingQty).div(boxSize).toNumber());
+          remainingQty -= Big(boxCount).times(boxSize).toNumber();
+        } else if(Big(remainingQty).div(boxSize).toNumber() >= 0.5){
+          //if we can fill at least more than one half box (and possibly even many whole/full boxes),
+          //then:
+          //first fill as many complete boxes as possible
+          boxCount = Math.floor(Big(remainingQty).div(boxSize).toNumber());
+          remainingQty -= Big(boxCount).times(boxSize).toNumber();
+          //then:
+          //check if remainingQty can fill at least half the current box
+          if(Big(remainingQty).div(boxSize).toNumber() >= 0.5){
+            
+            //settle for a more than half full box of current boxSize but, only if nextBoxSizeDown is not an option.
+            //if nextBoxSizeDown is an option then fill no more current boxes 
+            const nextBoxSizeDown = highestToLowestBoxSizes[index+1];
+            if(nextBoxSizeDown < remainingQty){
+              //settle for one more current box
+              boxCount++;
+              remainingQty -= Number(boxSize);
+            }
+
+          }
+
+        } 
+
+
+   
+
+
+        
+        if(orderQty === 250){
+          console.log("After Operation ---- boxSize: " ,boxSize, "remainingQty: ", remainingQty)
+        }
+
+
+
+        //console.log(`boxSize: ${boxSize} orderQty: ${orderQty} remaining unshipped qty: ${remainingQty}, boxCount: ${boxCount}`);
+        //makes sure not to push empty info into unused boxSizes
+        if(boxCount > 0){
           boxConfigurationsObj["orderQty_"+orderQty]["boxSize_"+currentBoxSize] = {boxCount : boxCount}
           boxConfigurationsObj["orderQty_"+orderQty]["boxSize_"+currentBoxSize].boxPrice = boxPrice;
           const totalPrice = boxPrice;
           boxConfigurationsObj["orderQty_"+orderQty]["boxSize_"+currentBoxSize].totalPrice = totalPrice;
-          boxConfigurationsObj["orderQty_"+orderQty].totalBoxesCost += totalPrice;
-          boxConfigurationsObj["orderQty_"+orderQty].totalBoxesCount += boxCount
-         }
+          boxConfigurationsObj["orderQty_"+orderQty].totalBoxesCost += Big(totalPrice).times(boxCount).toNumber();
+          boxConfigurationsObj["orderQty_"+orderQty].totalBoxesCount += boxCount;
+
         }
-      })
-    
-      //if total order does not fit into box size do this:
-      highestToLowestBoxSizes.forEach((boxSize) => {
-        // all orders that still have remainingQty > 0 are still unsolved
-        if(remainingQty > 0){
-          const boxPrice = Number(boxesObj[boxSize].boxPrice);
-          const currentBoxSize = Number(boxSize);
-          const smallestBoxSize = Number(lowestToHighestBoxSizes[0]);
-          //simple/raw formula: (remainingQty/boxSize). if box is smallest box size: Math.ceil, Else: Math.floor
-          const boxCount = (Number(boxSize) === smallestBoxSize) ? Math.ceil(Big(remainingQty).div(boxSize).toNumber()) : Math.floor(Big(remainingQty).div(boxSize).toNumber());
-  
-          remainingQty -= Big(boxCount).times(boxSize).toNumber();
+      }
 
-          //makes sure not to push empty info into unused boxSizes
-          if(boxCount > 0){
-            boxConfigurationsObj["orderQty_"+orderQty]["boxSize_"+currentBoxSize] = {boxCount : boxCount}
-            boxConfigurationsObj["orderQty_"+orderQty]["boxSize_"+currentBoxSize].boxPrice = boxPrice;
-            const totalPrice = boxPrice;
-            boxConfigurationsObj["orderQty_"+orderQty]["boxSize_"+currentBoxSize].totalPrice = totalPrice;
-            boxConfigurationsObj["orderQty_"+orderQty].totalBoxesCost += Big(totalPrice).times(boxCount).toNumber();
-            boxConfigurationsObj["orderQty_"+orderQty].totalBoxesCount += boxCount;
-          }
-        }
-      })
+
+    });
 
       
-      
-        
-      
-      
-
-
-
-      
-  })
-
+       
+  });
   return boxConfigurationsObj;
 }
 
 
-
-  
-
-
-/* This is the old (original) version of configureBoxes (currently: configureBoxesToMaximizeSpace).
-this version can be used to maximize on box space
-for example: (using default values of box sizes [100, 500, 1000]),
-in the case of an order qty of 250, instead rounding up to next box size of 500,
-this older version of the function would round down to size 100 * 3).
-
-this version is currency saved and commented out in case client changes their mind about their preference for the configureBoxes func
- */
-
-// export const configureBoxesToMaximizeSpace = (boxesArr, quantitiesArr) => {
-//   const boxSizes = boxesArr.map(box => box.qtyPB);
-//   const boxPrices = boxesArr.map(box => box.costPB);
-
-//   //git rid of size duplicates
-//   const boxesObj = {};
-//   boxSizes.forEach((boxSize, i) => {
-//     if(boxSize > 0){
-//       boxesObj[boxSize] = {boxSize: boxSize, boxPrice: boxPrices[i]};
-//     } 
-//   });
-
-//   //sort from highest to lowest box size
-//   const sortedBoxSizesArr = Object.keys(boxesObj).sort((a,b) => b-a);
-//   const smallestBoxSize = sortedBoxSizesArr[sortedBoxSizesArr.length -1];
-//   const boxConfigurationsObj = {};
-
-//   //iterate over each orderQty
-//   quantitiesArr.forEach((orderQty) => {
-//     let qtyRemaining = Number(orderQty);
-//     boxConfigurationsObj["orderQty_"+orderQty] = {totalBoxesCost: 0, totalBoxesCount: 0};
-
-//     //for each orderQty, iterate over each box size and configure boxes appropriately
-//     sortedBoxSizesArr.forEach((boxSize) => {
-//       const boxPrice = Number(boxesObj[boxSize].boxPrice);
-//       if(qtyRemaining > 0){
-//         if(Math.floor(qtyRemaining / boxSize) > 0 || boxSize === smallestBoxSize){
-//           const boxCount = (boxSize === smallestBoxSize) ? Math.ceil(qtyRemaining / boxSize) : Math.floor(qtyRemaining / boxSize);
-//           //update remaining qty
-//           const qtyFulfilled = Number(boxCount * boxSize);
-//           qtyRemaining -= qtyFulfilled;
-//           //update current boxSize: count, pricePB, total price
-//           boxConfigurationsObj["orderQty_"+orderQty]["boxSize_"+boxSize] = {boxCount : boxCount}
-//           boxConfigurationsObj["orderQty_"+orderQty]["boxSize_"+boxSize].boxPrice = boxPrice;
-//           const totalPrice = Number(Big(boxCount).times(boxPrice).toString());
-//           boxConfigurationsObj["orderQty_"+orderQty]["boxSize_"+boxSize].totalPrice = totalPrice;
-//           //update total cost and count (for all box sizes in use)
-//           boxConfigurationsObj["orderQty_"+orderQty].totalBoxesCost = Number(Big(boxConfigurationsObj["orderQty_"+orderQty].totalBoxesCost).plus(totalPrice).toString());
-//           boxConfigurationsObj["orderQty_"+orderQty].totalBoxesCount += boxCount;
-//         }
-//       }
-//     });
-//   })
-
-//   return boxConfigurationsObj;
-// }
 
