@@ -91,9 +91,6 @@ export const configureBoxes = (boxesArr, quantitiesArr) => {
   const boxSizes = boxesArr.map(box => box.qtyPB);
   const boxPrices = boxesArr.map(box => box.costPB);
 
-  // console.log(boxSizes)
-  // console.log(boxPrices)
-
   //git rid of size duplicates
   const boxesObj = {};
   boxSizes.forEach((boxSize, i) => {
@@ -102,16 +99,9 @@ export const configureBoxes = (boxesArr, quantitiesArr) => {
     } 
   });
 
-  //sort from highest to lowest and lowest to highest
-  const lowestToHighestBoxSizes = Object.keys(boxesObj).sort((a,b) => b+a);
+  //sort from highest to lowest 
   const highestToLowestBoxSizes = Object.keys(boxesObj).sort((a,b) => b-a);
   const boxConfigurationsObj = {};
-
-  //console.log(highestToLowestBoxSizes, lowestToHighestBoxSizes)
-  //console.log(...quantitiesArr);
-  
-
-
 
 
   //iterate over each orderQty
@@ -120,33 +110,9 @@ export const configureBoxes = (boxesArr, quantitiesArr) => {
 
     let remainingQty = orderQty;
 
-
-    // //if there is a box size that can include total orderQty do this:
-    // lowestToHighestBoxSizes.forEach((boxSize) => {
-      
-    //   const boxPrice = Number(boxesObj[boxSize].boxPrice);
-    //   const currentBoxSize = Number(boxSize);
-    //   //console.log("boxPrice: ", boxPrice, "boxSize: ", currentBoxSize)
-      
-    //     if(currentBoxSize >= orderQty && remainingQty > 0){
-    //       //console.log("one box fits entire order for orderQty of: ", orderQty);
-    //       const boxCount = 1;
-    //       remainingQty =  0;
-    //       boxConfigurationsObj["orderQty_"+orderQty]["boxSize_"+currentBoxSize] = {boxCount : boxCount}
-    //       boxConfigurationsObj["orderQty_"+orderQty]["boxSize_"+currentBoxSize].boxPrice = boxPrice;
-    //       const totalPrice = boxPrice;
-    //       boxConfigurationsObj["orderQty_"+orderQty]["boxSize_"+currentBoxSize].totalPrice = totalPrice;
-    //       boxConfigurationsObj["orderQty_"+orderQty].totalBoxesCost = totalPrice;
-    //       boxConfigurationsObj["orderQty_"+orderQty].totalBoxesCount = boxCount;          
-    //     }
-      
-    // });
-
- 
-    
-    //if total order does not fit into box size do this:
     highestToLowestBoxSizes.forEach((boxSize, index) => {
-      const smallestBoxSize = Number(lowestToHighestBoxSizes[0]);
+      const smallestBoxSize = Number(highestToLowestBoxSizes[highestToLowestBoxSizes.length-1]);
+
       
       if(remainingQty > 0){
 
