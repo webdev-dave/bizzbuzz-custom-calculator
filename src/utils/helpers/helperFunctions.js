@@ -85,8 +85,6 @@ export const addEqpDiscount = (pricingType, price) => {
 };
 
 
-
-
 export const configureBoxes = (boxesArr, quantitiesArr) => {
   const boxSizes = boxesArr.map(box => box.qtyPB);
   const boxPrices = boxesArr.map(box => box.costPB);
@@ -113,62 +111,43 @@ export const configureBoxes = (boxesArr, quantitiesArr) => {
     highestToLowestBoxSizes.forEach((boxSize, index) => {
       const smallestBoxSize = Number(highestToLowestBoxSizes[highestToLowestBoxSizes.length-1]);
 
-      
       if(remainingQty > 0){
-
         const boxPrice = Number(boxesObj[boxSize].boxPrice);
         const currentBoxSize = Number(boxSize);
-        
-        //simple/raw formula: (remainingQty/boxSize). if box is smallest box size: Math.ceil, else: Math.floor
 
-        if(orderQty === 2500){
-          console.log("boxSize: " ,boxSize, "remainingQty: ", remainingQty)
-        }
 
         let boxCount = 0;
         
-        //if we can fill the box while still avoiding half or more of the box from remaining empty or if current boxSize is the smallest box size then round up, else: round down 
-        if(Number(boxSize) === smallestBoxSize){
-          boxCount = Math.ceil(Big(remainingQty).div(boxSize).toNumber());
-          remainingQty -= Big(boxCount).times(boxSize).toNumber();
-        } else if(Big(remainingQty).div(boxSize).toNumber() >= 0.3){
-          //if we can fill at least more than 30% of one box (and possibly even many whole/full boxes),
+        //first we fill as many full boxes of currentBoxSize as possible without leaving blank space
+        //then:
+        // if the remaining amount can fit into one boxSize down then do that
+        // else:
+        // just put the remainingQty into another box of currentBoxSize and call it a day because it is usually not worth it to have more than one box of smaller box sizes i.e. it almost always cheaper to ship the remainingQty in a large box with lots of empty space rather than sending it in multiple small boxes
+        const nextBoxSizeDown = highestToLowestBoxSizes[index+1];
+
+        if(currentBoxSize === smallestBoxSize){
+          boxCount = Math.ceil(Big(remainingQty).div(currentBoxSize).toNumber());
+          remainingQty -= Big(boxCount).times(currentBoxSize).toNumber();
+        } else if(remainingQty > 0 && remainingQty > nextBoxSizeDown){
+          //if remainingQty is > 0 and too large to fit into the nextBoxSizeDown
           //then:
           //first fill as many complete boxes as possible
-          boxCount = Math.floor(Big(remainingQty).div(boxSize).toNumber());
-          orderQty === 2500 && console.log(`filled boxes of boxSize ${boxSize}: ${boxCount}`)
-          remainingQty -= Big(boxCount).times(boxSize).toNumber();
+          boxCount = Math.floor(Big(remainingQty).div(currentBoxSize).toNumber());
+          remainingQty -= Big(boxCount).times(currentBoxSize).toNumber();
           //then:
-          //check if remainingQty can fill at least 30% the current box
-          if(Big(remainingQty).div(boxSize).toNumber() >= 0.3){
 
-            //settle for a more than half full box of current boxSize but, only if nextBoxSizeDown is not an option.
-            //if nextBoxSizeDown is an option then fill no more current boxes 
-            const nextBoxSizeDown = highestToLowestBoxSizes[index+1];
-            if(nextBoxSizeDown < remainingQty){
-              //settle for one more current box
-              boxCount++;
-              remainingQty -= Number(boxSize);
-            }
-
+            
+          if(nextBoxSizeDown < remainingQty){
+            // if the total remainingOrderQty can fit into ONE SINGLE nextBoxSizeDown then do nothing and on the next iteration the program will fit it into that box
+            //else: (i.e. the remainingQty larger than one boxSize down)
+            // then place remainingOrderQty into currentBoxSize and call it a day  
+            boxCount++;
+            remainingQty -= currentBoxSize;
           }
 
+          
+
         } 
-
-        //notes on current issue
-        //I think what steve is saying is that:
-        //fill as many full boxes of max size, then if remainingQty can fit into one boxSize down, do it. 
-        //else: just stick with current box size (no matter how much blank space there is - even more than 50% empty)
-        //the way to implement this would be to remove all box percentage conditionals and instead:
-        //fill as many full boxes
-        //then check if remainder fits into ONE box size down. If yes then do that. If no then:
-        //stick to current box size and call it a day
-
-
-        
-        if(orderQty === 2500){
-          console.log("After Operation ---- boxSize: " ,boxSize, "remainingQty: ", remainingQty)
-        }
 
 
 
