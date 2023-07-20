@@ -120,52 +120,37 @@ export const configureBoxes = (boxesArr, quantitiesArr) => {
         // if the remaining amount can fit into one boxSize down then do that
         // else:
         // just put the remainingQty into another box of currentBoxSize and call it a day because it is usually not worth it to have more than one box of smaller box sizes i.e. it almost always cheaper to ship the remainingQty in a large box with lots of empty space rather than sending it in multiple small boxes
-        const nextBoxSizeDown = highestToLowestBoxSizes[index+1] ? highestToLowestBoxSizes[index+1] : false;
+        const nextBoxSizeDown = highestToLowestBoxSizes[index+1];
         
-
-
         if(currentBoxSize === smallestBoxSize){
           boxCount = Math.ceil(Big(remainingQty).div(currentBoxSize).toNumber());
           remainingQty -= Big(boxCount).times(currentBoxSize).toNumber();
         } else if(remainingQty > 0 && remainingQty > nextBoxSizeDown){
-
-          
           //if remainingQty is > 0 and too large to fit into the nextBoxSizeDown
           //then:
           //first fill as many complete boxes from currentBoxSize as possible
           boxCount = Math.floor(Big(remainingQty).div(currentBoxSize).toNumber());
           remainingQty -= Big(boxCount).times(currentBoxSize).toNumber();
           //then:
-          
           if(nextBoxSizeDown < remainingQty){
-            orderQty === 154 && console.log("this is true for boxQty", currentBoxSize, "remainingQty: ", remainingQty)
             // if the total remainingOrderQty can fit into ONE SINGLE nextBoxSizeDown then do nothing and on the next iteration the program will fit it into that box
             //else: (i.e. the remainingQty larger than one boxSize down)
-            // then place remainingOrderQty into currentBoxSize and call it a day  
+            //place remainingOrderQty into one more box of currentBoxSize and call it a day  
             boxCount++;
             remainingQty -= currentBoxSize;
-          }
-
-          
-
+          };
         };
-        
-
         
         //makes sure not to push empty info into unused boxSizes
         if(boxCount > 0){
           boxConfigurationsObj["orderQty_"+orderQty]["boxSize_"+currentBoxSize] = {boxCount: boxCount, boxPrice: boxPrice};
           boxConfigurationsObj["orderQty_"+orderQty].totalBoxesCost += Big(boxPrice).times(boxCount).toNumber();
           boxConfigurationsObj["orderQty_"+orderQty].totalBoxesCount += boxCount;
-
-        }
-      }
+        };
+      };
 
 
     });
-
-  
-      
        
   });
   return boxConfigurationsObj;
