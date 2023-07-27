@@ -118,7 +118,7 @@ export const configureBoxes = (boxesArr, quantitiesArr) => {
         //first we fill as many full boxes of currentBoxSize as possible without leaving blank space
         //then:
         // if the remaining amount can fit into one boxSize down then do that
-        // else:
+        //else:
         // just put the remainingQty into another box of currentBoxSize and call it a day because it is usually not worth it to have more than one box of smaller box sizes i.e. it almost always cheaper to ship the remainingQty in a large box with lots of empty space rather than sending it in multiple small boxes
         const nextBoxSizeDown = highestToLowestBoxSizes[index+1];
         

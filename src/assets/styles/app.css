@@ -256,7 +256,7 @@ p.cost-pb{
 /* ----------------------------------------------------------------- Results ----- */
 
 #results-container {
-  background-color: var(--bisque);
+  background-color: #98d0d9;
   grid-column: 3/4;
   padding: 3rem 5% 10rem 5%;
 }
@@ -265,7 +265,7 @@ p.cost-pb{
   padding: 5px 4px 3px 4px;
   background-color: white;
   width: 100%;
-  border: 2px solid rgb(193, 179, 158);
+  border: 2.5px solid #95B0B5;
   border-radius: 6px;
 }
 
